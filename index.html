@@ -102,6 +102,9 @@
   @keyframes breathe{0%,100%{opacity:.55}50%{opacity:1}}
 
   .post{border-bottom:1px solid var(--line);padding:12px 4px;cursor:pointer}
+  .post.feedrow{display:flex;gap:10px}
+  .post.feedrow .ava{width:32px;height:32px;font-size:13px;flex:none}
+  .ava{cursor:pointer}
   .post:last-child{border-bottom:0}
   .post:hover{background:var(--card-2)}
   .meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:10.5px;color:var(--dim);margin-bottom:5px}
@@ -378,14 +381,17 @@
           </div>
           <div class="body">
             <div class="awake"><span class="lamp"></span>而家仲有 <b>34</b> 個人未瞓</div>
-            <article class="post" onclick="go('thread')">
+            <article class="post feedrow" onclick="go('thread')">
+              <span class="ava" onclick="event.stopPropagation();go('other')">Y</span>
+              <span style="flex:1">
               <div class="meta"><span class="who">Yuen</span><span class="bd" style="padding:0 6px;font-size:9.5px">落地</span><span class="city">香港</span><span>· 1 小時前</span></div>
               <h3>移咗民之後點識人？</h3>
               <p>香港有 Butterfly 都算有個地方，出到去先發現咩都冇。</p>
               <div class="stat"><span>♡ 204</span><span>86 回覆</span></div>
+              </span>
             </article>
             <div class="oneline">
-              <span class="ava up">霖</span>
+              <span class="ava up" onclick="go('other')">霖</span>
               <span style="flex:1">
                 <div class="meta"><span class="who">阿霖</span><span class="city">溫東</span><span>· 2 分鐘前</span></div>
                 <div class="said">凌晨一點嘅超市，成間得我同一個補貨嘅阿姐。佢問我使唔使幫手攞高嗰排嘢。</div>
@@ -393,24 +399,30 @@
               </span>
             </div>
             <div class="oneline">
-              <span class="ava">敏</span>
+              <span class="ava" onclick="go('other')">敏</span>
               <span style="flex:1">
                 <div class="meta"><span class="who">敏</span><span class="city">高貴林</span><span>· 26 分鐘前</span></div>
                 <div class="said">今日阿媽又問「幾時拉個返嚟食飯」。我笑咗一聲，講咗句「快啦」。</div>
                 <div class="foot"><span onclick="hit(this,'♡ 41','♥ 42')">♡ 41</span><span>💬 12</span><span>轉發</span></div>
               </span>
             </div>
-            <article class="post" onclick="go('thread')">
+            <article class="post feedrow" onclick="go('thread')">
+              <span class="ava" onclick="event.stopPropagation();go('other')">丙</span>
+              <span style="flex:1">
               <div class="meta"><span class="who">阿丙</span><span class="bd" style="padding:0 6px;font-size:9.5px">搵人玩</span><span class="city">本拿比</span><span>· 4 分鐘前</span></div>
               <h3>瞓唔著。有冇人一齊夜遊？</h3>
               <p>Metrotown 附近，行下食個宵夜都得。純粹想搵人講廣東話。</p>
               <div class="stat"><span>♡ 31</span><span>14 回覆</span></div>
+              </span>
             </article>
-            <article class="post" onclick="go('thread')">
+            <article class="post feedrow" onclick="go('thread')">
+              <span class="ava" onclick="event.stopPropagation();go('other')">細</span>
+              <span style="flex:1">
               <div class="meta"><span class="who">細細粒</span><span class="bd" style="padding:0 6px;font-size:9.5px">出櫃</span><span class="city">多倫多</span><span>· 今朝</span></div>
               <h3>同屋企出咗櫃，佢哋好平靜，我反而喊咗</h3>
               <p>成日以為最難嗰關會好慘烈，點知阿媽淨係話咗句「哦，食飯先啦」。</p>
               <div class="stat"><span>♡ 512</span><span>127 回覆</span></div>
+              </span>
             </article>
             <div class="event mini">
               <div class="when">開枱 · 星期六 09:00 · 由「行山組」貼出</div>
@@ -424,18 +436,21 @@
               <span class="join" id="joinbtn2" onclick="joinEvent(2)">我要去</span>
             </div>
             <div class="oneline">
-              <span class="ava">Y</span>
+              <span class="ava" onclick="go('other')">Y</span>
               <span style="flex:1">
                 <div class="meta"><span class="who">Yuki</span><span class="city">列治文</span><span>· 3 個鐘前</span></div>
                 <div class="said">阿爸今日第一次用廣東話同我講「你開心就得」。我唔知佢知唔知自己講緊咩。</div>
                 <div class="foot"><span onclick="hit(this,'♡ 156','♥ 157')">♡ 156</span><span>💬 23</span><span>轉發</span></div>
               </span>
             </div>
-            <article class="post" onclick="go('thread')">
+            <article class="post feedrow" onclick="go('thread')">
+              <span class="ava" onclick="event.stopPropagation();go('other')">敏</span>
+              <span style="flex:1">
               <div class="meta"><span class="who">敏</span><span class="bd" style="padding:0 6px;font-size:9.5px">出櫃</span><span class="city">高貴林</span><span>· 琴日</span></div>
               <h3>有冇人試過同屋企人講咗之後又扮返冇事</h3>
               <p>我而家就係咁。唔知係咪自己諗多咗。</p>
               <div class="stat"><span>♡ 88</span><span>41 回覆</span></div>
+              </span>
             </article>
 
             <div class="endcap">
@@ -760,8 +775,10 @@
           <button onclick="go('chat')">私訊</button>
           <button onclick="go('panic')">假面 🚨</button>
         </div>
-        <p class="hintbar">底部四個 tab 真係㩒得。帖入內頁、人入 profile、群入開枱。
-          <span class="kbd">← →</span> 揭上／落一版。</p>
+        <p class="hintbar"><b>三個鏡頭試一次：</b>
+          ① 討論區碌落去（Twitter）→ ② 撳個台篩返主題（連登）→ ③ <b>撳個頭像</b>入佢 profile（IG＋Hinge＋Threads）。<br>
+          撳帖<b>內容</b>入內頁，撳<b>頭像</b>入個人 —— 兩個唔同目的地。
+          <span class="kbd">← →</span> 揭版。</p>
       </div>
 
       <div class="card">
