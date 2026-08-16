@@ -195,7 +195,7 @@
   .el .txt{font-size:13px;font-weight:600;line-height:1.55;padding-right:28px}
   .el .sub2{font-size:10.5px;color:var(--dim);font-weight:300;margin-top:3px;padding-right:28px}
   .shots{display:grid;grid-template-columns:1fr 1fr;gap:4px}
-  .shot{aspect-ratio:4/5;border-radius:7px;display:grid;place-items:center;font-size:22px;border:1px solid var(--line)}
+  .shot{cursor:pointer;aspect-ratio:4/5;border-radius:7px;display:grid;place-items:center;font-size:22px;border:1px solid var(--line)}
   .song{display:flex;gap:10px;align-items:center;padding-right:28px}
   .cover{width:40px;height:40px;border-radius:6px;flex:none;
     background:linear-gradient(140deg,var(--accent),var(--mist));
@@ -518,8 +518,14 @@
             <div id="pane-a">
               <div class="stream">
                 <div class="el">
-                  <span class="kind">相</span>
-                  <div class="shots"><span class="shot g1">🍜</span><span class="shot g2">🐈</span></div>
+                  <span class="kind">📌 釘住嘅貼文</span>
+                  <div class="shots">
+                    <span class="shot g1" onclick="openPhoto('🍜','cell g1')">🍜</span>
+                    <span class="shot g2" onclick="openPhoto('🐈','cell g2')">🐈</span>
+                  </div>
+                  <div class="sub2" style="margin-top:7px">
+                    唔係另一批相 — 係下面個 grid 入面揀出嚟釘上嚟。撳落去去返同一個貼文。
+                  </div>
                   <span class="like" onclick="lk(this)">♡</span>
                 </div>
                 <div class="el">
@@ -546,7 +552,7 @@
                   <div class="sub2">ViuTV · 追到第 11 集，有冇人一齊喊</div>
                   <span class="like" onclick="lk(this)">♡</span>
                 </div>
-                <div class="adder" onclick="go('editor')">＋ 加一件 · 相／歌／問答／一句話／睇緊…</div>
+                <div class="adder" onclick="go('editor')">＋ 加一件 · 釘貼文／歌／問答／一句話／睇緊…</div>
               </div>
             </div>
 
@@ -584,7 +590,7 @@
             <span class="act" onclick="go('me')">完成</span></div>
           <div class="body">
             <div class="picker">
-              <span class="ptile" onclick="pick(this,'相')"><b>▣</b><span>相</span></span>
+              <span class="ptile" onclick="pick(this,'釘貼文')"><b>📌</b><span>釘貼文</span></span>
               <span class="ptile on" onclick="pick(this,'歌')"><b>♪</b><span>歌</span></span>
               <span class="ptile" onclick="pick(this,'問答')"><b>？</b><span>問答</span></span>
               <span class="ptile" onclick="pick(this,'一句話')"><b>「」</b><span>一句話</span></span>
@@ -687,6 +693,9 @@
         <p><b>試過分兩個 tab，拆咗。</b> 分咗 tab 冇人會撳入第二格 ——
            而 IG 自己都係一條 scroll（bio → highlights → grid）。次序啱就夠：
            「我係邊個」喺前，「我最近做緊乜」喺後。</p>
+        <p><b>相只有一個家。</b> 全部相住喺下面個 grid，上載一次就一個地方。
+           簡介入面嗰張唔係另一批相，係你<b>釘住</b>咗嘅貼文 —— 撳落去去返同一個貼文內頁。
+           同 IG 個「精選」一樣：唔係另外上載，係由已有嘅嘢揀出嚟。</p>
       </div>
 
       <div class="card">
@@ -834,7 +843,7 @@
   }
 
   // element 編輯器
-  const HINT = {'相':'揀相，可以加一句 caption','歌':'揀首歌，寫一句點解係佢',
+  const HINT = {'釘貼文':'由你已有嘅貼文揀一個釘上嚟 — 唔使再上載一次','歌':'揀首歌，寫一句點解係佢',
     '問答':'一個我死都唔會改嘅習慣','一句話':'寫一句你想人一睇就明嘅嘢',
     '睇緊':'睇緊咩劇／書，追到邊','之後加':'播客、書、常去嘅地方… 加新類型唔使改呢一版'};
   function pick(el, kind){
