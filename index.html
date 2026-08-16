@@ -50,23 +50,43 @@
   .wrap{position:relative;z-index:1;max-width:940px;margin:0 auto;}
 
   /* ── 頁頭 ── */
-  .head{margin-bottom:26px;}
-  .eyebrow{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:14px;}
-  h1.wm{font-size:clamp(36px,7vw,56px);font-weight:900;line-height:1;margin:0 0 10px;letter-spacing:.02em;}
-  h1.wm em{font-style:normal;color:var(--accent);text-shadow:0 0 40px var(--glow);}
-  .head p{margin:0;font-weight:300;font-size:14px;color:var(--dim);max-width:56ch;}
-  .head p b{color:var(--text);font-weight:600;}
+  .head{margin-bottom:clamp(24px,3.5vw,38px)}
+  .eyebrow{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--dim);
+    margin-bottom:16px;font-variant-numeric:tabular-nums}
+  h1.wm{font-size:clamp(38px,7.5vw,60px);font-weight:900;line-height:.98;
+    margin:0 0 8px;letter-spacing:.01em}
+  h1.wm em{font-style:normal;color:var(--accent);text-shadow:0 0 46px var(--glow),0 0 14px var(--glow-soft)}
+  .head .sub{font-family:var(--serif);font-size:14px;color:var(--dim);
+    letter-spacing:.1em;margin:0 0 16px;font-weight:400}
+  .head p{margin:0;font-weight:300;font-size:13.5px;color:var(--dim);
+    max-width:54ch;line-height:1.8}
+  .head p b{color:var(--text);font-weight:600}
 
   /* ── 佈局：電話 + 側邊說明 ── */
-  .stage{display:flex;gap:clamp(20px,4vw,46px);align-items:flex-start;flex-wrap:wrap;}
+  .stage{display:flex;gap:clamp(24px,4.5vw,54px);align-items:flex-start;flex-wrap:wrap}
 
   .device{flex:none;position:relative;}
   .phone{
-    width:322px;height:690px;border-radius:36px;overflow:hidden;background:var(--card);
+    width:322px;height:690px;border-radius:38px;overflow:hidden;background:var(--card);
     border:1px solid var(--line);display:flex;flex-direction:column;position:relative;
-    box-shadow:0 36px 74px -34px rgba(0,0,0,.92),0 0 46px -22px var(--glow),inset 0 1px 0 var(--hair);
+    box-shadow:
+      0 44px 90px -38px rgba(0,0,0,.94),
+      0 0 60px -26px var(--glow),
+      inset 0 1px 0 var(--hair),
+      inset 0 0 0 1px rgba(255,255,255,.02);
   }
-  .status{display:flex;justify-content:space-between;padding:14px 20px 5px;
+  /* 聽筒 */
+  .phone::before{
+    content:"";position:absolute;top:9px;left:50%;transform:translateX(-50%);
+    width:46px;height:4px;border-radius:99px;background:var(--line);opacity:.6;z-index:5;
+  }
+  .device::after{
+    content:"";position:absolute;left:50%;bottom:-26px;transform:translateX(-50%);
+    width:74%;height:26px;border-radius:50%;
+    background:radial-gradient(ellipse at center,var(--glow) 0%,transparent 70%);
+    pointer-events:none;
+  }
+  .status{display:flex;justify-content:space-between;padding:19px 20px 5px;
     font-size:10.5px;color:var(--dim);font-variant-numeric:tabular-nums;flex:none;}
   .appbar{display:flex;align-items:center;justify-content:space-between;
     padding:4px 16px 11px;flex:none;gap:8px;}
@@ -161,6 +181,22 @@
     opacity:0;max-height:0;overflow:hidden;transition:opacity .3s,max-height .3s,margin .3s}
   .toast.show{opacity:1;max-height:40px}
   .toast b{color:var(--accent);font-weight:600}
+  /* 加咗相先出現。一粒 toggle，預設已經啱。 */
+  .obshot{display:none;align-items:center;gap:10px;padding-top:9px;margin-top:8px;
+    border-top:1px solid var(--line)}
+  .obshot.show{display:flex}
+  .obshot .mini{width:34px;height:34px;border-radius:7px;flex:none;display:grid;place-items:center;
+    font-size:16px;border:1px solid var(--line);
+    background:linear-gradient(150deg,rgba(232,168,124,.24),rgba(124,155,181,.10))}
+  .pubrow{display:flex;align-items:center;gap:9px;flex:1}
+  .pubtoggle{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;
+    border:1px solid var(--line);border-radius:999px;padding:3px 10px;
+    color:var(--dim);cursor:pointer;font-weight:400}
+  .pubtoggle i{width:7px;height:7px;border-radius:50%;background:var(--line);display:block}
+  .pubtoggle.on{border-color:var(--accent);color:var(--accent)}
+  .pubtoggle.on i{background:var(--accent);box-shadow:0 0 8px 1px var(--glow)}
+  .pubwhy{font-size:9px;color:var(--dim);font-weight:300}
+
   .nonote{font-size:9.5px;color:var(--dim);font-weight:300;padding:5px 4px 0;line-height:1.5}
   .toast #ttfix{color:var(--accent);cursor:pointer;text-decoration:underline}
   .sortline{display:flex;justify-content:space-between;align-items:baseline;
@@ -241,6 +277,8 @@
   .secline{display:flex;justify-content:space-between;align-items:center;
     margin:16px 4px 9px;padding-top:13px;border-top:1px solid var(--line);
     font-size:11px;letter-spacing:.16em;color:var(--dim);font-weight:600}
+  .gridnote{font-size:9.5px;color:var(--dim);font-weight:300;line-height:1.55;padding:0 4px 8px;margin:0}
+  .gridnote b{color:var(--text);font-weight:600}
   .loadmore{text-align:center;font-size:10.5px;color:var(--dim);font-weight:300;padding:14px 0 4px}
 
   /* 簡介：Hinge 式固定 element */
@@ -271,6 +309,7 @@
     border:1px solid var(--line);cursor:pointer;position:relative}
   .cell:hover{outline:1px solid var(--accent)}
   .cell .n{position:absolute;right:3px;bottom:2px;font-size:8.5px;color:var(--dim)}
+  .cell .onlyme{position:absolute;right:4px;top:3px;font-size:9px;color:var(--dim);opacity:.85}
   .g1{background:linear-gradient(150deg,rgba(232,168,124,.24),rgba(124,155,181,.10))}
   .g2{background:linear-gradient(150deg,rgba(124,155,181,.22),rgba(232,168,124,.07))}
   .g3{background:linear-gradient(150deg,rgba(201,123,123,.20),rgba(232,168,124,.10))}
@@ -331,19 +370,49 @@
   .key.fn{color:var(--dim)}
   .escape{text-align:center;font-size:10px;color:var(--dim);padding-top:10px;cursor:pointer}
 
-  /* ── 側邊說明 ── */
-  .notes{flex:1;min-width:280px;padding-top:4px}
-  .notes h3{font-size:12px;font-weight:700;letter-spacing:.18em;margin:0 0 8px;color:var(--text)}
-  .notes p{font-size:13px;font-weight:300;color:var(--dim);margin:0 0 14px;line-height:1.7;max-width:52ch}
-  .notes p b{color:var(--text);font-weight:600}
-  .notes .card{border:1px solid var(--line);border-radius:13px;padding:15px 16px;margin-bottom:12px;
-    background:var(--card)}
-  .jump{display:flex;flex-wrap:wrap;gap:7px;margin-top:4px}
+  /* ── 側邊：控制台 ＋ 可摺說明 ── */
+  .notes{flex:1;min-width:288px;max-width:46ch;display:flex;flex-direction:column;gap:16px}
+
+  .panel{border:1px solid var(--line);border-radius:14px;padding:15px 16px 16px;background:var(--card)}
+  .ptitle{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);
+    font-weight:600;margin-bottom:10px}
+  .jump{display:flex;flex-wrap:wrap;gap:6px}
   .jump button{all:unset;font-size:11.5px;padding:5px 11px;border-radius:999px;
-    border:1px solid var(--line);color:var(--dim);cursor:pointer;font-weight:300}
-  .jump button:hover,.jump button:focus-visible{border-color:var(--accent);color:var(--accent)}
-  .hintbar{font-size:11.5px;color:var(--dim);font-weight:300;margin-top:14px;line-height:1.6}
-  .kbd{border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:10.5px;color:var(--text)}
+    border:1px solid var(--line);color:var(--dim);cursor:pointer;font-weight:400;
+    transition:border-color .2s,color .2s}
+  .jump button:hover{border-color:var(--accent);color:var(--accent)}
+  .jump button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .jump button.on{border-color:var(--accent);color:var(--accent)}
+  .phint{font-size:11px;color:var(--dim);font-weight:300;line-height:1.7;margin:14px 0 0;
+    padding-top:12px;border-top:1px solid var(--line)}
+  .phint b{color:var(--text);font-weight:600}
+  .kbd{border:1px solid var(--line);border-radius:5px;padding:0 5px;font-size:10px;color:var(--text)}
+
+  .why{border:1px solid var(--line);border-radius:14px;background:var(--card);overflow:hidden}
+  .whead{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);
+    font-weight:600;padding:15px 16px 11px}
+  .why details{border-top:1px solid var(--line)}
+  .why summary{
+    list-style:none;cursor:pointer;padding:11px 16px;font-size:12.5px;font-weight:600;
+    color:var(--text);display:flex;align-items:center;gap:9px;transition:color .2s;
+  }
+  .why summary::-webkit-details-marker{display:none}
+  .why summary::before{
+    content:"＋";color:var(--accent);font-size:11px;flex:none;width:11px;
+    transition:transform .25s;
+  }
+  .why details[open] summary::before{content:"−"}
+  .why summary:hover{color:var(--accent)}
+  .why summary:focus-visible{outline:2px solid var(--accent);outline-offset:-3px}
+  .why details p{
+    font-size:12px;font-weight:300;color:var(--dim);line-height:1.75;
+    margin:0 0 10px;padding:0 16px;
+  }
+  .why details p:last-child{padding-bottom:14px}
+  .why details p b{color:var(--text);font-weight:600}
+
+  .foot{font-size:11px;color:var(--dim);font-weight:300;line-height:1.6;margin:0}
+  .foot b{color:var(--text);font-weight:600}
 
   @media (max-width:760px){
     .stage{flex-direction:column}
@@ -356,10 +425,11 @@
  <div class="wrap">
 
   <header class="head">
-    <div class="eyebrow">可撳原型 · 2026-08-16</div>
-    <h1 class="wm">同<em>枱</em></h1>
-    <p>撳落去真係行到 —— 撳個帖入內頁、撳個人入 profile、撳個群開枱、切換
-       <b>♡</b>、錄音、開假面。<b>個名仲未定。</b></p>
+    <div class="eyebrow">可撳原型 · v6 · 2026-08-16</div>
+    <h1 class="wm">未<em>定</em>名</h1>
+    <p class="sub">廣東話女同社群 app · 設計草圖</p>
+    <p>撳落去真係行到。撳個帖入內頁、撳個頭像入 profile、撳個群開枱、
+       喺大廳撳個標籤篩返、錄音入會、撳 8888 由假面返嚟。</p>
   </header>
 
   <div class="stage">
@@ -401,6 +471,13 @@
           <div style="padding:0 2px 9px;flex:none">
             <div class="onebox" onclick="typedemo()">
               <div class="obtop" id="obtop">有咩想講？</div>
+              <div class="obshot" id="obshot"><span class="mini">🍜</span>
+                <span class="pubrow">
+                  <span class="pubtoggle on" id="pubt" onclick="event.stopPropagation();pubtog()">
+                    <i></i>出大廳</span>
+                  <span class="pubwhy" id="pubwhy">有字 → 預設出</span>
+                </span>
+              </div>
             </div>
             <p class="nonote">帖可以完全冇話題、冇 tag — 呢個係常態。撳個框睇示範（兩篇輪住嚟）。</p>
             <div class="toast" id="toast">
@@ -703,6 +780,8 @@
             <!-- 貼文：IG grid，無限累積。冇 tab — 同一條 scroll 落去就見到 -->
             <div id="pane-b">
               <div class="secline"><span id="postcount">貼文 · 24</span><span class="act">＋ 出貼文</span></div>
+              <p class="gridnote">呢個 grid 係你本相簿 — <b>出咗大廳嘅同冇出嘅都喺度</b>。
+                ◔ ＝ 淨係喺 profile 出現，冇入過大廳。</p>
               <div class="grid" id="grid"></div>
               <div class="loadmore">↓ 仲有 · 一路捲一路載</div>
             </div>
@@ -904,210 +983,126 @@
     </div>
 
     <aside class="notes">
-      <div class="card">
-        <h3>試下撳</h3>
+
+      <div class="panel">
+        <div class="ptitle">試下撳</div>
         <div class="jump">
-          <button onclick="go('verify')">入會（錄音）</button>
+          <button onclick="go('verify')">入會</button>
           <button onclick="go('forum')">大廳</button>
           <button onclick="go('thread')">帖內頁</button>
+          <button onclick="go('filter')">Filter</button>
           <button onclick="go('groups')">群</button>
           <button onclick="go('group')">開枱</button>
           <button onclick="go('people')">搵人</button>
-          <button onclick="me()">我 · 簡介／貼文</button>
+          <button onclick="me()">Profile</button>
           <button onclick="go('editor')">加 element</button>
           <button onclick="go('chat')">私訊</button>
-          <button onclick="go('panic')">假面 🚨</button>
+          <button onclick="go('panic')">假面</button>
         </div>
-        <p class="hintbar"><b>三個鏡頭試一次：</b>
-          ① 大廳碌落去（Twitter）→ ② 撳個台篩返主題（連登）→ ③ <b>撳個頭像</b>入佢 profile（IG＋Hinge＋Threads）。<br>
-          撳帖<b>內容</b>入內頁，撳<b>頭像</b>入個人 —— 兩個唔同目的地。
-          <span class="kbd">← →</span> 揭版。</p>
-      </div>
-
-      <div class="card">
-        <h3>PROFILE：一條 SCROLL，冇 TAB</h3>
-        <p>上面係 <b>簡介</b>（Hinge 嗰邊）：固定幾件 element —— 相／歌／問答／一句話／睇緊。
-           係「我係邊個」，好耐先改一次。每件獨立可以 ♡ —— 你 like 嘅係嗰件嘢唔係成個人，
-           所以開場白自動有咗。</p>
-        <p>捲落去係 <b>貼文</b>（IG 嗰邊）：無限咁 post，grid 一路長，最新喺前，
-           係「我最近做緊乜」。撳入去有 caption 同回應。</p>
-        <p><b>試過分兩個 tab，拆咗。</b> 分咗 tab 冇人會撳入第二格 ——
-           而 IG 自己都係一條 scroll（bio → highlights → grid）。次序啱就夠：
-           「我係邊個」喺前，「我最近做緊乜」喺後。</p>
-        <p><b>相只有一個家</b>，就係下面個 grid。<b>形態由用戶自己用出嚟：</b>
-           擺兩三張 → 睇落似 Hinge；擺幾十張 → 似 Hinge 加 IG grid。
-           同一個介面，冇 mode、冇設定、冇嘢要學。</p>
-        <div class="jump" style="margin-top:10px">
-          <button data-n="3"  onclick="me();buildGrid(3)">3 張 · Hinge 樣</button>
-          <button data-n="9"  onclick="me();buildGrid(9)">9 張</button>
+        <div class="ptitle" style="margin-top:16px">Profile 有幾多相</div>
+        <div class="jump">
+          <button data-n="3" onclick="me();buildGrid(3)">3 張 · Hinge 樣</button>
+          <button data-n="9" onclick="me();buildGrid(9)">9 張</button>
           <button data-n="24" class="on" onclick="me();buildGrid(24)">24 張 · IG 樣</button>
         </div>
+        <p class="phint">
+          撳帖<b>內容</b>入內頁，撳<b>頭像</b>入個人 — 兩個唔同目的地。<br>
+          <span class="kbd">←</span> <span class="kbd">→</span> 揭版。
+        </p>
       </div>
 
-      <div class="card">
-        <h3>一種嘢，兩個欄位，三個鏡頭</h3>
-        <p>連登點解 work：<b>內容歸「台」，唔歸「人」</b>。你入感情台係因為想睇感情嘢，
-           唔係因為想睇邊個。連登人唔 follow 人。<br>
-           Threads／FB 啱啱相反：<b>內容歸「人」</b>，累積喺 profile。</p>
-        <p>兩個係相反嘅歸檔方式 — 所以唔好當佢係兩個產品。
-           <b>每篇嘢都有「作者」同「台」兩個欄位</b>，之後三個鏡頭睇同一堆嘢：</p>
-        <p>· 篩個<b>台</b> → 連登<br>
-           · 篩個<b>作者</b>（＝ profile）→ Threads／FB<br>
-           · 唔篩、時序排 → Twitter</p>
-        <p>長帖同一句嘅唯一分別係<b>有冇標題</b>：有標題 → 有回覆樹（連登款）；
-           冇標題 → 一句（Threads 款）。兩者都歸台、都歸人。</p>
-        <p>⚠️ <b>真正代價唔係複雜度，係空。</b> 50 個用戶開 8 個台 = 個個台三兩條，似死城，
-           仲衰過冇分台。所以<b>資料模型全部有，介面夠人先出現</b> —
-           上面兩個 🔒 就係未夠量嘅台。</p>
+      <div class="why">
+        <div class="whead">點解咁設計</div>
+
+        <details open>
+          <summary>出 post 只係打字</summary>
+          <p>Threads 贏喺打一句就出得，唔使用腦。所以個作曲框<b>唔可以排欄位畀人揀</b> —
+             就算全部 optional，一樣佔視線、一樣要人決定。</p>
+          <p>⛔ <b>硬規矩：作曲框永遠只有一個輸入位。</b> 三粒 chip 今日冇嘢，
+             但呢個位冇上限 — 聽日加「心情」就四粒，再加「只限已驗證」就五粒。
+             新嘅 metadata 維度只可以<b>推斷</b>或者<b>出咗之後改</b>。
+             唔係靠自律，係根本冇位擺第四粒。</p>
+        </details>
+
+        <details>
+          <summary>城市／語言係「人」嘅屬性</summary>
+          <p><b>「瞓唔著」關溫哥華咩事？</b> 冇。硬塞個城市落每篇帖，
+             篩「溫哥華」就會撈返一堆無關嘅嘢 — <b>個 filter 就廢咗</b>。</p>
+          <p>阿霖住溫東，寫喺佢 profile；入會嗰段錄音已經標咗佢講粵語。
+             所以<b>篩「溫哥華」＝篩「作者住溫哥華」</b>，永遠準。</p>
+          <p>帖可以<b>完全冇話題、冇 tag</b> — 呢個係常態。冇建議就連 toast 都唔出。</p>
+        </details>
+
+        <details>
+          <summary>唔叫「討論區」，叫「大廳」</summary>
+          <p>個名會落框。叫「討論區」，人一睇就以為要好似連登咁開正經帖 —
+             想嗌一句「我想要老婆啊」嘅人會覺得自己唔啱格式，然後唔出。</p>
+          <p>所以 label 唔可以規定格式。其他人選：講嘢 · 而家。</p>
+        </details>
+
+        <details>
+          <summary>論壇性係長出嚟，唔係揀出嚟</summary>
+          <p>論壇獨有嘅只有三樣：<b>分台瀏覽 · 舊帖搵得返 · 有標題可以掃</b>，
+             而三樣都要有量先有意義。Butterfly 就係論壇形態，佢死緊。</p>
+          <p>所以：人人只係出 post；<b>儲到討論就自己變成一條 thread</b>。
+             排序用<b>最後回覆</b>頂上去（連登嗰套）— 冇人回就沉，有人回就浮，
+             唔使演算法都篩到料。</p>
+        </details>
+
+        <details>
+          <summary>唔用台，用標籤 · 分三層</summary>
+          <p><b>台係「有／冇」，標籤係「多／少」。</b> 空台係一個望到嘅洞；
+             少人用嘅標籤只係唔浮出嚟。同樣得幾百人 — 一個顯得死，一個顯得正常。</p>
+          <p>但自由標籤會散（多倫多／Toronto／多倫多多倫多）。所以分三層：</p>
+          <p>① <b>人嘅屬性</b>（城市·語言）— 喺 profile，唔喺帖<br>
+             ② <b>策展話題</b>（出櫃·落地·感情）— 自動建議 ＋ 同義詞歸邊<br>
+             ③ <b>自由 tag</b>（#行山 #打邊爐）— 隨便打，<b>散咗都唔緊要</b>，
+                因為冇人靠佢瀏覽</p>
+          <p><b>論壇性 = 三條 filter：</b>話題 ＋ <b>回覆 ≥ N</b> ＋ 全部時間。
+             三條加埋 = 一個台，而且<b>你可以存低做自己嘅台</b>。</p>
+        </details>
+
+        <details>
+          <summary>一句 ＋ 長帖，一條 feed</summary>
+          <p>唔開第二個 tab，視覺上分得出就夠。<b>但唔做無限捲</b> —
+             thesis 話 swipe 係老虎機，無限隨機 feed 係同一機制。</p>
+          <p><b>無限 ＋ 演算法 = 老虎機。有限 ＋ 有序 = 告示板。</b>
+             差別唔喺 UI，喺有冇盡頭。捲到底會見到「你追返晒喇」。</p>
+          <p><b>兩個「樹」都唔要：</b>板塊樹用標籤取代；回覆樹用<b>平鋪 ＋ 引用</b>
+             （連登去到 1001 回覆都係平鋪）。<b>結構係要用量嚟養嘅。</b></p>
+        </details>
+
+        <details>
+          <summary>Profile：一條 scroll，冇 tab</summary>
+          <p><b>簡介</b>（Hinge）：固定幾件 element — 歌／問答／一句話／睇緊。
+             每件獨立可以 ♡ — 你 like 嘅係嗰件嘢唔係成個人，開場白自動有咗。</p>
+          <p><b>講過嘅嘢</b>（Threads／FB）：自己出過嘅一句。<br>
+             <b>貼文</b>（IG）：無限 grid，最新喺前。</p>
+          <p>試過分 tab，拆咗 — 冇人會撳入第二格，而 IG 自己都係一條 scroll。
+             <b>相只有一個家</b>，形態由用戶自己用出嚟：擺兩三張似 Hinge，
+             擺幾十張似 IG。冇 mode、冇設定。</p>
+        </details>
+
+        <details>
+          <summary>開枱係物件，唔係地方</summary>
+          <p>群就係 <b>WhatsApp／TG 嗰種</b>，唔發明新玩法。開枱只係喺入面掟一張卡，
+             好似掟個 location 或者 poll。</p>
+          <p>但張枱係一個<b>物件</b>：時間、地點、上限、報名名單跟住佢走。
+             所以佢可以同時出現喺群同大廳 — <b>唔係兩套開枱，係同一張枱兩個地方，一份名單</b>。
+             （喺大廳報名，入返個群睇，個數會一齊變。）</p>
+        </details>
+
+        <details>
+          <summary>入會 ＋ 假面</summary>
+          <p><b>入會：</b>唔使自拍。讀一句<b>隨機而且中性</b>嘅句子 —
+             當住屋企人面前讀都唔會出事。AI 只負責放行，唔確定嘅落人手，
+             <b>永不自動拒絕</b>。同一段錄音順便標返你講粵／英／普。</p>
+          <p><b>假面：</b>搖一搖變成真係用得嘅計數機，撳返一段特定數字先返到去。
+             對「同屋企人住、阿媽會攞我電話」嘅人，唔係花巧，係用唔用得落去嘅分別。</p>
+        </details>
       </div>
 
-      <div class="card">
-        <h3>點解唔叫「討論區」</h3>
-        <p><b>個名本身就會落框。</b> 叫「討論區」，人一睇就以為要好似連登咁開個正經帖 —
-           想嗌一句「我想要老婆啊」嘅人會覺得自己唔啱格式，然後唔出。</p>
-        <p>所以個 label 唔可以規定格式。而家用緊 <b>大廳</b> —
-           一間房，大家喺度，冇話你要講咩點講。其他人選：<b>講嘢</b>（鳩up 係講嘢，討論都係講嘢）、
-           <b>而家</b>（乾、接返「未瞓」）。一句就換得。</p>
-        <p><b>唔使分兩個入口</b> — 分嘅位喺個作曲欄，唔喺個 tab。
-           而且「✎ 寫一句」要做主角（高亮嗰個），「＋ 開個帖」做次要：
-           <b>低門檻嗰個先應該最搶眼。</b></p>
-      </div>
-
-      <div class="card">
-        <h3>兩個「樹」都唔要</h3>
-        <p><b>板塊樹</b>（台 → 子台 → 帖）：十個板塊每個得一兩條，衰過唔分。用標籤取代。</p>
-        <p><b>回覆樹</b>（嵌套回覆，Reddit 嗰種）：要一條帖幾百個回覆、分開幾條支線先有意義。
-           我哋一條帖得五至四十個回覆 — 嵌套只係加視覺複雜度，換唔到嘢。<br>
-           <b>連登係平鋪嘅</b>，去到 1001 個回覆都仲係一條直線，靠<b>引用</b>接返上文。
-           呢個做法喺極大量都撐得住。</p>
-        <p>⭐ <b>結構係要用量嚟養嘅。</b> 台要有帖先唔空、嵌套要有支線先有用、
-           板塊樹要有流量先分得開。人少嗰陣，<b>平鋪 ＋ filter 每次都贏</b> —
-           而 filter 唔使量養，一個人都用得。</p>
-      </div>
-
-      <div class="card">
-        <h3>城市／語言係「人」嘅屬性，唔係「帖」嘅</h3>
-        <p><b>「瞓唔著」關溫哥華咩事？</b> 冇。硬塞個城市落每篇帖，
-           篩「溫哥華」就會撈返一堆同溫哥華無關嘅嘢 — <b>個 filter 就廢咗</b>。</p>
-        <p>阿霖住溫東 — 呢件事寫喺佢個 profile，唔使每篇帖再講一次。
-           入會嗰段錄音已經標咗佢講粵語，一樣。</p>
-        <p><b>所以篩「溫哥華」＝篩「作者住溫哥華」。</b>
-           永遠準，而且係你真正想要嗰樣：睇本地人講嘢，唔係睇提過「溫哥華」三個字嘅帖。</p>
-        <p>於是成個問題消失 — 帖冇城市欄位、冇語言欄位，
-           <b>淨返話題，而且大部分帖根本冇話題</b>，冇就唔顯示。</p>
-      </div>
-
-      <div class="card">
-        <h3>⛔ 作曲框永遠只有一個輸入位</h3>
-        <p>三粒 chip 今日睇落冇嘢，但呢個位<b>冇上限</b> —
-           聽日加個「心情」就四粒，再加個「只限已驗證」就五粒。<b>會不斷生長嘅位一定會爛。</b></p>
-        <p>而返去純自由 tag 都唔得 — 「多倫多／Toronto／多倫多多倫多」嗰個災難會返嚟。</p>
-        <p><b>所以：出嗰陣乜都唔顯示。</b> 真用戶唔需要每次確認「你係咪喺溫哥華」— 佢知自己住邊。
-           城市／語言根本唔係帖嘅屬性（見上）；話題大部分帖都冇。<br>
-           <b>出完可能連 toast 都冇 — 而且大部分時候都係咁。</b>
-           帖可以完全冇話題、冇 tag，呢個係常態唔係例外。
-           有建議先出 toast，撳一下改，唔啱就唔理。</p>
-        <p>⛔ <b>硬規矩：任何新嘅 metadata 維度，只可以「推斷」或者「出咗之後改」，
-           唔准加入作曲框。</b> 咁「之後四粒五粒」就唔會發生 —
-           唔係靠自律，係根本冇位擺第四粒。</p>
-        <p class="hintbar" style="margin:0">👆 撳個作曲框睇：打字 → 出咗 → toast 講標咗乜 → 撳「改」試下。</p>
-      </div>
-
-      <div class="card">
-        <h3>Tag 散開點解決：分三層</h3>
-        <p>Threads 贏喺打一句就出得，唔使用腦。所以我哋<b>唔可以喺個框度排一堆欄位畀人揀</b> —
-           就算全部 optional，佢哋一樣佔視線、一樣要人決定。</p>
-        <p><b>啲欄位由系統填 —— 但係預設，唔係鎖。</b>
-           喺香港嘅人一樣可以出去多倫多板（打算移民、想問嘢），語言都改得。
-           <b>95% 乜都唔使揀，要改嘅撳一下。</b></p>
-        <p>👆 撳個作曲框睇打字示範，之後<b>撳嗰三粒 tag 試改</b>。</p>
-        <p><b>點嚟：</b><br>
-           · <b>城市</b> — profile 已經有，設一次，之後每篇自動<br>
-           · <b>語言</b> — 入會嗰段錄音已經標咗；打幾隻字都認得出<br>
-           · <b>話題</b> — 打完之後<b>建議</b>一個，撳一下接受，唔撳就算</p>
-        <p><b>三層係個資料模型，唔係一張表格。</b> 結構唔一定要用戶填 —
-           可以推斷。而且啱返「AI 做加分唔做扣分」：標錯咗，你唔理佢就得。</p>
-
-      </div>
-
-      <div class="card">
-        <h3>Tag 散開點解決：分三層</h3>
-        <p>Threads 個問題係<b>多倫多／Toronto／多倫多多倫多</b>全部係同一樣嘢但分咗幾個 tag。
-           論壇冇呢個問題，因為平台預先開好，只有一個。</p>
-        <p><b>但「多倫多」根本唔應該係 tag。</b> 散開係因為畀咗自由文字去代表
-           一樣<b>有標準答案</b>嘅嘢。</p>
-        <p>① <b>欄位</b>（城市 · 語言）— 揀嘅，打唔到字 → 唔可能散<br>
-           ② <b>策展話題</b>（出櫃 · 落地 · 感情）— 揀建議 ＋ 同義詞歸邊（打「出柜」自動變「出櫃」）<br>
-           ③ <b>自由 tag</b>（#行山 #打邊爐）— 想點打就點打，<b>散咗都唔緊要</b>，
-              因為冇人靠佢瀏覽，佢淨係用嚟偶遇</p>
-        <p><b>論壇嘅好處攞晒，代價唔使畀：</b> 有標準答案嗰兩層一樣係平台開好、冇得自由填；
-           但城市同語言<b>唔會「空」，因為佢哋唔係地方</b>。</p>
-      </div>
-
-      <div class="card">
-        <h3>唔用台，用標籤</h3>
-        <p><b>台係「有／冇」，標籤係「多／少」。</b> 一個空台係一個望到嘅洞；
-           一個少人用嘅標籤只係唔浮出嚟。同樣得幾百人 — 一個顯得死，一個顯得正常。</p>
-        <p>Butterfly 就係台嗰個形態（佢個描述寫住「免費討論區」分 lesbian life／love／
-           LGBTQ／性向／興趣）。而佢而家 2.7 星、兩年冇更新。</p>
-        <p><b>但自由標籤會散晒</b>（出櫃／出柜／comingout 分四邊，然後樣樣都冇人）。所以：
-           ① <b>建議標籤，唔係自由填</b>；② <b>條標籤列按活躍度排</b> —
-           死咗嘅自己沉走，唔使人手清。<b>冇人用嘅標籤自動消失，所以永遠唔會有空台。</b></p>
-      </div>
-
-      <div class="card">
-        <h3>論壇性係長出嚟嘅，唔係揀出嚟嘅</h3>
-        <p>論壇形式（連登、Butterfly）獨有嘅只有三樣：<b>分台瀏覽 · 舊帖搵得返 · 有標題可以掃</b>。
-           而呢三樣<b>全部要有量先有意義</b>。</p>
-        <p>論壇要人多先活得成 — Butterfly 就係論壇形式，佢死緊。
-           微博形式喺人少嗰陣照樣成立：一條 post 得四個回覆都仲似有人。
-           <b>我哋開頭得幾百人，論壇形態喺呢個量級係必死嘅。</b></p>
-        <p><b>但唔一刀切掉論壇。</b> 人人只係出 post；有 post 儲到討論，
-           佢自己就變成一條 thread — 有 permalink、搵得返、不停 bump。
-           <b>論壇性係一條有人回嘅 post 長出嚟嘅結果，唔係一個要揀嘅模式。</b></p>
-        <p>所以個作曲欄係<b>一個框</b>。標題同台係可選（想加先加），
-           唔係出手前嘅關卡 — 逼人宣告「我而家出緊認真帖」本身就係 friction。</p>
-        <p><b>排序：最後回覆頂上去（連登嗰套）。</b> 冇人回就沉，有人回就浮。
-           唔使演算法都自動篩到料。<br>
-           ⚠️ 呢個更新咗 thesis 入面「時序排」— bump 唔係創建時序，但一樣冇演算法、
-           有盡頭、人人睇得明。</p>
-      </div>
-
-      <div class="card">
-        <h3>一句 ＋ 長帖，一條 FEED</h3>
-        <p>討論區溝埋兩種嘢：<b>長帖</b>（有標題、有回覆樹，似連登）同<b>一句</b>（似 Twitter，
-           半夜擺個諗法出嚟）。唔開第二個 tab —— 視覺上分得出就夠。</p>
-        <p><b>但唔會做成無限捲。</b> 我哋自己份 thesis 話 swipe 係老虎機；
-           無限隨機 feed 係同一個機制換咗文字。所以：<b>時序排、會捲到底</b>。
-           捲到最後有一句「你追返晒喇」—— 呢個係 feature。</p>
-        <p>而且淨係<b>你個城市</b>，幾千人，個個你真係撞得到。
-           咁就唔係老虎機，係細鎮嘅告示板。</p>
-      </div>
-
-      <div class="card">
-        <h3>開枱係物件，唔係地方</h3>
-        <p>群就係 <b>WhatsApp／TG 嗰種</b>，唔使發明新玩法。開枱只不過係你可以喺入面掟一張卡出嚟，
-           好似掟個 location 或者 poll。</p>
-        <p>但張枱本身係一個<b>物件</b>：時間、地點、上限、報名名單全部跟住佢走。
-           所以佢可以同時出現喺群同討論區 —— <b>唔係兩套開枱，係同一張枱出現喺兩個地方</b>，
-           一份名單。（試下喺討論區報名，入返個群睇，個數會一齊變。）</p>
-        <p>可見度跟住你貼喺邊：貼落私密群 → 淨係群友入到；貼落討論區 → 成個城市見到。</p>
-      </div>
-
-      <div class="card">
-        <h3>入會</h3>
-        <p>唔使自拍。讀一句<b>隨機而且中性</b>嘅句子 —— 當住屋企人面前讀都唔會出事。
-           AI 只負責放行，唔確定嘅落人手，<b>永不自動拒絕</b>。
-           同一段錄音順便標返你講粵／英／普。</p>
-      </div>
-
-      <div class="card">
-        <h3>假面</h3>
-        <p>搖一搖變成一個真係用得嘅計數機，撳返一段特定數字先返到去。
-           對「同屋企人住、阿媽會攞我電話」嘅人，唔係花巧，係用唔用得落去嘅分別。</p>
-      </div>
-
-      <p class="hintbar">⚠️ 設計草圖。所有人物、貼文、對話全部虛構。<b>個名仲未定。</b></p>
+      <p class="foot">設計草圖。所有人物、貼文、對話全部虛構。<b>個名仲未定。</b></p>
     </aside>
 
   </div>
@@ -1168,6 +1163,8 @@
       const c = document.createElement('span');
       c.className = 'cell g' + (i % 3 + 1);
       c.textContent = s;
+      // 每三張有一張淨係入 grid、冇出大廳 —— grid 係你本相簿，唔淨係公開嗰啲
+      if (i % 3 === 1) c.innerHTML = s + '<span class="onlyme" title="淨係喺 profile 度出現">◔</span>';
       c.onclick = () => openPhoto(s, c.className);
       g.appendChild(c);
     });
@@ -1199,6 +1196,18 @@
   function tog(el){ el.classList.toggle('on'); }
 
   // 示範：打字 → 城市／語言自動填，話題自動建議。用戶乜都唔使揀。
+  // 一粒 toggle，預設已經啱：有字 → 出大廳；淨係相 → 淨係入 grid。
+  function setPub(on, why){
+    const b = document.getElementById('pubt');
+    b.classList.toggle('on', on);
+    b.lastChild.textContent = on ? '出大廳' : '淨係入 grid';
+    document.getElementById('pubwhy').textContent = why;
+  }
+  function pubtog(){
+    const b = document.getElementById('pubt');
+    setPub(!b.classList.contains('on'), '你改咗');
+  }
+
   // 標錯咗？出咗之後先改。作曲框永遠只有一個輸入位。
   const TAGS = ['出櫃','落地','感情','搵人玩','吹水','唔要話題'];
   let ti = 0;
@@ -1210,8 +1219,9 @@
   // 兩篇輪住示範：一篇有建議話題，一篇乜都冇（連 toast 都唔出）。
   // 帖可以完全冇話題、冇 tag — 呢個係常態，唔係例外。
   const DEMOS = [
-    { text: '瞓唔著。今日同阿媽講咗，佢淨係話咗句「哦」。', tag: '出櫃' },
-    { text: '樓下間茶餐廳夜晚兩點都仲開緊。救返我條命。',   tag: null   },
+    { text: '瞓唔著。今日同阿媽講咗，佢淨係話咗句「哦」。', tag: '出櫃', shot: false, pub: true },
+    { text: '今晚自己煮，太多咗，有冇人要',                 tag: null,  shot: true,  pub: true },
+    { text: '',                                            tag: null,  shot: true,  pub: false },
   ];
   let demoIdx = 0;
   let typing = false;
@@ -1221,11 +1231,22 @@
     const t = document.getElementById('obtop'), a = document.getElementById('toast');
     const d = DEMOS[demoIdx]; demoIdx = (demoIdx + 1) % DEMOS.length;
     t.textContent = ''; t.classList.add('typed'); a.classList.remove('show');
+    const sh = document.getElementById('obshot');
+    sh.classList.remove('show');
+    setPub(d.pub, d.text ? '有字 → 預設出' : '淨係相 → 預設唔出');
     let i = 0;
+    if (!d.text){   // 淨係一張相，冇字
+      clearInterval(0);
+      t.textContent = '（淨係一張相，冇字）';
+      setTimeout(() => sh.classList.add('show'), 200);
+      setTimeout(() => { t.textContent = '有咩想講？'; t.classList.remove('typed'); typing = false; }, 4200);
+      return;
+    }
     const tick = setInterval(() => {
       t.textContent = d.text.slice(0, ++i);
       if (i >= d.text.length){
         clearInterval(tick);
+        if (d.shot) setTimeout(() => sh.classList.add('show'), 200);
         if (d.tag){
           ti = TAGS.indexOf(d.tag);
           document.getElementById('tt').textContent = d.tag;
