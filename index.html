@@ -295,6 +295,23 @@
     border-radius:11px;padding:10px;font-size:12.5px;font-weight:700;cursor:pointer}
   .nextbtn:hover{background:var(--accent);color:var(--on-accent)}
   .nexthint{font-size:10.5px;color:var(--dim);font-weight:300;font-variant-numeric:tabular-nums}
+  .dot{background:var(--accent);color:var(--on-accent);border-radius:999px;
+    padding:0 5px;font-size:9px;font-weight:700;font-variant-numeric:tabular-nums}
+  .nrow{display:flex;gap:11px;padding:12px 4px;border-bottom:1px solid var(--line);cursor:pointer}
+  .nrow:hover{background:var(--card-2)}
+  .nrow.new{position:relative}
+  .nrow.new::before{content:"";position:absolute;left:-6px;top:20px;width:5px;height:5px;
+    border-radius:50%;background:var(--accent);box-shadow:0 0 8px 1px var(--glow)}
+  .nrow .ava{width:34px;height:34px;font-size:13px}
+  .ntxt{display:block;font-size:12.5px;font-weight:300;line-height:1.5}
+  .ntxt b{font-weight:700}
+  .nsay{display:block;font-size:11.5px;color:var(--dim);font-weight:300;margin-top:3px;
+    padding-left:8px;border-left:2px solid var(--line)}
+  .nwhen{display:block;font-size:9.5px;color:var(--dim);margin-top:4px}
+  .notifnote{font-size:10.5px;color:var(--dim);font-weight:300;line-height:1.65;
+    padding:2px 4px 12px;margin:0;border-bottom:1px solid var(--line)}
+  .notifnote b{color:var(--text);font-weight:600}
+
   .browsenote{font-size:9.5px;color:var(--dim);font-weight:300;line-height:1.55;
     padding:8px 4px 0;margin:0}
 
@@ -513,7 +530,9 @@
 
         <!-- ══ 討論區 ══ -->
         <section class="screen on" data-page="forum">
-          <div class="appbar"><h2>大廳</h2><span class="act" onclick="go('chat')">溫哥華 ▾　✉ 3</span></div>
+          <div class="appbar"><h2>大廳</h2>
+            <span class="act"><span onclick="go('notif')">🔔 <b class="dot">5</b></span>
+            　<span onclick="go('chat')">✉ 3</span>　溫哥華 ▾</span></div>
           <div style="padding:0 2px 9px;flex:none">
             <div class="onebox" onclick="typedemo()">
               <div class="obtop" id="obtop">有咩想講？</div>
@@ -890,6 +909,60 @@
           </div>
         </section>
 
+        <!-- ══ 通知 ══ -->
+        <section class="screen" data-page="notif">
+          <div class="appbar"><h2><span class="back" onclick="go('forum')">‹</span> 通知</h2>
+            <span class="act">全部已讀</span></div>
+          <div class="body">
+            <p class="notifnote">我哋規模下最強嘅回訪動力唔係演算法，係
+              <b>「有人覆咗你」</b> — 呢樣大廠反而做唔到（幾億人，你條 post 沉咗就係沉咗）。</p>
+
+            <div class="nrow new" onclick="go('thread')">
+              <span class="ava">丙</span>
+              <span><span class="ntxt"><b>阿丙</b> 覆咗你嗰句「瞓唔著⋯」</span>
+                <span class="nsay">「我都係。行唔行？」</span>
+                <span class="nwhen">2 分鐘前</span></span>
+            </div>
+            <div class="nrow new" onclick="me()">
+              <span class="ava">霖</span>
+              <span><span class="ntxt"><b>阿霖</b> 同其他 2 個人 ♡ 咗你嘅「一句話」</span>
+                <span class="nsay">「我唔識玩曖昧。想見你就會直接講。」</span>
+                <span class="nwhen">18 分鐘前</span></span>
+            </div>
+            <div class="nrow new" onclick="go('group')">
+              <span class="ava">K</span>
+              <span><span class="ntxt"><b>K</b> 報咗名你嗰張枱</span>
+                <span class="nsay">Quarry Rock · 星期六 09:00 · 6 個報咗名</span>
+                <span class="nwhen">1 個鐘前</span></span>
+            </div>
+            <div class="nrow new" onclick="go('groups')">
+              <span class="ava">新</span>
+              <span><span class="ntxt">「啱啱落地互助」有 <b>27</b> 條新訊息</span>
+                <span class="nsay">Cheryl：請問點樣考車牌…</span>
+                <span class="nwhen">今日</span></span>
+            </div>
+            <div class="nrow new" onclick="me()">
+              <span class="ava">👁</span>
+              <span><span class="ntxt"><b>7 個人</b>睇過你個 profile</span>
+                <span class="nsay">3 個係你未見過嘅人 · 2 個而家未瞓</span>
+                <span class="nwhen">今日</span></span>
+            </div>
+            <div class="nrow" onclick="go('thread')">
+              <span class="ava">細</span>
+              <span><span class="ntxt"><b>細細粒</b> 引用咗你</span>
+                <span class="nsay">「+1。多倫多都係咁⋯」</span>
+                <span class="nwhen">琴日</span></span>
+            </div>
+            <p class="notifnote" style="border:0;padding-top:14px">
+              全部係<b>真嘢</b>：有人覆你、有人撩你其中一件 element、有人報咗你張枱、有人睇過你。
+              冇一條係「你可能會鍾意…」。<br><br>
+              ⚠️ <b>排序唔可以淨係按熱度</b> — 新人第一篇冇人覆就永遠沉底，
+              然後佢走。要溝埋「你未見過嘅嘢」加分。細節待定。
+            </p>
+          </div>
+          <nav class="tabbar"><span class="on">大廳</span><span>群</span><span>搵人</span><span>我</span></nav>
+        </section>
+
         <!-- ══ Filter ══ -->
         <section class="screen" data-page="filter">
           <div class="appbar"><h2><span class="back" onclick="go(\'forum\')">‹</span> Filter</h2>
@@ -1031,6 +1104,7 @@
           <button onclick="go('people')">搵人</button>
           <button onclick="me()">Profile</button>
           <button onclick="go('editor')">加 element</button>
+          <button onclick="go('notif')">通知</button>
           <button onclick="go('chat')">私訊</button>
           <button onclick="go('panic')">假面</button>
         </div>
@@ -1131,6 +1205,19 @@
         </details>
 
         <details>
+          <summary>回訪：靠「有人覆你」，唔靠演算法</summary>
+          <p>我哋規模下最強嘅回訪動力唔係 feed 調校 — <b>幾千人，內容就係得咁多，點排都係嗰啲</b>。
+             最強嗰樣係 <b>「有人覆咗你」</b>，而呢樣<b>大廠反而做唔到</b>
+             （幾億人，你條 post 沉咗就係沉咗）。</p>
+          <p>通知全部係真嘢：有人覆你 · 有人撩你其中一件 element · 有人報咗你張枱 ·
+             <b>有人睇過你 profile</b>。冇一條係「你可能會鍾意…」。</p>
+          <p>⚠️ <b>排序唔可以淨係按熱度。</b> 純 bump 排有個死症：
+             新人第一篇冇人覆 → 永遠沉底 → 冇人覆 → 佢走。<b>新人死亡螺旋。</b>
+             要溝埋「你未見過嘅嘢」加分。細節待定，方向係好似 Twitter／FB／Threads 咁。</p>
+          <p>唯一底線：<b>排序要講得出係點排</b>，唔係黑箱。</p>
+        </details>
+
+        <details>
           <summary>群 = WhatsApp／TG 嗰種，唔發明新玩法</summary>
           <p><b>冇群，啲人就走去 TG，然後成班消失</b> — 呢個喺 Butterfly 親眼見到
              （佢哋喺討論區出帖叫人入 Telegram 群）。所以群一定要有。</p>
@@ -1171,8 +1258,8 @@
 </div>
 
 <script>
-  const ORDER = ['verify','forum','thread','groups','group','people','me','photo','editor','chat','panic'];
-  const TABOF = {forum:'forum', thread:'forum', chat:'forum',
+  const ORDER = ['verify','forum','notif','thread','groups','group','people','me','photo','editor','chat','panic'];
+  const TABOF = {forum:'forum', thread:'forum', chat:'forum', notif:'forum',
                  groups:'groups', group:'groups',
                  people:'people', me:'me', photo:'me', editor:'me'};
   let cur = 'forum';
