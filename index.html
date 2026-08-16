@@ -177,13 +177,12 @@
   .pname{font-size:16px;font-weight:800}
   .pmeta{font-size:11px;color:var(--dim);font-weight:300;margin-top:1px}
   .pbio{font-size:12.5px;font-weight:300;margin-top:5px;line-height:1.55}
-  .seg{display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--line);margin:0 4px 12px}
-  .seg button{all:unset;text-align:center;padding:9px 0;font-size:12px;color:var(--dim);
-    cursor:pointer;border-bottom:2px solid transparent;font-weight:600}
-  .seg button.on{color:var(--accent);border-bottom-color:var(--accent)}
-  .seg button:focus-visible{outline:2px solid var(--accent);outline-offset:-4px}
-  .pane{display:none}
-  .pane.on{display:block}
+  /* 簡介同貼文冇分 tab —— 一條 scroll，分隔線隔開。
+     分咗 tab 嘅話冇人會撳入第二格；IG 自己都係一條 scroll。 */
+  .secline{display:flex;justify-content:space-between;align-items:center;
+    margin:16px 4px 9px;padding-top:13px;border-top:1px solid var(--line);
+    font-size:11px;letter-spacing:.16em;color:var(--dim);font-weight:600}
+  .loadmore{text-align:center;font-size:10.5px;color:var(--dim);font-weight:300;padding:14px 0 4px}
 
   /* 簡介：Hinge 式固定 element */
   .stream{display:flex;flex-direction:column;gap:9px;padding:0 4px 6px}
@@ -226,6 +225,7 @@
   .cbar .hit{color:var(--accent)}
 
   /* 群 / 開枱 */
+  .event.mini{border-style:dashed}
   .event{margin:2px 4px 12px;padding:13px;border-radius:13px;background:var(--card-2);
     border:1px solid var(--accent);box-shadow:0 0 24px -12px var(--glow)}
   .event .when{font-size:10.5px;letter-spacing:.14em;color:var(--accent);font-weight:500}
@@ -300,7 +300,7 @@
     <div class="eyebrow">可撳原型 · 2026-08-16</div>
     <h1 class="wm">同<em>枱</em></h1>
     <p>撳落去真係行到 —— 撳個帖入內頁、撳個人入 profile、撳個群開枱、切換
-       <b>簡介／貼文</b>、撳 ♡、錄音、開假面。<b>個名仲未定。</b></p>
+       <b>♡</b>、錄音、開假面。<b>個名仲未定。</b></p>
   </header>
 
   <div class="stage">
@@ -359,11 +359,22 @@
               <p>成日以為最難嗰關會好慘烈，點知阿媽淨係話咗句「哦，食飯先啦」。</p>
               <div class="stat"><span>♡ 512</span><span>127 回覆</span></div>
             </article>
+            <div class="event mini">
+              <div class="when">開枱 · 星期六 09:00 · 由「行山組」貼出</div>
+              <h3>Quarry Rock</h3>
+              <div class="where">Deep Cove 停車場等 · 上限 8 人</div>
+              <div class="faces">
+                <span class="f">丙</span><span class="f">霖</span><span class="f">Y</span>
+                <span class="f">K</span><span class="f">C</span>
+                <span class="more" id="joincount2">5 個報咗名 · 仲有 3 位</span>
+              </div>
+              <span class="join" id="joinbtn2" onclick="joinEvent(2)">我要去</span>
+            </div>
             <article class="post" onclick="go('thread')">
-              <div class="meta"><span class="who">K</span><span class="city">列治文</span><span>· 琴日</span></div>
-              <h3>周六行 Quarry Rock，有冇人一齊</h3>
-              <p>朝早九點 Deep Cove 停車場等，行完食嘢。已經有三個人。</p>
-              <div class="stat"><span>♡ 60</span><span>22 回覆</span></div>
+              <div class="meta"><span class="who">敏</span><span class="city">高貴林</span><span>· 琴日</span></div>
+              <h3>有冇人試過同屋企人講咗之後又扮返冇事</h3>
+              <p>我而家就係咁。唔知係咪自己諗多咗。</p>
+              <div class="stat"><span>♡ 88</span><span>41 回覆</span></div>
             </article>
           </div>
         </section>
@@ -503,13 +514,8 @@
               </span>
             </div>
 
-            <div class="seg">
-              <button id="seg-a" class="on" onclick="pane('a')">簡介</button>
-              <button id="seg-b" onclick="pane('b')">貼文 · 24</button>
-            </div>
-
             <!-- 簡介：Hinge 式，固定幾件 -->
-            <div class="pane on" id="pane-a">
+            <div id="pane-a">
               <div class="stream">
                 <div class="el">
                   <span class="kind">相</span>
@@ -544,10 +550,11 @@
               </div>
             </div>
 
-            <!-- 貼文：IG grid，無限累積 -->
-            <div class="pane" id="pane-b">
-              <div class="gridbar"><span>24 個貼文 · 最新喺前</span><span class="act">＋ 出貼文</span></div>
+            <!-- 貼文：IG grid，無限累積。冇 tab — 同一條 scroll 落去就見到 -->
+            <div id="pane-b">
+              <div class="secline"><span>貼文 · 24</span><span class="act">＋ 出貼文</span></div>
               <div class="grid" id="grid"></div>
+              <div class="loadmore">↓ 仲有 · 一路捲一路載</div>
             </div>
           </div>
         </section>
@@ -671,13 +678,25 @@
       </div>
 
       <div class="card">
-        <h3>PROFILE 分兩層</h3>
-        <p><b>簡介</b>＝ Hinge 嗰邊。固定幾件 element（相／歌／問答／一句話／睇緊），
-           係「我係邊個」，好耐先改一次。每件獨立可以 ♡ —— 你 like 嘅係嗰件嘢，唔係成個人，
+        <h3>PROFILE：一條 SCROLL，冇 TAB</h3>
+        <p>上面係 <b>簡介</b>（Hinge 嗰邊）：固定幾件 element —— 相／歌／問答／一句話／睇緊。
+           係「我係邊個」，好耐先改一次。每件獨立可以 ♡ —— 你 like 嘅係嗰件嘢唔係成個人，
            所以開場白自動有咗。</p>
-        <p><b>貼文</b>＝ IG 嗰邊。無限咁 post，累積成個 grid，最新喺前，
+        <p>捲落去係 <b>貼文</b>（IG 嗰邊）：無限咁 post，grid 一路長，最新喺前，
            係「我最近做緊乜」。撳入去有 caption 同回應。</p>
-        <p>兩層唔同性質，所以要分開。Hinge 得前者，IG 得後者。</p>
+        <p><b>試過分兩個 tab，拆咗。</b> 分咗 tab 冇人會撳入第二格 ——
+           而 IG 自己都係一條 scroll（bio → highlights → grid）。次序啱就夠：
+           「我係邊個」喺前，「我最近做緊乜」喺後。</p>
+      </div>
+
+      <div class="card">
+        <h3>開枱係物件，唔係地方</h3>
+        <p>群就係 <b>WhatsApp／TG 嗰種</b>，唔使發明新玩法。開枱只不過係你可以喺入面掟一張卡出嚟，
+           好似掟個 location 或者 poll。</p>
+        <p>但張枱本身係一個<b>物件</b>：時間、地點、上限、報名名單全部跟住佢走。
+           所以佢可以同時出現喺群同討論區 —— <b>唔係兩套開枱，係同一張枱出現喺兩個地方</b>，
+           一份名單。（試下喺討論區報名，入返個群睇，個數會一齊變。）</p>
+        <p>可見度跟住你貼喺邊：貼落私密群 → 淨係群友入到；貼落討論區 → 成個城市見到。</p>
       </div>
 
       <div class="card">
@@ -733,14 +752,6 @@
     if (p === 'me' && !viewingOther) setProfileChrome();
     _go(p);
   };
-
-  // profile 兩層
-  function pane(which){
-    document.getElementById('seg-a').classList.toggle('on', which === 'a');
-    document.getElementById('seg-b').classList.toggle('on', which === 'b');
-    document.getElementById('pane-a').classList.toggle('on', which === 'a');
-    document.getElementById('pane-b').classList.toggle('on', which === 'b');
-  }
 
   // IG grid：砌 24 格，撳入內頁
   const SHOTS = ['🍜','🐈','🏔','🌊','🍰','📚','☕','🌧','🍲','🐟','🕯','🥬',
@@ -808,13 +819,18 @@
   }
 
   // 開枱
+  // 開枱係一個「物件」唔係一個地方：同一張枱可以出現喺群同討論區，
+  // 但報名名單得一份 —— 所以兩邊嘅掣要一齊變。
   let joined = false;
   function joinEvent(){
     joined = !joined;
-    const b = document.getElementById('joinbtn'), c = document.getElementById('joincount');
-    b.textContent = joined ? '✓ 報咗名' : '我要去';
-    b.classList.toggle('done', joined);
-    c.textContent = joined ? '6 個報咗名 · 仲有 2 位' : '5 個報咗名 · 仲有 3 位';
+    [['joinbtn','joincount'],['joinbtn2','joincount2']].forEach(([bi,ci]) => {
+      const b = document.getElementById(bi), c = document.getElementById(ci);
+      if (!b) return;
+      b.textContent = joined ? '✓ 報咗名' : '我要去';
+      b.classList.toggle('done', joined);
+      c.textContent = joined ? '6 個報咗名 · 仲有 2 位' : '5 個報咗名 · 仲有 3 位';
+    });
   }
 
   // element 編輯器
