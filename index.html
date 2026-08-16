@@ -481,6 +481,10 @@
     box-shadow:0 0 30px -14px var(--glow)}
   .upsellcard h5{font-size:12px;font-weight:700;margin-bottom:7px;color:var(--amber)}
   .upsellcard p{font-size:10.5px;color:var(--dim);font-weight:300;line-height:1.65;margin-bottom:9px}
+  .norule{font-size:9.5px;color:var(--rose);font-weight:300;line-height:1.6;margin:2px 2px 0}
+  .norule .dnote{color:var(--dim);display:inline}
+  .phone:not(.annot) .norule .dnote{display:none}
+
   .fundnote{border-top:1px solid var(--line);padding-top:9px;margin-top:4px}
   .upsellcard .plans{display:flex;gap:7px}
   .upsellcard .plan{flex:1;text-align:center;padding:9px 4px;border-radius:9px;
@@ -760,6 +764,9 @@
               </div>
             </div>
             <p class="dnote nonote">post 可以完全冇話題、冇 tag — 呢個係常態。撳個框睇示範（兩篇輪住嚟）。</p>
+            <p class="norule">⛔ 公開 post 唔可以貼 IG／TG／WhatsApp 聯絡
+              <span class="dnote">—— 整死 Butterfly 嗰樣就係佢個討論區變咗「加我 TG」板。
+              兩個人私下傾偈想換就換，我哋唔管：禁極都禁唔到，仲會累到啲想去別處驗證對方安全嘅人。</span></p>
             <div class="toast" id="toast">
               <span>已出 · 似係講緊 <b id="tt">出櫃</b> · <span id="ttfix" onclick="fixtag()">改</span>
               <span style="opacity:.6">（大部分 post 唔會有呢個）</span></span>
@@ -1196,8 +1203,8 @@
             </div>
 
             <p class="quota" id="quota">
-              <span class="qtxt">今日仲可以冷搵 <b>8</b> 個未傾過嘅人</span><span class="qfree"> · 公開覆人同傾偈唔計數</span>
-              <span class="qbuy" onclick="upsell(this)">點解有上限？ ›</span>
+              <span class="qtxt">今個月仲可以冷搵 <b>8</b> 個未傾過嘅人</span><span class="qfree"> · 公開覆人同傾偈唔計數</span>
+              <span class="qbuy" onclick="upsell(this)">買多啲 ›</span>
             </p>
             <div class="fromhere" id="fromhere">
               <div class="fhlabel" id="fhkind">你頭先睇嗰句</div>
@@ -2064,8 +2071,8 @@
     if (!useQuota()){
       const n = document.createElement('div');
       n.className = 'pokenote';
-      n.innerHTML = '今日 8 個用晒喇。<b>公開覆人同已開咗嘅對話唔受影響</b> — 照覆，冇上限。'
-                  + '<br><span class="qbuy" onclick="upsell(this)">點解有上限？ ›</span>';
+      n.innerHTML = '今個月 8 個用晒喇。<b>公開覆人同已開咗嘅對話唔受影響</b> — 照覆，冇上限。'
+                  + '<br><span class="qbuy" onclick="upsell(this)">買多啲 · 點解有上限？ ›</span>';
       el.parentElement.appendChild(n);
       return;
     }
@@ -2086,12 +2093,14 @@
     if (host.parentElement.querySelector('.upsellcard')) return;
     const c = document.createElement('div');
     c.className = 'upsellcard';
-    c.innerHTML = '<h5>點解有上限</h5>'
-      + '<p>呢個上限只係計「<b>第一下冷搵一個未傾過嘅人</b>」。<br>'
+    c.innerHTML = '<h5>冷搵一個未傾過嘅人 · 8 個／月</h5>'
+      + '<p><b>呢度冇「就咁 DM 一個人」呢樣嘢。</b> 想私下傾，唯一入口係'
+      + '就佢<b>某一件嘢</b>（一句話／相／出過嘅 post／覆過人嗰句）搵佢，佢覆返先開到對話。<br>'
       + '公開覆人、同已經開咗嘅對話傾偈 —— <b>兩樣都免費，冇上限</b>。</p>'
-      + '<p>8 個／日係<b>防 spam</b>，唔係收費關卡：<b>所有人一樣，冇得買多啲</b>。</p>'
-      + '<p class="fundnote">💰 點養活呢個 app 未決定（Nicole 2026-08-16：「到時先算啦」）。'
-      + '肯定唔會係：賣「邊個 like 咗你」· 賣排名 · 賣廣告。</p>';
+      + '<p>⚠️ <b>點解係 8／月而唔係 Hinge 個 8／日：</b>Hinge 個數係為幾百萬人個池計嘅。'
+      + '我哋個池得幾百人 —— 8／日即係一個人一個月撩勻全城。<b>上限要跟個池嘅大細。</b></p>'
+      + '<p class="fundnote">💰 <b>收錢就收呢一格</b>，唔收第二度。價錢未定。<br>'
+      + '⛔ 唔會賣：「邊個 like 咗你」· 排名／boost · 廣告。</p>';
     host.parentElement.insertBefore(c, host.nextSibling);
   }
 
@@ -2422,8 +2431,8 @@
       // 「仲可以搵 0 個人」讀落唔通 —— 歸零就換晒句
       const t = e.querySelector('.qtxt');
       if (t) t.innerHTML = quotaLeft === 0
-        ? '今日 <b>8</b> 個冷搵配額用晒'
-        : '今日仲可以冷搵 <b>' + quotaLeft + '</b> 個未傾過嘅人';
+        ? '今個月 <b>8</b> 個冷搵配額用晒'
+        : '今個月仲可以冷搵 <b>' + quotaLeft + '</b> 個未傾過嘅人';
     });
     return true;
   }
