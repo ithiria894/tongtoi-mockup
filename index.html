@@ -138,6 +138,16 @@
     border-radius:999px;padding:0 6px;margin-left:5px;white-space:nowrap;font-weight:400}
   .badge.lang{color:var(--accent);border-color:var(--accent)}
 
+  /* 台：連登式分台，但夠量先解鎖 —— 空嘅台嚇走人，衰過冇台 */
+  .boards{display:flex;gap:6px;overflow-x:auto;padding:0 2px 9px;flex:none;
+    border-bottom:1px solid var(--line);margin-bottom:8px;scrollbar-width:none}
+  .boards::-webkit-scrollbar{display:none}
+  .bd{white-space:nowrap;font-size:11px;padding:4px 11px;border-radius:999px;
+    border:1px solid var(--line);color:var(--dim);font-weight:400;cursor:pointer}
+  .bd.on{border-color:var(--accent);color:var(--accent);background:var(--card-2)}
+  .bd.locked{opacity:.4;cursor:default;border-style:dashed}
+  .boardnote{font-size:10.5px;color:var(--dim);font-weight:300;padding:6px 4px 2px;line-height:1.6}
+
   .chips{display:flex;gap:6px;flex-wrap:wrap;padding:2px 4px 10px;
     border-bottom:1px solid var(--line);margin-bottom:2px}
   .chip{font-size:10px;padding:3px 9px;border-radius:999px;border:1px solid var(--line);
@@ -350,16 +360,26 @@
         <!-- ══ 討論區 ══ -->
         <section class="screen on" data-page="forum">
           <div class="appbar"><h2>討論區</h2><span class="act" onclick="go('chat')">溫哥華 ▾　✉ 3</span></div>
-          <div style="padding:0 2px 10px;flex:none">
+          <div style="padding:0 2px 9px;flex:none">
             <div style="border:1px solid var(--line);border-radius:999px;padding:8px 14px;
                         font-size:12px;color:var(--dim);font-weight:300;cursor:pointer">
               寫一句…　<span style="float:right;color:var(--accent)">或者開個新帖</span>
             </div>
           </div>
+          <div class="boards" id="boards">
+            <span class="bd on" onclick="board(this,'全部')">全部</span>
+            <span class="bd" onclick="board(this,'感情')">感情</span>
+            <span class="bd" onclick="board(this,'出櫃')">出櫃</span>
+            <span class="bd" onclick="board(this,'落地')">落地</span>
+            <span class="bd" onclick="board(this,'搵人玩')">搵人玩</span>
+            <span class="bd" onclick="board(this,'吹水')">吹水</span>
+            <span class="bd locked" title="夠 20 條 thread 就會開">買賣 🔒</span>
+            <span class="bd locked" title="夠 20 條 thread 就會開">湊仔 🔒</span>
+          </div>
           <div class="body">
             <div class="awake"><span class="lamp"></span>而家仲有 <b>34</b> 個人未瞓</div>
             <article class="post" onclick="go('thread')">
-              <div class="meta"><span class="who">Yuen</span><span class="city">香港</span><span>· 1 小時前</span></div>
+              <div class="meta"><span class="who">Yuen</span><span class="bd" style="padding:0 6px;font-size:9.5px">落地</span><span class="city">香港</span><span>· 1 小時前</span></div>
               <h3>移咗民之後點識人？</h3>
               <p>香港有 Butterfly 都算有個地方，出到去先發現咩都冇。</p>
               <div class="stat"><span>♡ 204</span><span>86 回覆</span></div>
@@ -381,13 +401,13 @@
               </span>
             </div>
             <article class="post" onclick="go('thread')">
-              <div class="meta"><span class="who">阿丙</span><span class="city">本拿比</span><span>· 4 分鐘前</span></div>
+              <div class="meta"><span class="who">阿丙</span><span class="bd" style="padding:0 6px;font-size:9.5px">搵人玩</span><span class="city">本拿比</span><span>· 4 分鐘前</span></div>
               <h3>瞓唔著。有冇人一齊夜遊？</h3>
               <p>Metrotown 附近，行下食個宵夜都得。純粹想搵人講廣東話。</p>
               <div class="stat"><span>♡ 31</span><span>14 回覆</span></div>
             </article>
             <article class="post" onclick="go('thread')">
-              <div class="meta"><span class="who">細細粒</span><span class="city">多倫多</span><span>· 今朝</span></div>
+              <div class="meta"><span class="who">細細粒</span><span class="bd" style="padding:0 6px;font-size:9.5px">出櫃</span><span class="city">多倫多</span><span>· 今朝</span></div>
               <h3>同屋企出咗櫃，佢哋好平靜，我反而喊咗</h3>
               <p>成日以為最難嗰關會好慘烈，點知阿媽淨係話咗句「哦，食飯先啦」。</p>
               <div class="stat"><span>♡ 512</span><span>127 回覆</span></div>
@@ -412,7 +432,7 @@
               </span>
             </div>
             <article class="post" onclick="go('thread')">
-              <div class="meta"><span class="who">敏</span><span class="city">高貴林</span><span>· 琴日</span></div>
+              <div class="meta"><span class="who">敏</span><span class="bd" style="padding:0 6px;font-size:9.5px">出櫃</span><span class="city">高貴林</span><span>· 琴日</span></div>
               <h3>有冇人試過同屋企人講咗之後又扮返冇事</h3>
               <p>我而家就係咁。唔知係咪自己諗多咗。</p>
               <div class="stat"><span>♡ 88</span><span>41 回覆</span></div>
@@ -420,8 +440,8 @@
 
             <div class="endcap">
               <b>你追返晒喇。</b><br>
-              溫哥華今日就係咁多。唔會有無限捲落去嘅嘢 —
-              呢度得幾千人，唔係全世界。
+              溫哥華今日就係咁多。唔會有無限捲落去嘅嘢 — 呢度得幾千人，唔係全世界。<br><br>
+              上面啲台夠人用先會開。<b>空嘅台嚇走人，衰過冇台。</b>
             </div>
           </div>
         </section>
@@ -592,6 +612,32 @@
               </div>
             </div>
 
+            <!-- 講過嘅嘢：自己出過嘅一句，似 Threads／FB 個 timeline -->
+            <div class="secline"><span>講過嘅嘢</span><span class="act">全部 ›</span></div>
+            <div class="stream" style="gap:0">
+              <div class="oneline" style="padding-left:0">
+                <span style="flex:1">
+                  <div class="meta"><span class="bd" style="padding:0 6px;font-size:9.5px">吹水</span><span>· 2 分鐘前</span></div>
+                  <div class="said">凌晨一點嘅超市，成間得我同一個補貨嘅阿姐。佢問我使唔使幫手攞高嗰排嘢。</div>
+                  <div class="foot"><span onclick="hit(this,'♡ 8','♥ 9')">♡ 8</span><span>💬 2</span></div>
+                </span>
+              </div>
+              <div class="oneline" style="padding-left:0">
+                <span style="flex:1">
+                  <div class="meta"><span class="bd" style="padding:0 6px;font-size:9.5px">落地</span><span>· 前日</span></div>
+                  <div class="said">住咗三年先第一次自己一個去睇醫生。原來冇咩大不了。</div>
+                  <div class="foot"><span onclick="hit(this,'♡ 34','♥ 35')">♡ 34</span><span>💬 7</span></div>
+                </span>
+              </div>
+              <div class="oneline" style="padding-left:0;border-bottom:0">
+                <span style="flex:1">
+                  <div class="meta"><span class="bd" style="padding:0 6px;font-size:9.5px">感情</span><span>· 上星期</span></div>
+                  <div class="said">分咗手半年，今日終於刪咗啲相。冇喊。</div>
+                  <div class="foot"><span onclick="hit(this,'♡ 92','♥ 93')">♡ 92</span><span>💬 18</span></div>
+                </span>
+              </div>
+            </div>
+
             <!-- 貼文：IG grid，無限累積。冇 tab — 同一條 scroll 落去就見到 -->
             <div id="pane-b">
               <div class="secline"><span id="postcount">貼文 · 24</span><span class="act">＋ 出貼文</span></div>
@@ -739,6 +785,23 @@
       </div>
 
       <div class="card">
+        <h3>一種嘢，兩個欄位，三個鏡頭</h3>
+        <p>連登點解 work：<b>內容歸「台」，唔歸「人」</b>。你入感情台係因為想睇感情嘢，
+           唔係因為想睇邊個。連登人唔 follow 人。<br>
+           Threads／FB 啱啱相反：<b>內容歸「人」</b>，累積喺 profile。</p>
+        <p>兩個係相反嘅歸檔方式 — 所以唔好當佢係兩個產品。
+           <b>每篇嘢都有「作者」同「台」兩個欄位</b>，之後三個鏡頭睇同一堆嘢：</p>
+        <p>· 篩個<b>台</b> → 連登<br>
+           · 篩個<b>作者</b>（＝ profile）→ Threads／FB<br>
+           · 唔篩、時序排 → Twitter</p>
+        <p>長帖同一句嘅唯一分別係<b>有冇標題</b>：有標題 → 有回覆樹（連登款）；
+           冇標題 → 一句（Threads 款）。兩者都歸台、都歸人。</p>
+        <p>⚠️ <b>真正代價唔係複雜度，係空。</b> 50 個用戶開 8 個台 = 個個台三兩條，似死城，
+           仲衰過冇分台。所以<b>資料模型全部有，介面夠人先出現</b> —
+           上面兩個 🔒 就係未夠量嘅台。</p>
+      </div>
+
+      <div class="card">
         <h3>一句 ＋ 長帖，一條 FEED</h3>
         <p>討論區溝埋兩種嘢：<b>長帖</b>（有標題、有回覆樹，似連登）同<b>一句</b>（似 Twitter，
            半夜擺個諗法出嚟）。唔開第二個 tab —— 視覺上分得出就夠。</p>
@@ -862,6 +925,21 @@
     el.classList.toggle('hit', !on);
   }
   function tog(el){ el.classList.toggle('on'); }
+
+  // 台 = 篩選，唔係另一個地方。同一堆 post，換個鏡頭睇。
+  function board(el, name){
+    document.querySelectorAll('.boards .bd').forEach(b => b.classList.remove('on'));
+    el.classList.add('on');
+    const all = name === '全部';
+    document.querySelectorAll('[data-page=forum] .post, [data-page=forum] .oneline')
+      .forEach(item => {
+        const tag = item.querySelector('.bd');
+        const hit = all || (tag && tag.textContent.trim() === name);
+        item.style.display = hit ? '' : 'none';
+      });
+    const ev = document.querySelector('[data-page=forum] .event');
+    if (ev) ev.style.display = (all || name === '搵人玩') ? '' : 'none';
+  }
 
   // 入會錄音
   const PHRASES = ['今日落雨，我想食碗雲吞麵','部電梯又壞咗，行樓梯上去',
