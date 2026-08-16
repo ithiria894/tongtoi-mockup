@@ -418,6 +418,17 @@
   .join{display:block;text-align:center;background:var(--accent);color:var(--on-accent);
     border-radius:9px;padding:9px;font-size:12.5px;font-weight:700;cursor:pointer}
   .join.done{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+  .pinned{background:var(--card-2);border:1px solid var(--line);border-radius:10px;
+    padding:9px 11px;margin:0 2px 11px;font-size:11.5px;color:var(--dim);font-weight:300;line-height:1.5}
+  .pinned b{color:var(--text);font-weight:600}
+  .poll{border:1px solid var(--line);border-radius:11px;padding:11px 12px;margin:10px 2px 0;
+    background:var(--card-2)}
+  .poll .txt{font-size:12.5px;font-weight:600;margin-bottom:9px}
+  .poll .opt{position:relative;font-size:11px;color:var(--text);padding:5px 8px;margin-bottom:5px;
+    border-radius:6px;overflow:hidden}
+  .poll .bar{position:absolute;inset:0;background:var(--accent);opacity:.18;border-radius:6px}
+  .poll .opt span:last-child{position:relative}
+
   .pushup{font-size:9.5px;color:var(--dim);font-weight:300;padding-top:9px;text-align:center}
 
   /* 傾偈 */
@@ -741,6 +752,7 @@
         <section class="screen" data-page="group">
           <div class="appbar"><h2><span class="back" onclick="go('groups')">‹</span> 行山組</h2><span class="act">201 人</span></div>
           <div class="body">
+            <div class="pinned">📌 <b>置頂</b> · 每個月第一個星期六大團行，新人一定夾到人。</div>
             <div class="event">
               <div class="when">開枱 · 星期六 09:00</div>
               <h3>Quarry Rock</h3>
@@ -759,7 +771,15 @@
               <div class="bub me">我可以車兩個人，Metrotown 上車</div>
               <div class="bub them">我搭你順風車得唔得 🙏</div>
             </div>
+            <div class="poll">
+              <span class="kind">投票 · 抄 TG</span>
+              <div class="txt">今個月第二次行邊條路線？</div>
+              <div class="opt"><span class="bar" style="width:62%"></span><span>Lynn Canyon · 8 票</span></div>
+              <div class="opt"><span class="bar" style="width:31%"></span><span>Lighthouse Park · 4 票</span></div>
+            </div>
             <div class="composer"><span class="field">寫啲嘢…</span><span class="go">送出</span></div>
+            <p class="gridnote" style="padding-top:10px">群嘅標準功能照抄 Telegram：置頂訊息 · 投票 ·
+              管理員權限 · reaction · <b>慢速模式</b>（版主工具）。Topics 分串有量先做。</p>
           </div>
         </section>
 
@@ -862,8 +882,9 @@
             <!-- 貼文：IG grid，無限累積。冇 tab — 同一條 scroll 落去就見到 -->
             <div id="pane-b">
               <div class="secline"><span id="postcount">貼文 · 24</span><span class="act">＋ 出貼文</span></div>
-              <p class="gridnote">呢個 grid 係你本相簿 — <b>出咗大廳嘅同冇出嘅都喺度</b>。
-                ◔ ＝ 淨係喺 profile 出現，冇入過大廳。</p>
+              <p class="gridnote">呢個 grid 係你本相簿 — <b>出咗大廳嘅同冇出嘅都喺度</b>。<br>
+                觀眾分三層（抄 IG Close Friends）：<b>出大廳</b>（成城）·
+                <b>◔ 淨係 profile</b>（撳入嚟先見到）· <b>🔒 只限自己人</b>（你手揀嘅名單）。</p>
               <div class="grid" id="grid"></div>
               <div class="loadmore">↓ 仲有 · 一路捲一路載</div>
             </div>
@@ -1355,6 +1376,18 @@
         </details>
 
         <details>
+          <summary>💥 Hinge 官方數字：撩 prompt 勝過撩相 47%</summary>
+          <p><b>Hinge 標準：6 張相／片 ＋ 3 條 prompt</b>（題庫 105+ 條分 10 類），
+             撳心喺<b>單一張相／單一條 prompt／單一段語音</b>上面，<b>可以附一句 comment</b>，
+             去對方個 Likes You queue。</p>
+          <p>💥 <b>而 Hinge 自己嘅數據：撩「prompt」比撩「相」，成功約到會嘅機率高 47%。</b>
+             即係撩一件<b>文字</b>嘢贏過撩一張臉 — <b>直接驗證咗我哋成個 element 設計</b>。</p>
+          <p>所以 prompt 題庫要寫得好、分夠類 — <b>佢係 profile 嘅靈魂</b>，唔係附加品。</p>
+          <p>唔抄嘅：<b>Roses</b>（付費插隊 — 細社群唔應該有人用錢插隊）、
+             <b>Standouts</b>（會變成人氣榜）。</p>
+        </details>
+
+        <details>
           <summary>Profile：一條 scroll，冇 tab</summary>
           <p><b>簡介</b>（Hinge）：固定幾件 element — 歌／問答／一句話／睇緊。
              每件獨立可以 ♡ — 你 like 嘅係嗰件嘢唔係成個人，開場白自動有咗。</p>
@@ -1513,6 +1546,7 @@
       c.textContent = s;
       // 每三張有一張淨係入 grid、冇出大廳 —— grid 係你本相簿，唔淨係公開嗰啲
       if (i % 3 === 1) c.innerHTML = s + '<span class="onlyme" title="淨係喺 profile 度出現">◔</span>';
+      if (i % 7 === 3) c.innerHTML = s + '<span class="onlyme" title="只限自己人 — 抄 IG Close Friends">🔒</span>';
       c.onclick = () => openPhoto(s, c.className);
       g.appendChild(c);
     });
