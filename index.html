@@ -882,9 +882,9 @@
             <!-- 貼文：IG grid，無限累積。冇 tab — 同一條 scroll 落去就見到 -->
             <div id="pane-b">
               <div class="secline"><span id="postcount">貼文 · 24</span><span class="act">＋ 出貼文</span></div>
-              <p class="gridnote">呢個 grid 係你本相簿 — <b>出咗大廳嘅同冇出嘅都喺度</b>。<br>
-                觀眾分三層（抄 IG Close Friends）：<b>出大廳</b>（成城）·
-                <b>◔ 淨係 profile</b>（撳入嚟先見到）· <b>🔒 只限自己人</b>（你手揀嘅名單）。</p>
+              <p class="gridnote">呢個 grid 係你<b>本相簿</b>，唔係一條 feed —
+                係「話畀人聽你係咩人」，唔係「我今日做咗乜」。<br>
+                得三兩張係<b>正常</b>，唔係未填好。<b>◔ ＝ 淨係喺呢度出現，冇入過大廳。</b></p>
               <div class="grid" id="grid"></div>
               <div class="loadmore">↓ 仲有 · 一路捲一路載</div>
             </div>
@@ -1388,6 +1388,21 @@
         </details>
 
         <details>
+          <summary>Grid 係相簿，唔係 feed</summary>
+          <p>好多人用 IG <b>唔係成日出 post</b> — 佢一世得八個十個 post，
+             就係話畀人聽自己係咩人。</p>
+          <p>所以 grid <b>唔係一條 feed，係一個自我介紹</b>。設計上即係：</p>
+          <p>· <b>唔為「經常出 post」而設計</b><br>
+             · <b>得幾張相係正常，唔係「未填好」</b> — 冇「完成度 60%」呢類催促<br>
+             · 「擺兩三張似 Hinge」係常態唔係例外</p>
+          <p>⚠️ <b>冇 Close Friends。</b> IG 嗰個機制預設有 friend graph，
+             我哋冇 — 抄嗰陣淨係睇機制冇睇前提。而且更根本：
+             <b>個 profile 係展示自己，唔係 share 畀 friend</b>，
+             佢本來就係畀任何撳入嚟嘅人睇，有分層先係矛盾。</p>
+          <p>剩返兩層就夠：<b>出大廳</b>（成城見到）· <b>◔ 淨係 profile</b>（撳入嚟先見到）。</p>
+        </details>
+
+        <details>
           <summary>Profile：一條 scroll，冇 tab</summary>
           <p><b>簡介</b>（Hinge）：固定幾件 element — 歌／問答／一句話／睇緊。
              每件獨立可以 ♡ — 你 like 嘅係嗰件嘢唔係成個人，開場白自動有咗。</p>
@@ -1546,7 +1561,6 @@
       c.textContent = s;
       // 每三張有一張淨係入 grid、冇出大廳 —— grid 係你本相簿，唔淨係公開嗰啲
       if (i % 3 === 1) c.innerHTML = s + '<span class="onlyme" title="淨係喺 profile 度出現">◔</span>';
-      if (i % 7 === 3) c.innerHTML = s + '<span class="onlyme" title="只限自己人 — 抄 IG Close Friends">🔒</span>';
       c.onclick = () => openPhoto(s, c.className);
       g.appendChild(c);
     });
