@@ -121,6 +121,13 @@
   .oneline .foot{display:flex;gap:13px;font-size:10px;color:var(--dim);font-variant-numeric:tabular-nums}
   .oneline .foot span{cursor:pointer}
   .oneline .foot .hit{color:var(--accent)}
+  .fgrp{padding:4px 4px 14px;border-bottom:1px solid var(--line);margin-bottom:12px}
+  .fgrp:last-of-type{border-bottom:0}
+  .flabel{font-size:10.5px;letter-spacing:.16em;color:var(--dim);font-weight:600;margin-bottom:8px}
+  .fhint{font-size:10.5px;color:var(--accent);font-weight:300;line-height:1.55;padding-top:2px}
+  .fnote{font-size:11.5px;color:var(--dim);font-weight:300;line-height:1.6;padding:2px 4px 14px}
+  .fnote b{color:var(--text);font-weight:600}
+
   .endcap{text-align:center;font-size:11px;color:var(--dim);font-weight:300;
     padding:20px 10px 8px;line-height:1.7;border-top:1px solid var(--line);margin-top:6px}
   .endcap b{color:var(--text);font-weight:600}
@@ -141,13 +148,13 @@
     border-radius:999px;padding:0 6px;margin-left:5px;white-space:nowrap;font-weight:400}
   .badge.lang{color:var(--accent);border-color:var(--accent)}
 
-  .compose2{display:grid;grid-template-columns:1fr 1fr;gap:7px}
-  .c2{border:1px solid var(--line);border-radius:11px;padding:8px 11px;
-    font-size:12px;font-weight:600;cursor:pointer;line-height:1.35}
-  .c2 small{display:block;font-size:9.5px;color:var(--dim);font-weight:300;margin-top:2px}
-  .c2.a{color:var(--text)}
-  .c2.b{border-color:var(--accent);color:var(--accent)}
-  .c2.b small{color:var(--accent);opacity:.75}
+  /* 一個框。唔逼用戶出手前宣告「我而家出緊認真帖」。
+     標題同台係可選 — 論壇性係一條有人回嘅 post 長出嚟嘅，唔係一個要揀嘅模式。 */
+  .onebox{border:1px solid var(--line);border-radius:13px;padding:10px 13px 9px;cursor:pointer}
+  .obtop{font-size:12.5px;color:var(--dim);font-weight:300;padding-bottom:8px}
+  .obopt{display:flex;gap:9px;align-items:baseline;flex-wrap:wrap;
+    border-top:1px solid var(--line);padding-top:8px;font-size:10.5px;color:var(--accent);font-weight:400}
+  .obhint{color:var(--dim);font-weight:300;margin-left:auto;font-size:9.5px}
   .sortline{display:flex;justify-content:space-between;align-items:baseline;
     padding:2px 4px 8px;font-size:10.5px;color:var(--dim);font-weight:300;flex:none}
   .sortline span:first-child{color:var(--accent);cursor:pointer}
@@ -162,6 +169,13 @@
     border:1px solid var(--line);color:var(--dim);font-weight:400;cursor:pointer}
   .bd.on{border-color:var(--accent);color:var(--accent);background:var(--card-2)}
   .bd.locked{opacity:.4;cursor:default;border-style:dashed}
+  .bd.talky{border-color:var(--mist);color:var(--mist)}
+  .bd.talky.on{border-color:var(--accent);color:var(--accent)}
+  .bd.addf{border-style:dashed}
+  .bd i{font-style:normal;opacity:.55;font-size:9.5px;font-variant-numeric:tabular-nums}
+  .tagnote{font-size:9.5px;color:var(--dim);font-weight:300;padding:0 4px 8px;
+    line-height:1.55;flex:none}
+  .tagnote b{color:var(--text);font-weight:600}
   .boardnote{font-size:10.5px;color:var(--dim);font-weight:300;padding:6px 4px 2px;line-height:1.6}
 
   .chips{display:flex;gap:6px;flex-wrap:wrap;padding:2px 4px 10px;
@@ -377,24 +391,31 @@
         <section class="screen on" data-page="forum">
           <div class="appbar"><h2>大廳</h2><span class="act" onclick="go('chat')">溫哥華 ▾　✉ 3</span></div>
           <div style="padding:0 2px 9px;flex:none">
-            <div class="compose2">
-              <span class="c2 b">✎ 寫一句<small>諗到就講。「我想要老婆啊」都得</small></span>
-              <span class="c2 a">＋ 開個帖<small>有標題、揀台、想有人討論</small></span>
+            <div class="onebox">
+              <div class="obtop">有咩想講？</div>
+              <div class="obopt">
+                <span>＋ 加標題</span><span>＋ 揀個台</span><span>＋ 相</span>
+                <span class="obhint">唔加都得</span>
+              </div>
             </div>
-          </div>
-          <div class="sortline">
-            <span>最後回覆 ▾</span>
-            <span class="alt">有人回就頂返上嚟 · 冇人回就沉</span>
           </div>
           <div class="boards" id="boards">
             <span class="bd on" onclick="board(this,'全部')">全部</span>
-            <span class="bd" onclick="board(this,'感情')">感情</span>
-            <span class="bd" onclick="board(this,'出櫃')">出櫃</span>
-            <span class="bd" onclick="board(this,'落地')">落地</span>
-            <span class="bd" onclick="board(this,'搵人玩')">搵人玩</span>
-            <span class="bd" onclick="board(this,'吹水')">吹水</span>
-            <span class="bd locked" title="夠 20 條 thread 就會開">買賣 🔒</span>
-            <span class="bd locked" title="夠 20 條 thread 就會開">湊仔 🔒</span>
+            <span class="bd talky" onclick="board(this,'有討論')">💬 有討論</span>
+            <span class="bd" onclick="board(this,'出櫃')">出櫃 <i>24</i></span>
+            <span class="bd" onclick="board(this,'落地')">落地 <i>18</i></span>
+            <span class="bd" onclick="board(this,'搵人玩')">搵人玩 <i>11</i></span>
+            <span class="bd" onclick="board(this,'感情')">感情 <i>9</i></span>
+            <span class="bd" onclick="board(this,'吹水')">吹水 <i>7</i></span>
+            <span class="bd addf" onclick="go('filter')">＋ 存個 filter</span>
+          </div>
+          <div class="tagnote">
+            標籤按活躍度排。冇人用嘅自己沉走、唔會出現 —
+            <b>所以永遠唔會有空台。</b>
+          </div>
+          <div class="sortline">
+            <span onclick="go('filter')">最後回覆 · 溫哥華 · 全部時間　⚙</span>
+            <span class="alt">有人回就浮返上嚟</span>
           </div>
           <div class="body">
             <div class="awake"><span class="lamp"></span>而家仲有 <b>34</b> 個人未瞓</div>
@@ -746,6 +767,81 @@
           </div>
         </section>
 
+        <!-- ══ Filter ══ -->
+        <section class="screen" data-page="filter">
+          <div class="appbar"><h2><span class="back" onclick="go(\'forum\')">‹</span> Filter</h2>
+            <span class="act" onclick="go(\'forum\')">用佢</span></div>
+          <div class="body">
+            <p class="fnote"><b>冇「台」，只有標籤。</b>
+              台係「有／冇」— 冇帖都仲喺度，個空洞望到。
+              標籤係「多／少」— 冇人用就唔出現，冇人知佢存在過。<br>
+              同樣得幾百人，一個顯得死，一個顯得正常。<br><br>
+              連登嘅台係人哋幫你決定；<b>你存低嘅 filter 就係你自己嘅台。</b></p>
+
+            <div class="fgrp"><div class="flabel">只睇有討論嘅</div>
+              <div class="chips" style="border:0;padding-bottom:4px">
+                <span class="chip" onclick="tog(this)">全部</span>
+                <span class="chip on" onclick="tog(this)">3＋ 回覆</span>
+                <span class="chip" onclick="tog(this)">10＋ 回覆</span>
+                <span class="chip" onclick="tog(this)">50＋ 回覆</span>
+              </div>
+              <div class="fhint">⭐ 呢條就係「論壇」。一撳，成條 feed 即刻變咗討論區。</div>
+            </div>
+
+            <div class="fgrp"><div class="flabel">話題</div>
+              <div class="chips" style="border:0;padding-bottom:4px">
+                <span class="chip on" onclick="tog(this)">出櫃</span>
+                <span class="chip on" onclick="tog(this)">落地</span>
+                <span class="chip" onclick="tog(this)">感情</span>
+                <span class="chip" onclick="tog(this)">搵人玩</span>
+                <span class="chip" onclick="tog(this)">吹水</span>
+                <span class="chip" onclick="tog(this)">健康</span>
+              </div>
+            </div>
+
+            <div class="fgrp"><div class="flabel">城市</div>
+              <div class="chips" style="border:0;padding-bottom:4px">
+                <span class="chip on" onclick="tog(this)">溫哥華</span>
+                <span class="chip" onclick="tog(this)">多倫多</span>
+                <span class="chip" onclick="tog(this)">倫敦</span>
+                <span class="chip" onclick="tog(this)">香港</span>
+                <span class="chip" onclick="tog(this)">全部</span>
+              </div>
+            </div>
+
+            <div class="fgrp"><div class="flabel">語言</div>
+              <div class="chips" style="border:0;padding-bottom:4px">
+                <span class="chip on" onclick="tog(this)">粵</span>
+                <span class="chip" onclick="tog(this)">英</span>
+                <span class="chip" onclick="tog(this)">普</span>
+              </div>
+            </div>
+
+            <div class="fgrp"><div class="flabel">時間 · 排序</div>
+              <div class="chips" style="border:0;padding-bottom:4px">
+                <span class="chip" onclick="tog(this)">今日</span>
+                <span class="chip" onclick="tog(this)">今個星期</span>
+                <span class="chip on" onclick="tog(this)">全部時間</span>
+              </div>
+              <div class="chips" style="border:0;padding-bottom:4px">
+                <span class="chip on" onclick="tog(this)">最後回覆</span>
+                <span class="chip" onclick="tog(this)">最新發表</span>
+                <span class="chip" onclick="tog(this)">最多回覆</span>
+              </div>
+              <div class="fhint">搵返舊帖 = 全部時間 ＋ 最多回覆。Threads 做唔到呢樣。</div>
+            </div>
+
+            <div style="padding:6px 4px 0">
+              <span class="cta" onclick="go(\'forum\')">存低做「我嘅台」</span>
+            </div>
+            <p class="fnote" style="margin-top:12px">
+              存低咗會變成上面條 chip 列嘅一粒。你可以有幾多個就幾多個 —
+              <b>唔使等平台開台，唔會有空台。</b>
+            </p>
+          </div>
+          <nav class="tabbar"><span class="on">大廳</span><span>群</span><span>搵人</span><span>我</span></nav>
+        </section>
+
         <!-- ══ 假面 ══ -->
         <section class="screen" data-page="panic">
           <div class="body" style="padding:0;display:flex">
@@ -848,20 +944,44 @@
       </div>
 
       <div class="card">
-        <h3>創作時分，閱讀時唔分</h3>
-        <p>啲人出嘢有兩種意圖：<b>鳩up</b>（表達，冇預期回覆，好密）同
-           <b>有嘢先出</b>（想攞答案／開討論，好疏）。</p>
-        <p>溝埋 → 鳩up 太密會沖走有料嘅（Facebook 就係咁毀咗 group 能見度）。<br>
-           分開 → 大家去晒鳩up 嗰邊，討論區永遠三條，似死城。<br>
-           <b>我哋得幾千人，兩個死法都受唔起。</b></p>
-        <p><b>所以：分喺「寫」嗰陣，唔分喺「睇」嗰陣。</b>
-           寫嘢揀「寫一句」定「開個帖」；睇嘢就一條 feed。</p>
-        <p><b>排序用「最後回覆」頂上去（連登嗰套）：</b>
-           一句冇人回 → 幾個鐘沉底（正確，鳩up 本來就唔應該留低）；
-           有料嘅帖有人回 → 不停頂返上嚟。<b>唔使演算法都自動篩到料。</b></p>
-        <p>⚠️ 呢個更新咗 thesis 入面「時序排」嗰句。Bump 唔係創建時序，
-           但一樣冇演算法、有盡頭、人人睇得明 — 當時個護欄係「唔好無限演算法 feed」，
-           唔係「一定要創建時序」。</p>
+        <h3>兩個「樹」都唔要</h3>
+        <p><b>板塊樹</b>（台 → 子台 → 帖）：十個板塊每個得一兩條，衰過唔分。用標籤取代。</p>
+        <p><b>回覆樹</b>（嵌套回覆，Reddit 嗰種）：要一條帖幾百個回覆、分開幾條支線先有意義。
+           我哋一條帖得五至四十個回覆 — 嵌套只係加視覺複雜度，換唔到嘢。<br>
+           <b>連登係平鋪嘅</b>，去到 1001 個回覆都仲係一條直線，靠<b>引用</b>接返上文。
+           呢個做法喺極大量都撐得住。</p>
+        <p>⭐ <b>結構係要用量嚟養嘅。</b> 台要有帖先唔空、嵌套要有支線先有用、
+           板塊樹要有流量先分得開。人少嗰陣，<b>平鋪 ＋ filter 每次都贏</b> —
+           而 filter 唔使量養，一個人都用得。</p>
+      </div>
+
+      <div class="card">
+        <h3>唔用台，用標籤</h3>
+        <p><b>台係「有／冇」，標籤係「多／少」。</b> 一個空台係一個望到嘅洞；
+           一個少人用嘅標籤只係唔浮出嚟。同樣得幾百人 — 一個顯得死，一個顯得正常。</p>
+        <p>Butterfly 就係台嗰個形態（佢個描述寫住「免費討論區」分 lesbian life／love／
+           LGBTQ／性向／興趣）。而佢而家 2.7 星、兩年冇更新。</p>
+        <p><b>但自由標籤會散晒</b>（出櫃／出柜／comingout 分四邊，然後樣樣都冇人）。所以：
+           ① <b>建議標籤，唔係自由填</b>；② <b>條標籤列按活躍度排</b> —
+           死咗嘅自己沉走，唔使人手清。<b>冇人用嘅標籤自動消失，所以永遠唔會有空台。</b></p>
+      </div>
+
+      <div class="card">
+        <h3>論壇性係長出嚟嘅，唔係揀出嚟嘅</h3>
+        <p>論壇形式（連登、Butterfly）獨有嘅只有三樣：<b>分台瀏覽 · 舊帖搵得返 · 有標題可以掃</b>。
+           而呢三樣<b>全部要有量先有意義</b>。</p>
+        <p>論壇要人多先活得成 — Butterfly 就係論壇形式，佢死緊。
+           微博形式喺人少嗰陣照樣成立：一條 post 得四個回覆都仲似有人。
+           <b>我哋開頭得幾百人，論壇形態喺呢個量級係必死嘅。</b></p>
+        <p><b>但唔一刀切掉論壇。</b> 人人只係出 post；有 post 儲到討論，
+           佢自己就變成一條 thread — 有 permalink、搵得返、不停 bump。
+           <b>論壇性係一條有人回嘅 post 長出嚟嘅結果，唔係一個要揀嘅模式。</b></p>
+        <p>所以個作曲欄係<b>一個框</b>。標題同台係可選（想加先加），
+           唔係出手前嘅關卡 — 逼人宣告「我而家出緊認真帖」本身就係 friction。</p>
+        <p><b>排序：最後回覆頂上去（連登嗰套）。</b> 冇人回就沉，有人回就浮。
+           唔使演算法都自動篩到料。<br>
+           ⚠️ 呢個更新咗 thesis 入面「時序排」— bump 唔係創建時序，但一樣冇演算法、
+           有盡頭、人人睇得明。</p>
       </div>
 
       <div class="card">
@@ -997,7 +1117,8 @@
     document.querySelectorAll('[data-page=forum] .post, [data-page=forum] .oneline')
       .forEach(item => {
         const tag = item.querySelector('.bd');
-        const hit = all || (tag && tag.textContent.trim() === name);
+        const tagName = tag ? tag.textContent.replace(/\s*\d+\s*$/, '').trim() : '';
+        const hit = all || (name === '有討論' ? !!item.querySelector('.bump') : tagName === name);
         item.style.display = hit ? '' : 'none';
       });
     const ev = document.querySelector('[data-page=forum] .event');
