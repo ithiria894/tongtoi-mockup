@@ -141,6 +141,19 @@
     border-radius:999px;padding:0 6px;margin-left:5px;white-space:nowrap;font-weight:400}
   .badge.lang{color:var(--accent);border-color:var(--accent)}
 
+  .compose2{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .c2{border:1px solid var(--line);border-radius:11px;padding:8px 11px;
+    font-size:12px;font-weight:600;cursor:pointer;line-height:1.35}
+  .c2 small{display:block;font-size:9.5px;color:var(--dim);font-weight:300;margin-top:2px}
+  .c2.a{color:var(--text)}
+  .c2.b{border-color:var(--accent);color:var(--accent)}
+  .c2.b small{color:var(--accent);opacity:.75}
+  .sortline{display:flex;justify-content:space-between;align-items:baseline;
+    padding:2px 4px 8px;font-size:10.5px;color:var(--dim);font-weight:300;flex:none}
+  .sortline span:first-child{color:var(--accent);cursor:pointer}
+  .sortline .alt{font-size:9.5px}
+  .bump{color:var(--accent);font-size:9.5px}
+
   /* 台：連登式分台，但夠量先解鎖 —— 空嘅台嚇走人，衰過冇台 */
   .boards{display:flex;gap:6px;overflow-x:auto;padding:0 2px 9px;flex:none;
     border-bottom:1px solid var(--line);margin-bottom:8px;scrollbar-width:none}
@@ -362,12 +375,16 @@
 
         <!-- ══ 討論區 ══ -->
         <section class="screen on" data-page="forum">
-          <div class="appbar"><h2>討論區</h2><span class="act" onclick="go('chat')">溫哥華 ▾　✉ 3</span></div>
+          <div class="appbar"><h2>大廳</h2><span class="act" onclick="go('chat')">溫哥華 ▾　✉ 3</span></div>
           <div style="padding:0 2px 9px;flex:none">
-            <div style="border:1px solid var(--line);border-radius:999px;padding:8px 14px;
-                        font-size:12px;color:var(--dim);font-weight:300;cursor:pointer">
-              寫一句…　<span style="float:right;color:var(--accent)">或者開個新帖</span>
+            <div class="compose2">
+              <span class="c2 b">✎ 寫一句<small>諗到就講。「我想要老婆啊」都得</small></span>
+              <span class="c2 a">＋ 開個帖<small>有標題、揀台、想有人討論</small></span>
             </div>
+          </div>
+          <div class="sortline">
+            <span>最後回覆 ▾</span>
+            <span class="alt">有人回就頂返上嚟 · 冇人回就沉</span>
           </div>
           <div class="boards" id="boards">
             <span class="bd on" onclick="board(this,'全部')">全部</span>
@@ -384,7 +401,7 @@
             <article class="post feedrow" onclick="go('thread')">
               <span class="ava" onclick="event.stopPropagation();go('other')">Y</span>
               <span style="flex:1">
-              <div class="meta"><span class="who">Yuen</span><span class="bd" style="padding:0 6px;font-size:9.5px">落地</span><span class="city">香港</span><span>· 1 小時前</span></div>
+              <div class="meta"><span class="who">Yuen</span><span class="bd" style="padding:0 6px;font-size:9.5px">落地</span><span class="city">香港</span><span class="bump">↑ 6 分鐘前有新回覆</span></div>
               <h3>移咗民之後點識人？</h3>
               <p>香港有 Butterfly 都算有個地方，出到去先發現咩都冇。</p>
               <div class="stat"><span>♡ 204</span><span>86 回覆</span></div>
@@ -418,7 +435,7 @@
             <article class="post feedrow" onclick="go('thread')">
               <span class="ava" onclick="event.stopPropagation();go('other')">細</span>
               <span style="flex:1">
-              <div class="meta"><span class="who">細細粒</span><span class="bd" style="padding:0 6px;font-size:9.5px">出櫃</span><span class="city">多倫多</span><span>· 今朝</span></div>
+              <div class="meta"><span class="who">細細粒</span><span class="bd" style="padding:0 6px;font-size:9.5px">出櫃</span><span class="city">多倫多</span><span class="bump">↑ 22 分鐘前有新回覆</span></div>
               <h3>同屋企出咗櫃，佢哋好平靜，我反而喊咗</h3>
               <p>成日以為最難嗰關會好慘烈，點知阿媽淨係話咗句「哦，食飯先啦」。</p>
               <div class="stat"><span>♡ 512</span><span>127 回覆</span></div>
@@ -446,7 +463,7 @@
             <article class="post feedrow" onclick="go('thread')">
               <span class="ava" onclick="event.stopPropagation();go('other')">敏</span>
               <span style="flex:1">
-              <div class="meta"><span class="who">敏</span><span class="bd" style="padding:0 6px;font-size:9.5px">出櫃</span><span class="city">高貴林</span><span>· 琴日</span></div>
+              <div class="meta"><span class="who">敏</span><span class="bd" style="padding:0 6px;font-size:9.5px">出櫃</span><span class="city">高貴林</span><span>· 琴日發表 · 靜咗</span></div>
               <h3>有冇人試過同屋企人講咗之後又扮返冇事</h3>
               <p>我而家就係咁。唔知係咪自己諗多咗。</p>
               <div class="stat"><span>♡ 88</span><span>41 回覆</span></div>
@@ -463,7 +480,7 @@
 
         <!-- ══ 討論區內頁 ══ -->
         <section class="screen" data-page="thread">
-          <div class="appbar"><h2><span class="back" onclick="go('forum')">‹</span> 討論區</h2><span class="act">⋯</span></div>
+          <div class="appbar"><h2><span class="back" onclick="go('forum')">‹</span> 大廳</h2><span class="act">⋯</span></div>
           <div class="body">
             <div class="op">
               <div class="meta"><span class="who">Yuen</span><span class="city">香港</span><span>· 1 小時前</span></div>
@@ -752,7 +769,7 @@
         </section>
 
         <nav class="tabbar" id="tabbar">
-          <button data-tab="forum"  onclick="go('forum')"  class="on">討論區</button>
+          <button data-tab="forum"  onclick="go('forum')"  class="on">大廳</button>
           <button data-tab="groups" onclick="go('groups')">群</button>
           <button data-tab="people" onclick="go('people')">搵人</button>
           <button data-tab="me"     onclick="me()">我</button>
@@ -765,7 +782,7 @@
         <h3>試下撳</h3>
         <div class="jump">
           <button onclick="go('verify')">入會（錄音）</button>
-          <button onclick="go('forum')">討論區</button>
+          <button onclick="go('forum')">大廳</button>
           <button onclick="go('thread')">帖內頁</button>
           <button onclick="go('groups')">群</button>
           <button onclick="go('group')">開枱</button>
@@ -776,7 +793,7 @@
           <button onclick="go('panic')">假面 🚨</button>
         </div>
         <p class="hintbar"><b>三個鏡頭試一次：</b>
-          ① 討論區碌落去（Twitter）→ ② 撳個台篩返主題（連登）→ ③ <b>撳個頭像</b>入佢 profile（IG＋Hinge＋Threads）。<br>
+          ① 大廳碌落去（Twitter）→ ② 撳個台篩返主題（連登）→ ③ <b>撳個頭像</b>入佢 profile（IG＋Hinge＋Threads）。<br>
           撳帖<b>內容</b>入內頁，撳<b>頭像</b>入個人 —— 兩個唔同目的地。
           <span class="kbd">← →</span> 揭版。</p>
       </div>
@@ -816,6 +833,35 @@
         <p>⚠️ <b>真正代價唔係複雜度，係空。</b> 50 個用戶開 8 個台 = 個個台三兩條，似死城，
            仲衰過冇分台。所以<b>資料模型全部有，介面夠人先出現</b> —
            上面兩個 🔒 就係未夠量嘅台。</p>
+      </div>
+
+      <div class="card">
+        <h3>點解唔叫「討論區」</h3>
+        <p><b>個名本身就會落框。</b> 叫「討論區」，人一睇就以為要好似連登咁開個正經帖 —
+           想嗌一句「我想要老婆啊」嘅人會覺得自己唔啱格式，然後唔出。</p>
+        <p>所以個 label 唔可以規定格式。而家用緊 <b>大廳</b> —
+           一間房，大家喺度，冇話你要講咩點講。其他人選：<b>講嘢</b>（鳩up 係講嘢，討論都係講嘢）、
+           <b>而家</b>（乾、接返「未瞓」）。一句就換得。</p>
+        <p><b>唔使分兩個入口</b> — 分嘅位喺個作曲欄，唔喺個 tab。
+           而且「✎ 寫一句」要做主角（高亮嗰個），「＋ 開個帖」做次要：
+           <b>低門檻嗰個先應該最搶眼。</b></p>
+      </div>
+
+      <div class="card">
+        <h3>創作時分，閱讀時唔分</h3>
+        <p>啲人出嘢有兩種意圖：<b>鳩up</b>（表達，冇預期回覆，好密）同
+           <b>有嘢先出</b>（想攞答案／開討論，好疏）。</p>
+        <p>溝埋 → 鳩up 太密會沖走有料嘅（Facebook 就係咁毀咗 group 能見度）。<br>
+           分開 → 大家去晒鳩up 嗰邊，討論區永遠三條，似死城。<br>
+           <b>我哋得幾千人，兩個死法都受唔起。</b></p>
+        <p><b>所以：分喺「寫」嗰陣，唔分喺「睇」嗰陣。</b>
+           寫嘢揀「寫一句」定「開個帖」；睇嘢就一條 feed。</p>
+        <p><b>排序用「最後回覆」頂上去（連登嗰套）：</b>
+           一句冇人回 → 幾個鐘沉底（正確，鳩up 本來就唔應該留低）；
+           有料嘅帖有人回 → 不停頂返上嚟。<b>唔使演算法都自動篩到料。</b></p>
+        <p>⚠️ 呢個更新咗 thesis 入面「時序排」嗰句。Bump 唔係創建時序，
+           但一樣冇演算法、有盡頭、人人睇得明 — 當時個護欄係「唔好無限演算法 feed」，
+           唔係「一定要創建時序」。</p>
       </div>
 
       <div class="card">
