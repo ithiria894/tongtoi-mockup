@@ -139,7 +139,7 @@
   .post p{font-size:12px;color:var(--dim);margin:0;font-weight:300}
   .stat{margin-top:7px;font-size:10px;color:var(--dim);display:flex;gap:13px;font-variant-numeric:tabular-nums}
 
-  /* 「一句」— 短貼文。同長帖溝埋喺同一條 feed，唔開第二個 tab。 */
+  /* 「一句」— 短 post。同長 post 溝埋喺同一條 feed，唔開第二個 tab。 */
   .oneline{border-bottom:1px solid var(--line);padding:12px 4px;display:flex;gap:10px}
   .oneline .ava{width:32px;height:32px;font-size:13px}
   .oneline .said{font-size:13px;font-weight:400;line-height:1.6;margin:1px 0 6px}
@@ -175,9 +175,9 @@
     border-radius:999px;padding:0 6px;margin-left:5px;white-space:nowrap;font-weight:400}
   .badge.lang{color:var(--accent);border-color:var(--accent)}
 
-  /* 一個框。唔逼用戶出手前宣告「我而家出緊認真帖」。
+  /* 一個框。唔逼用戶出手前宣告「我而家出緊個認真 post」。
      標題同台係可選 — 論壇性係一條有人回嘅 post 長出嚟嘅，唔係一個要揀嘅模式。 */
-  /* 一個框。城市／語言由系統填（profile ＋ 入會嗰段錄音已經知），
+  /* 一個框。城市／語言由系統填（profile ＋ 註冊嗰段錄音已經知），
      話題係打完之後建議 — 撳一下接受，唔撳就算。用戶只係打字。 */
   .onebox{border:1px solid var(--line);border-radius:13px;padding:10px 13px 9px;cursor:text}
   .obtop{font-size:12.5px;color:var(--dim);font-weight:300;padding-bottom:8px;min-height:19px}
@@ -244,7 +244,7 @@
   .ghost{display:block;text-align:center;border:1px solid var(--line);color:var(--text);
     border-radius:11px;padding:10px;font-size:12.5px;font-weight:600;cursor:pointer;margin-top:8px}
 
-  /* 入會 */
+  /* 註冊 */
   .verify{padding:4px 4px 0}
   .verify h3{font-size:20px;font-weight:800;line-height:1.45;margin:6px 0 9px}
   .verify>p{font-size:12px;color:var(--dim);margin:0 0 18px;font-weight:300}
@@ -392,7 +392,7 @@
   .pname{font-size:16px;font-weight:800}
   .pmeta{font-size:11px;color:var(--dim);font-weight:300;margin-top:1px}
   .pbio{font-size:12.5px;font-weight:300;margin-top:5px;line-height:1.55}
-  /* 簡介同貼文冇分 tab —— 一條 scroll，分隔線隔開。
+  /* 簡介同 post 冇分 tab —— 一條 scroll，分隔線隔開。
      分咗 tab 嘅話冇人會撳入第二格；IG 自己都係一條 scroll。 */
   .secline{display:flex;justify-content:space-between;align-items:center;
     margin:16px 4px 9px;padding-top:13px;border-top:1px solid var(--line);
@@ -423,7 +423,7 @@
     font-size:11.5px;color:var(--dim);font-weight:300;cursor:pointer}
   .adder:hover{border-color:var(--accent);color:var(--accent)}
 
-  /* 貼文：IG grid */
+  /* post：IG grid */
   .gridbar{display:flex;justify-content:space-between;align-items:center;
     padding:0 4px 9px;font-size:10.5px;color:var(--dim);font-variant-numeric:tabular-nums}
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:0 4px}
@@ -570,12 +570,12 @@
     <h1 class="wm">未<em>定</em>名</h1>
     <p class="sub">廣東話女同社群 app · 設計草圖</p>
     <ul class="usecases">
-      <li><b>諗唔到做乜</b> — 開 app 去大廳碌下人講緊乜</li>
+      <li><b>諗唔到做乜</b> — 開 app 去 Thread 碌下人講緊乜</li>
       <li><b>想同熟啲嘅人傾</b> — 入咗嘅群入面傾</li>
       <li><b>想識人</b> — 搵人嗰版掃，好似交友 app</li>
       <li><b>想砌自己個 profile</b> — 出 post，好似 IG／Threads</li>
     </ul>
-    <p>上載相可以揀<b>出唔出大廳</b> — 有人淨係想加落自己 profile，唔想全世界見到。
+    <p>上載相可以揀<b>出唔出 Thread</b> — 有人淨係想加落自己 profile，唔想全世界見到。
        但文字 post 本身就係對住成個城市講，所以預設出。</p>
   </header>
 
@@ -585,9 +585,9 @@
       <div class="phone">
         <div class="status"><span>01:24</span><span>▮▮▮</span></div>
 
-        <!-- ══ 入會 ══ -->
+        <!-- ══ 註冊 ══ -->
         <section class="screen" data-page="verify">
-          <div class="appbar"><h2>入會</h2></div>
+          <div class="appbar"><h2>註冊</h2></div>
           <div class="body">
             <div class="verify">
               <h3>唔使自拍。<br>讀一句嘢就得。</h3>
@@ -614,7 +614,7 @@
 
         <!-- ══ 討論區 ══ -->
         <section class="screen on" data-page="forum">
-          <div class="appbar"><h2>大廳</h2>
+          <div class="appbar"><h2>Thread</h2>
             <span class="act"><span onclick="go('notif')">🔔 <b class="dot">5</b></span>
             　<span onclick="go('chat')">✉ 3</span>　溫哥華 ▾</span></div>
           <div style="padding:0 2px 9px;flex:none">
@@ -623,15 +623,15 @@
               <div class="obshot" id="obshot"><span class="mini">🍜</span>
                 <span class="pubrow">
                   <span class="pubtoggle on" id="pubt" onclick="event.stopPropagation();pubtog()">
-                    <i></i>出大廳</span>
+                    <i></i>出 Thread</span>
                   <span class="pubwhy" id="pubwhy">有字 → 預設出</span>
                 </span>
               </div>
             </div>
-            <p class="nonote">帖可以完全冇話題、冇 tag — 呢個係常態。撳個框睇示範（兩篇輪住嚟）。</p>
+            <p class="nonote">post 可以完全冇話題、冇 tag — 呢個係常態。撳個框睇示範（兩篇輪住嚟）。</p>
             <div class="toast" id="toast">
               <span>已出 · 似係講緊 <b id="tt">出櫃</b> · <span id="ttfix" onclick="fixtag()">改</span>
-              <span style="opacity:.6">（大部分帖唔會有呢個）</span></span>
+              <span style="opacity:.6">（大部分 post 唔會有呢個）</span></span>
             </div>
           </div>
           <div class="boards" id="boards">
@@ -648,7 +648,7 @@
             標籤按活躍度排。冇人用嘅自己沉走、唔會出現 —
             <b>所以永遠唔會有空台。</b>
           </div>
-          <p class="twoway">大廳<b>淨係得公開覆</b>。想私下搵一個人 →
+          <p class="twoway">Thread <b>淨係得公開覆</b>。想私下搵一個人 →
             <b>撳佢個頭像入 profile</b>，喺度搵返嗰句／嗰張相，就嗰件嘢搵佢。<br>
             <b>睇你喺邊度，就知你做緊邊樣</b> — 冇得誤會。<br>
             <b>唔使自己搵返</b>：你由邊句撳入去，profile 就跳到嗰句。</p>
@@ -743,7 +743,7 @@
 
         <!-- ══ 討論區內頁 ══ -->
         <section class="screen" data-page="thread">
-          <div class="appbar"><h2><span class="back" onclick="go('forum')">‹</span> 大廳</h2><span class="act">⋯</span></div>
+          <div class="appbar"><h2><span class="back" onclick="go('forum')">‹</span> Thread</h2><span class="act">⋯</span></div>
           <div class="body">
             <div class="op">
               <div class="meta"><span class="who">Yuen</span><span class="city">香港</span><span>· 1 小時前</span></div>
@@ -823,7 +823,7 @@
                 <span class="more" id="joincount">5 個報咗名 · 仲有 3 位</span>
               </div>
               <span class="join" id="joinbtn" onclick="joinEvent()">我要去</span>
-              <div class="pushup">✓ 已貼咗上大廳 · 全城見到，任何人報得名</div>
+              <div class="pushup">✓ 已貼咗上 Thread · 全城見到，任何人報得名</div>
             </div>
             <div class="thread">
               <div class="bub them">落雨點算？</div>
@@ -863,7 +863,7 @@
             </div>
             <p class="deckend" id="deckend">掃到底就冇 — 呢度得幾千人，唔係無限供應。</p>
           </div>
-          <nav class="tabbar"><span>大廳</span><span>群</span><span class="on">搵人</span><span>我</span></nav>
+          <nav class="tabbar"><span>Thread</span><span>群</span><span class="on">搵人</span><span>我</span></nav>
         </section>
 
         <!-- ══ 我 / 人哋 profile ══ -->
@@ -909,7 +909,7 @@
                   <div class="sub2">ViuTV · 追到第 11 集，有冇人一齊喊</div>
                   <span class="like" onclick="lk(this)">♡</span>
                 </div>
-                <div class="adder" onclick="go('editor')">＋ 加一件 · 釘貼文／歌／問答／一句話／睇緊…</div>
+                <div class="adder" onclick="go('editor')">＋ 加一件 · 釘 post／歌／問答／一句話／睇緊…</div>
               </div>
             </div>
 
@@ -953,21 +953,21 @@
               </div>
             </div>
 
-            <!-- 貼文：IG grid，無限累積。冇 tab — 同一條 scroll 落去就見到 -->
+            <!-- post：IG grid，無限累積。冇 tab — 同一條 scroll 落去就見到 -->
             <div id="pane-b">
-              <div class="secline"><span id="postcount">貼文 · 24</span><span class="act">＋ 出貼文</span></div>
+              <div class="secline"><span id="postcount">post · 24</span><span class="act">＋ 出 post</span></div>
               <p class="gridnote">呢個 grid 係你<b>本相簿</b>，唔係一條 feed —
                 係「話畀人聽你係咩人」，唔係「我今日做咗乜」。<br>
-                得三兩張係<b>正常</b>，唔係未填好。<b>◔ ＝ 淨係喺呢度出現，冇入過大廳。</b></p>
+                得三兩張係<b>正常</b>，唔係未填好。<b>◔ ＝ 淨係喺呢度出現，冇入過 Thread。</b></p>
               <div class="grid" id="grid"></div>
               <div class="loadmore">↓ 仲有 · 一路捲一路載</div>
             </div>
           </div>
         </section>
 
-        <!-- ══ 貼文內頁 ══ -->
+        <!-- ══ post 內頁 ══ -->
         <section class="screen" data-page="photo">
-          <div class="appbar"><h2><span class="back" onclick="go('me')">‹</span> 貼文</h2><span class="act">⋯</span></div>
+          <div class="appbar"><h2><span class="back" onclick="go('me')">‹</span> post</h2><span class="act">⋯</span></div>
           <div class="body">
             <div class="photo-big g1" id="photo-big">🍜</div>
             <p class="caption" id="photo-cap">今晚自己煮，太多咗，有冇人要 🍜</p>
@@ -1039,7 +1039,7 @@
             <span class="act" onclick="go('people')">用佢</span></div>
           <div class="body">
             <p class="fnote">呢啲係罐頭 — 照業界標準做，唔使發明。
-              （大廳嗰個 Filter 係篩<b>內容</b>，呢個係篩<b>人</b>，兩樣嘢。）</p>
+              （Thread 嗰個 Filter 係篩<b>內容</b>，呢個係篩<b>人</b>，兩樣嘢。）</p>
 
             <div class="fgrp"><div class="flabel">年齡</div>
               <div class="rangeline"><span>25</span><span class="track"><i></i></span><span>42</span></div>
@@ -1093,11 +1093,11 @@
 
             <div style="padding:6px 4px 0"><span class="cta" onclick="go('people')">用佢</span></div>
             <p class="fnote" style="margin-top:12px">
-              ⚠️ <b>「已驗證」唔做 filter</b> — 全部人都已驗證（入會嗰關過咗先入到嚟），
+              ⚠️ <b>「已驗證」唔做 filter</b> — 全部人都已驗證（註冊嗰關過咗先入到嚟），
               放喺度會令人以為有分等級。
             </p>
           </div>
-          <nav class="tabbar"><span>大廳</span><span>群</span><span class="on">搵人</span><span>我</span></nav>
+          <nav class="tabbar"><span>Thread</span><span>群</span><span class="on">搵人</span><span>我</span></nav>
         </section>
 
         <!-- ══ 撩你嘅人 ══ -->
@@ -1146,7 +1146,7 @@
               呢個對未出櫃嗰批好重要 — <b>拒絕唔使講出口</b>。
             </p>
           </div>
-          <nav class="tabbar"><span>大廳</span><span>群</span><span class="on">搵人</span><span>我</span></nav>
+          <nav class="tabbar"><span>Thread</span><span>群</span><span class="on">搵人</span><span>我</span></nav>
         </section>
 
         <!-- ══ 通知 ══ -->
@@ -1200,7 +1200,7 @@
               然後佢走。要溝埋「你未見過嘅嘢」加分。細節待定。
             </p>
           </div>
-          <nav class="tabbar"><span class="on">大廳</span><span>群</span><span>搵人</span><span>我</span></nav>
+          <nav class="tabbar"><span class="on">Thread</span><span>群</span><span>搵人</span><span>我</span></nav>
         </section>
 
         <!-- ══ Filter ══ -->
@@ -1270,7 +1270,7 @@
               <div class="fhint">呢層唔負責結構，所以唔使乾淨 — 淨係用嚟偶遇。</div>
             </div>
 
-            <div class="fgrp"><div class="flabel">作者住邊 · 唔係帖嘅屬性</div>
+            <div class="fgrp"><div class="flabel">作者住邊 · 唔係 post 嘅屬性</div>
               <div class="chips" style="border:0;padding-bottom:4px">
                 <span class="chip on" onclick="tog(this)">溫哥華</span>
                 <span class="chip" onclick="tog(this)">多倫多</span>
@@ -1278,7 +1278,7 @@
                 <span class="chip" onclick="tog(this)">香港</span>
                 <span class="chip" onclick="tog(this)">全部</span>
               </div>
-              <div class="fhint">「瞓唔著」關溫哥華咩事？硬塞城市落每篇帖會令 filter 廢咗 —
+              <div class="fhint">「瞓唔著」關溫哥華咩事？硬塞城市落每個 post 會令 filter 廢咗 —
                 所以篩「溫哥華」＝篩「作者住溫哥華」。</div>
             </div>
 
@@ -1296,7 +1296,7 @@
               <b>你存低嘅 filter 就係你自己嘅台</b> — 而且唔使等平台開台，唔會有空台。
             </p>
           </div>
-          <nav class="tabbar"><span class="on">大廳</span><span>群</span><span>搵人</span><span>我</span></nav>
+          <nav class="tabbar"><span class="on">Thread</span><span>群</span><span>搵人</span><span>我</span></nav>
         </section>
 
         <!-- ══ 假面 ══ -->
@@ -1322,7 +1322,7 @@
         </section>
 
         <nav class="tabbar" id="tabbar">
-          <button data-tab="forum"  onclick="go('forum')"  class="on">大廳</button>
+          <button data-tab="forum"  onclick="go('forum')"  class="on">Thread</button>
           <button data-tab="groups" onclick="go('groups')">群</button>
           <button data-tab="people" onclick="go('people')">搵人</button>
           <button data-tab="me"     onclick="me()">我</button>
@@ -1335,10 +1335,10 @@
       <div class="panel">
         <div class="ptitle">試下撳</div>
         <div class="jump">
-          <button onclick="go('verify')">入會</button>
-          <button onclick="go('forum')">大廳</button>
-          <button onclick="go('thread')">帖內頁</button>
-          <button onclick="go('filter')">大廳 Filter</button>
+          <button onclick="go('verify')">註冊</button>
+          <button onclick="go('forum')">Thread</button>
+          <button onclick="go('thread')">post 內頁</button>
+          <button onclick="go('filter')">Thread Filter</button>
           <button onclick="go('pfilter')">搵人 Filter</button>
           <button onclick="go('groups')">群</button>
           <button onclick="go('group')">開枱</button>
@@ -1357,7 +1357,7 @@
           <button data-n="24" class="on" onclick="me();buildGrid(24)">24 張 · IG 樣</button>
         </div>
         <p class="phint">
-          撳帖<b>內容</b>入內頁，撳<b>頭像</b>入個人 — 兩個唔同目的地。<br>
+          撳 post <b>內容</b>入內頁，撳<b>頭像</b>入個人 — 兩個唔同目的地。<br>
           <span class="kbd">←</span> <span class="kbd">→</span> 揭版。
         </p>
       </div>
@@ -1370,7 +1370,7 @@
           <p>排序抄 <b>Reddit</b>（Hot／New／Top＋時間／Rising）· 狀態抄 <b>Discourse</b>
              （未讀／我未見過／仲未有人覆）· 交友 filter 抄 <b>Tinder／Hinge</b>
              （年齡 range／地區／語言／最近上線／想搵咩）· 群抄 <b>WhatsApp／TG</b> ·
-             Profile ＝ <b>IG</b> 相 grid ＋ <b>Hinge</b> 就單件私訊 ＋ <b>Threads</b> 貼文歷史 ·
+             Profile ＝ <b>IG</b> 相 grid ＋ <b>Hinge</b> 就單件私訊 ＋ <b>Threads</b> post 歷史 ·
              出 post 抄 <b>Threads</b> 一個框。</p>
           <p><b>只有真係冇人做過嘅先自己諗：</b> 語音門檻（唔使自拍）· 未瞓 · 假面 ·
              存低 filter 當自己個台。</p>
@@ -1388,7 +1388,7 @@
              <b>約束用戶點用</b>嘅規矩（佢應該點改名、應該點玩）⚠️ 通常係諗多咗。</p>
           <p>今日拆咗兩條：<s>群要圍繞一件事</s>、<s>唔開全城大群</s> — 兩條都係管用戶。
              留低嘅（作曲框一個輸入位、空台唔好開、AI 只放行）全部係管我哋自己。</p>
-          <p>如果個個都躲喺群唔出大廳 — <b>嗰個係數據，話畀我哋知大廳做得唔夠好，
+          <p>如果個個都躲喺群唔出 Thread — <b>嗰個係數據，話畀我哋知 Thread 做得唔夠好，
              唔係用戶做錯。</b></p>
         </details>
 
@@ -1404,23 +1404,23 @@
 
         <details>
           <summary>城市／語言係「人」嘅屬性</summary>
-          <p><b>「瞓唔著」關溫哥華咩事？</b> 冇。硬塞個城市落每篇帖，
+          <p><b>「瞓唔著」關溫哥華咩事？</b> 冇。硬塞個城市落每個 post，
              篩「溫哥華」就會撈返一堆無關嘅嘢 — <b>個 filter 就廢咗</b>。</p>
-          <p>阿霖住溫東，寫喺佢 profile；入會嗰段錄音已經標咗佢講粵語。
+          <p>阿霖住溫東，寫喺佢 profile；註冊嗰段錄音已經標咗佢講粵語。
              所以<b>篩「溫哥華」＝篩「作者住溫哥華」</b>，永遠準。</p>
-          <p>帖可以<b>完全冇話題、冇 tag</b> — 呢個係常態。冇建議就連 toast 都唔出。</p>
+          <p>post 可以<b>完全冇話題、冇 tag</b> — 呢個係常態。冇建議就連 toast 都唔出。</p>
         </details>
 
         <details>
-          <summary>唔叫「討論區」，叫「大廳」</summary>
-          <p>個名會落框。叫「討論區」，人一睇就以為要好似連登咁開正經帖 —
+          <summary>唔叫「討論區」，叫「Thread」</summary>
+          <p>個名會落框。叫「討論區」，人一睇就以為要好似連登咁開正經 post —
              想嗌一句「我想要老婆啊」嘅人會覺得自己唔啱格式，然後唔出。</p>
           <p>所以 label 唔可以規定格式。其他人選：講嘢 · 而家。</p>
         </details>
 
         <details>
           <summary>論壇性係長出嚟，唔係揀出嚟</summary>
-          <p>論壇獨有嘅只有三樣：<b>分台瀏覽 · 舊帖搵得返 · 有標題可以掃</b>，
+          <p>論壇獨有嘅只有三樣：<b>分台瀏覽 · 舊 post 搵得返 · 有標題可以掃</b>，
              而三樣都要有量先有意義。Butterfly 就係論壇形態，佢死緊。</p>
           <p>所以：人人只係出 post；<b>儲到討論就自己變成一條 thread</b>。
              排序用<b>最後回覆</b>頂上去（連登嗰套）— 冇人回就沉，有人回就浮，
@@ -1432,7 +1432,7 @@
           <p><b>台係「有／冇」，標籤係「多／少」。</b> 空台係一個望到嘅洞；
              少人用嘅標籤只係唔浮出嚟。同樣得幾百人 — 一個顯得死，一個顯得正常。</p>
           <p>但自由標籤會散（多倫多／Toronto／多倫多多倫多）。所以分三層：</p>
-          <p>① <b>人嘅屬性</b>（城市·語言）— 喺 profile，唔喺帖<br>
+          <p>① <b>人嘅屬性</b>（城市·語言）— 喺 profile，唔喺 post<br>
              ② <b>策展話題</b>（出櫃·落地·感情）— 自動建議 ＋ 同義詞歸邊<br>
              ③ <b>自由 tag</b>（#行山 #打邊爐）— 隨便打，<b>散咗都唔緊要</b>，
                 因為冇人靠佢瀏覽</p>
@@ -1441,7 +1441,7 @@
         </details>
 
         <details>
-          <summary>一句 ＋ 長帖，一條 feed</summary>
+          <summary>一句 ＋ 長 post，一條 feed</summary>
           <p>唔開第二個 tab，視覺上分得出就夠。<b>但唔做無限捲</b> —
              thesis 話 swipe 係老虎機，無限隨機 feed 係同一機制。</p>
           <p><b>無限 ＋ 演算法 = 老虎機。有限 ＋ 有序 = 告示板。</b>
@@ -1456,11 +1456,11 @@
              一定係私下示好，唔可能誤會。<b>我哋兩樣都有</b>，所以唔可以喺同一個位擺兩個掣，
              靠 label 分。</p>
           <p>⭐ <b>用結構分，唔靠 label：</b><br>
-             · <b>大廳同討論串</b> — 淨係公開覆，<b>冇私下入口</b><br>
+             · <b>Thread 同討論串</b> — 淨係公開覆，<b>冇私下入口</b><br>
              · <b>想私下搵佢</b> — 撳佢個頭像入 profile，喺度搵返嗰句／嗰張相，
                <b>就嗰件嘢搵佢</b></p>
           <p><b>睇你喺邊度，就知你做緊邊樣。</b> 冇得誤會。</p>
-          <p><b>點解唔喺大廳畀個捷徑：防 spam。</b> 一撳就出手，成個 feed 會變晒騷擾。
+          <p><b>點解唔喺 Thread 畀個捷徑：防 spam。</b> 一撳就出手，成個 feed 會變晒騷擾。
              入口喺 profile，你要撳入去、見過佢係咩人先搵得到佢。</p>
           <p>⚠️ 但<b>摩擦擋唔到有心人</b>。由 feed 撳頭像會直接跳到嗰句（唔使你自己捐返出嚟），
              即係兩撳搞掂 — 真心想 spam 嘅人唔會介意。</p>
@@ -1469,7 +1469,7 @@
              <b>全部用配額，唔用摩擦</b> — 因為摩擦只會煩親正常人。</p>
           <p>兩樣一齊：<b>入口喺 profile</b>（擋衝動、逼你睇過個人）＋
              <b>每日配額</b>（擋真 spam）。<br>
-             <b>而配額淨係計私下搵人。公開覆人（大廳／討論串）冇上限 — 嗰度係 Twitter。</b></p>
+             <b>而配額淨係計私下搵人。公開覆人（Thread／討論串）冇上限 — 嗰度係 Twitter。</b></p>
           <p>💰 <b>收錢就收喺呢一格，唔收第二度。</b> Hinge 8 like／日、Tinder Super Like、
              Bumble Extended — 全部揀咗同一格，唔係巧合：呢度係唯一一個
              「用戶真心想要多啲」而畀咗又唔會整污糟其他人體驗嘅位。<br>
@@ -1497,7 +1497,7 @@
           <p>最後嗰點最緊要：<b>冇覆 → 個對話根本冇開過</b>，你個 inbox 唔會多咗個陌生人。
              呢個亦都係「安靜拒絕」嘅由來。</p>
           <p>所以準確講：<b>公開／私底下呢個軸抄 Twitter；私底下嗰邊點運作，抄 Hinge。</b></p>
-          <p>而且<b>私訊入口喺內容出現嘅每一個地方都有</b> — 大廳、討論串、profile、相內頁。
+          <p>而且<b>私訊入口喺內容出現嘅每一個地方都有</b> — Thread、討論串、profile、相內頁。
              唔止喺 profile 先有。</p>
         </details>
 
@@ -1511,7 +1511,7 @@
              策展嘅 prompt 係佢<b>想你睇到</b>嘅自己。<br>
              討論串入面嗰句回覆係佢<b>冇防備</b>嗰陣點對人。<br>
              <b>後者係更好嘅證據</b> — 而且啱返個 thesis：你識人係經過內容，唔係經過 profile。</p>
-          <p>而且呢個令 profile 唔使「填」— 你喺大廳講過嘢，你個 profile 就自動有嘢畀人做入口。</p>
+          <p>而且呢個令 profile 唔使「填」— 你喺 Thread 講過嘢，你個 profile 就自動有嘢畀人做入口。</p>
         </details>
 
         <details>
@@ -1538,7 +1538,7 @@
              我哋冇 — 抄嗰陣淨係睇機制冇睇前提。而且更根本：
              <b>個 profile 係展示自己，唔係 share 畀 friend</b>，
              佢本來就係畀任何撳入嚟嘅人睇，有分層先係矛盾。</p>
-          <p>剩返兩層就夠：<b>出大廳</b>（成城見到）· <b>◔ 淨係 profile</b>（撳入嚟先見到）。</p>
+          <p>剩返兩層就夠：<b>出 Thread</b>（成城見到）· <b>◔ 淨係 profile</b>（撳入嚟先見到）。</p>
         </details>
 
         <details>
@@ -1546,7 +1546,7 @@
           <p><b>簡介</b>（Hinge）：固定幾件 element — 歌／問答／一句話／睇緊。
              每件獨立可以 ♡ — 你回應嘅係嗰件嘢唔係成個人，開場白自動有咗。</p>
           <p><b>講過嘅嘢</b>（Threads／FB）：自己出過嘅一句。<br>
-             <b>貼文</b>（IG）：無限 grid，最新喺前。</p>
+             <b>post</b>（IG）：無限 grid，最新喺前。</p>
           <p>試過分 tab，拆咗 — 冇人會撳入第二格，而 IG 自己都係一條 scroll。
              <b>相只有一個家</b>，形態由用戶自己用出嚟：擺兩三張似 Hinge，
              擺幾十張似 IG。冇 mode、冇設定。</p>
@@ -1579,7 +1579,7 @@
           <summary>❌ 冇 follower 數</summary>
           <p><b>呢個係交友 app，唔係 KOL app。</b> 個 profile 係畀人<b>了解</b>你，唔係畀人<b>評分</b>你 —
              一有公開數字，兩件事就對調。</p>
-          <p>而且我哋<b>根本冇 follow</b> — 大廳係成個城市，唔使 follow 任何人就見到晒。
+          <p>而且我哋<b>根本冇 follow</b> — Thread 係成個城市，唔使 follow 任何人就見到晒。
              冇 follow graph，就冇嘢好數。</p>
           <p>一有公開數字，人就會<b>對住觀眾表演</b>，唔係對住一個可能會見面嘅人講嘢。
              而未出櫃嗰批（唔貼相、唔用真名、唔想曝光）喺呢個計分板上面永遠輸，
@@ -1605,12 +1605,12 @@
              （佢哋喺討論區出帖叫人入 Telegram 群）。所以群一定要有。</p>
           <p><b>群主自己改個名，改咩都得</b> — 「30+ 吹水」「行山 group」「夜晚鳩噏 group」，
              全部合法。唔規定人哋點命名。</p>
-          <p>大廳＝對住成個城市講嘢（識新人）；群＝對住已經識嘅人講嘢（留得低）。
+          <p>Thread＝對住成個城市講嘢（識新人）；群＝對住已經識嘅人講嘢（留得低）。
              <b>平台唔會主動開一個官方全城群</b>（呢個係我哋嘅克制），
              但用戶想開咩就開咩（呢個係佢哋嘅自由）。</p>
           <p>如果大家真係自己聚埋開咗個大群 —
-             <b>咁係個訊號話畀我哋知大廳做得唔夠好</b>，唔係佢哋做錯。</p>
-          <p>而且群開嘅枱可以<b>貼返上大廳</b> — 群變成大廳嘅內容來源，唔係抽水位。</p>
+             <b>咁係個訊號話畀我哋知 Thread 做得唔夠好</b>，唔係佢哋做錯。</p>
+          <p>而且群開嘅枱可以<b>貼返上 Thread</b> — 群變成 Thread 嘅內容來源，唔係抽水位。</p>
         </details>
 
         <details>
@@ -1620,15 +1620,15 @@
           <p>⚠️ <b>開枱係多人機制，唔關私聊事。</b> 兩個人喺私聊講「聽日食宵夜？」使乜咁大陣象 —
              加個 RSVP 卡落一對一對話係典型嘅過度設計。兩條路分開：<br>
              · 一對一：搵人 → 私訊 → 佢覆 → 對話 → <b>自己講就得</b><br>
-             · 多人：群／大廳 → <b>開枱</b>（有名額、有名單）</p>
+             · 多人：群／Thread → <b>開枱</b>（有名額、有名單）</p>
           <p>但張枱係一個<b>物件</b>：時間、地點、上限、報名名單跟住佢走。
-             所以佢可以同時出現喺群同大廳 — <b>唔係兩套開枱，係同一張枱兩個地方，一份名單</b>。
-             （喺大廳報名，入返個群睇，個數會一齊變。）</p>
+             所以佢可以同時出現喺群同 Thread — <b>唔係兩套開枱，係同一張枱兩個地方，一份名單</b>。
+             （喺 Thread 報名，入返個群睇，個數會一齊變。）</p>
         </details>
 
         <details>
-          <summary>入會 ＋ 假面</summary>
-          <p><b>入會：</b>唔使自拍。讀一句<b>隨機而且中性</b>嘅句子 —
+          <summary>註冊 ＋ 假面</summary>
+          <p><b>註冊：</b>唔使自拍。讀一句<b>隨機而且中性</b>嘅句子 —
              當住屋企人面前讀都唔會出事。AI 只負責放行，唔確定嘅落人手，
              <b>永不自動拒絕</b>。同一段錄音順便標返你講粵／英／普。</p>
           <p><b>假面：</b>搖一搖變成真係用得嘅計數機，撳返一段特定數字先返到去。
@@ -1636,7 +1636,7 @@
         </details>
       </div>
 
-      <p class="foot">設計草圖。所有人物、貼文、對話全部虛構。<b>個名仲未定。</b></p>
+      <p class="foot">設計草圖。所有人物、內容、對話全部虛構。<b>個名仲未定。</b></p>
     </aside>
 
   </div>
@@ -1713,12 +1713,12 @@
       const c = document.createElement('span');
       c.className = 'cell g' + (i % 3 + 1);
       c.textContent = s;
-      // 每三張有一張淨係入 grid、冇出大廳 —— grid 係你本相簿，唔淨係公開嗰啲
+      // 每三張有一張淨係入 grid、冇出 Thread —— grid 係你本相簿，唔淨係公開嗰啲
       if (i % 3 === 1) c.innerHTML = s + '<span class="onlyme" title="淨係喺 profile 度出現">◔</span>';
       c.onclick = () => openPhoto(s, c.className);
       g.appendChild(c);
     });
-    document.getElementById('postcount').textContent = '貼文 · ' + n;
+    document.getElementById('postcount').textContent = 'post · ' + n;
     document.querySelector('.loadmore').style.display = n > 9 ? 'block' : 'none';
     document.querySelectorAll('[data-n]').forEach(b =>
       b.classList.toggle('on', +b.dataset.n === n));
@@ -1753,7 +1753,7 @@
     if (!useQuota()){
       const n = document.createElement('div');
       n.className = 'pokenote';
-      n.innerHTML = '今日 8 個用晒喇。<b>公開覆人唔受影響</b> — 大廳／討論串照覆。'
+      n.innerHTML = '今日 8 個用晒喇。<b>公開覆人唔受影響</b> — Thread／討論串照覆。'
                   + '<br>想多啲？<span class="qbuy" onclick="upsell(this)">升級 ›</span> 或者聽日再嚟。';
       el.parentElement.appendChild(n);
       return;
@@ -1802,11 +1802,11 @@
   function tog(el){ el.classList.toggle('on'); }
 
   // 示範：打字 → 城市／語言自動填，話題自動建議。用戶乜都唔使揀。
-  // 一粒 toggle，預設已經啱：有字 → 出大廳；淨係相 → 淨係入 grid。
+  // 一粒 toggle，預設已經啱：有字 → 出 Thread；淨係相 → 淨係入 grid。
   function setPub(on, why){
     const b = document.getElementById('pubt');
     b.classList.toggle('on', on);
-    b.lastChild.textContent = on ? '出大廳' : '淨係入 grid';
+    b.lastChild.textContent = on ? '出 Thread' : '淨係入 grid';
     document.getElementById('pubwhy').textContent = why;
   }
   function pubtog(){
@@ -1823,7 +1823,7 @@
   }
 
   // 兩篇輪住示範：一篇有建議話題，一篇乜都冇（連 toast 都唔出）。
-  // 帖可以完全冇話題、冇 tag — 呢個係常態，唔係例外。
+  // post 可以完全冇話題、冇 tag — 呢個係常態，唔係例外。
   const DEMOS = [
     { text: '瞓唔著。今日同阿媽講咗，佢淨係話咗句「哦」。', tag: '出櫃', shot: false, pub: true },
     { text: '今晚自己煮，太多咗，有冇人要',                 tag: null,  shot: true,  pub: true },
@@ -1867,7 +1867,7 @@
   }
 
 
-  // 大廳無限捲：一路捲一路載舊嘢。冇演算法注入 —— 淨係按時間／最後回覆排落去，
+  // Thread 無限捲：一路捲一路載舊嘢。冇演算法注入 —— 淨係按時間／最後回覆排落去，
   // 唔會塞你冇要求過嘅嘢。得幾千人，內容本來就有限，但唔會夾硬撞牆。
   const OLDER = [
     ['阿丙','本拿比','出櫃','舊年今日我仲未同任何人講過。今日睇返自己嗰篇覺得好陌生。','♡ 74'],
@@ -1890,7 +1890,7 @@
         <span style="flex:1">
           <div class="meta"><span class="who">${who}</span>
             <span class="bd" style="padding:0 6px;font-size:9.5px">${tag}</span>
-            <span class="city">${city}</span><span>· 舊帖</span></div>
+            <span class="city">${city}</span><span>· 舊 post</span></div>
           <div class="said">${said}</div>
           <div class="foot"><span onclick="hit(this,'${likes}','♥')">${likes}</span><span>💬</span></div>
         </span>`;
@@ -2039,7 +2039,7 @@
     if (ev) ev.style.display = (all || name === '搵人玩') ? '' : 'none';
   }
 
-  // 入會錄音
+  // 註冊錄音
   const PHRASES = ['今日落雨，我想食碗雲吞麵','部電梯又壞咗，行樓梯上去',
                    '雪櫃仲有兩個橙，聽日食','個窗開咗成晚，凍到𤷪',
                    '樓下間鋪執咗笠，好可惜'];
