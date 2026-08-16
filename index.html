@@ -481,6 +481,7 @@
     box-shadow:0 0 30px -14px var(--glow)}
   .upsellcard h5{font-size:12px;font-weight:700;margin-bottom:7px;color:var(--amber)}
   .upsellcard p{font-size:10.5px;color:var(--dim);font-weight:300;line-height:1.65;margin-bottom:9px}
+  .fundnote{border-top:1px solid var(--line);padding-top:9px;margin-top:4px}
   .upsellcard .plans{display:flex;gap:7px}
   .upsellcard .plan{flex:1;text-align:center;padding:9px 4px;border-radius:9px;
     border:1px solid var(--line);cursor:pointer}
@@ -1195,8 +1196,8 @@
             </div>
 
             <p class="quota" id="quota">
-              <span class="qtxt">今日仲可以私下搵 <b>8</b> 個人</span><span class="qfree"> · 公開覆人唔計數</span>
-              <span class="qbuy" onclick="upsell(this)">攞多啲 ›</span>
+              <span class="qtxt">今日仲可以冷搵 <b>8</b> 個未傾過嘅人</span><span class="qfree"> · 公開覆人同傾偈唔計數</span>
+              <span class="qbuy" onclick="upsell(this)">點解有上限？ ›</span>
             </p>
             <div class="fromhere" id="fromhere">
               <div class="fhlabel" id="fhkind">你頭先睇嗰句</div>
@@ -2063,8 +2064,8 @@
     if (!useQuota()){
       const n = document.createElement('div');
       n.className = 'pokenote';
-      n.innerHTML = '今日 8 個用晒喇。<b>公開覆人唔受影響</b> — Thread／討論串照覆。'
-                  + '<br>想多啲？<span class="qbuy" onclick="upsell(this)">升級 ›</span> 或者聽日再嚟。';
+      n.innerHTML = '今日 8 個用晒喇。<b>公開覆人同已開咗嘅對話唔受影響</b> — 照覆，冇上限。'
+                  + '<br><span class="qbuy" onclick="upsell(this)">點解有上限？ ›</span>';
       el.parentElement.appendChild(n);
       return;
     }
@@ -2085,15 +2086,12 @@
     if (host.parentElement.querySelector('.upsellcard')) return;
     const c = document.createElement('div');
     c.className = 'upsellcard';
-    c.innerHTML = '<h5>私下搵人 · 多啲配額</h5>'
-      + '<p>免費每日 8 個，夠一般用。<b>公開覆人由頭到尾免費、冇上限</b> —— '
-      + '收錢淨係喺私下搵人呢一格，因為呢格先係真係有人想要多啲。<br>'
-      + '我哋唔賣「邊個 like 咗你」，唔賣排名。</p>'
-      + '<div class="plans">'
-      + '<div class="plan"><b>$0</b><span>8 個／日</span></div>'
-      + '<div class="plan best"><b>$38</b><span>／月 · 無限</span></div>'
-      + '<div class="plan"><b>$88</b><span>／半年</span></div>'
-      + '</div>';
+    c.innerHTML = '<h5>點解有上限</h5>'
+      + '<p>呢個上限只係計「<b>第一下冷搵一個未傾過嘅人</b>」。<br>'
+      + '公開覆人、同已經開咗嘅對話傾偈 —— <b>兩樣都免費，冇上限</b>。</p>'
+      + '<p>8 個／日係<b>防 spam</b>，唔係收費關卡：<b>所有人一樣，冇得買多啲</b>。</p>'
+      + '<p class="fundnote">💰 點養活呢個 app 未決定（Nicole 2026-08-16：「到時先算啦」）。'
+      + '肯定唔會係：賣「邊個 like 咗你」· 賣排名 · 賣廣告。</p>';
     host.parentElement.insertBefore(c, host.nextSibling);
   }
 
@@ -2424,8 +2422,8 @@
       // 「仲可以搵 0 個人」讀落唔通 —— 歸零就換晒句
       const t = e.querySelector('.qtxt');
       if (t) t.innerHTML = quotaLeft === 0
-        ? '今日 <b>8</b> 個私下配額用晒'
-        : '今日仲可以私下搵 <b>' + quotaLeft + '</b> 個人';
+        ? '今日 <b>8</b> 個冷搵配額用晒'
+        : '今日仲可以冷搵 <b>' + quotaLeft + '</b> 個未傾過嘅人';
     });
     return true;
   }
