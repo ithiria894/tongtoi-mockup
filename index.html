@@ -155,6 +155,7 @@
   .obopt{display:flex;gap:9px;align-items:baseline;flex-wrap:wrap;
     border-top:1px solid var(--line);padding-top:8px;font-size:10.5px;color:var(--accent);font-weight:400}
   .obhint{color:var(--dim);font-weight:300;margin-left:auto;font-size:9.5px}
+  .obopt .fixed{border:1px solid var(--line);border-radius:6px;padding:1px 7px;color:var(--text);font-size:10px}
   .sortline{display:flex;justify-content:space-between;align-items:baseline;
     padding:2px 4px 8px;font-size:10.5px;color:var(--dim);font-weight:300;flex:none}
   .sortline span:first-child{color:var(--accent);cursor:pointer}
@@ -394,8 +395,9 @@
             <div class="onebox">
               <div class="obtop">有咩想講？</div>
               <div class="obopt">
-                <span>＋ 加標題</span><span>＋ 揀個台</span><span>＋ 相</span>
-                <span class="obhint">唔加都得</span>
+                <span class="fixed">溫哥華 ▾</span><span class="fixed">粵 ▾</span>
+                <span>＋ 話題</span><span>＋ 標題</span><span>＋ 相</span>
+                <span class="obhint">頭兩個係揀嘅，打唔到字</span>
               </div>
             </div>
           </div>
@@ -772,10 +774,12 @@
           <div class="appbar"><h2><span class="back" onclick="go(\'forum\')">‹</span> Filter</h2>
             <span class="act" onclick="go(\'forum\')">用佢</span></div>
           <div class="body">
-            <p class="fnote"><b>冇「台」，只有標籤。</b>
-              台係「有／冇」— 冇帖都仲喺度，個空洞望到。
-              標籤係「多／少」— 冇人用就唔出現，冇人知佢存在過。<br>
-              同樣得幾百人，一個顯得死，一個顯得正常。<br><br>
+            <p class="fnote"><b>三層，唔係一層。</b> Tag 散開（多倫多／Toronto／多倫多多倫多）
+              係因為畀咗自由文字去代表<b>有標準答案</b>嘅嘢。<br><br>
+              ① <b>欄位</b>（城市 · 語言）— 揀嘅，<b>打唔到字</b>，所以唔可能散<br>
+              ② <b>策展話題</b>（出櫃 · 落地 · 感情）— 揀建議，打「出柜」自動歸去「出櫃」<br>
+              ③ <b>自由 tag</b>（行山 · 打邊爐）— 想點打就點打，<b>散咗都唔緊要</b>：
+              冇人靠佢瀏覽，佢淨係用嚟偶遇<br><br>
               連登嘅台係人哋幫你決定；<b>你存低嘅 filter 就係你自己嘅台。</b></p>
 
             <div class="fgrp"><div class="flabel">只睇有討論嘅</div>
@@ -788,7 +792,7 @@
               <div class="fhint">⭐ 呢條就係「論壇」。一撳，成條 feed 即刻變咗討論區。</div>
             </div>
 
-            <div class="fgrp"><div class="flabel">話題</div>
+            <div class="fgrp"><div class="flabel">話題 · 策展列表 ＋ 同義詞歸邊</div>
               <div class="chips" style="border:0;padding-bottom:4px">
                 <span class="chip on" onclick="tog(this)">出櫃</span>
                 <span class="chip on" onclick="tog(this)">落地</span>
@@ -797,9 +801,20 @@
                 <span class="chip" onclick="tog(this)">吹水</span>
                 <span class="chip" onclick="tog(this)">健康</span>
               </div>
+              <div class="fhint">打「出柜」「comingout」→ 全部歸去「出櫃」。唔會有四個同義 tag。</div>
             </div>
 
-            <div class="fgrp"><div class="flabel">城市</div>
+            <div class="fgrp"><div class="flabel">自由 tag · 散咗都唔緊要</div>
+              <div class="chips" style="border:0;padding-bottom:4px">
+                <span class="chip" onclick="tog(this)">#行山</span>
+                <span class="chip" onclick="tog(this)">#打邊爐</span>
+                <span class="chip" onclick="tog(this)">#Serrini</span>
+                <span class="chip" onclick="tog(this)">#考車牌</span>
+              </div>
+              <div class="fhint">呢層唔負責結構，所以唔使乾淨 — 淨係用嚟偶遇。</div>
+            </div>
+
+            <div class="fgrp"><div class="flabel">城市 · 欄位，打唔到字</div>
               <div class="chips" style="border:0;padding-bottom:4px">
                 <span class="chip on" onclick="tog(this)">溫哥華</span>
                 <span class="chip" onclick="tog(this)">多倫多</span>
@@ -809,7 +824,7 @@
               </div>
             </div>
 
-            <div class="fgrp"><div class="flabel">語言</div>
+            <div class="fgrp"><div class="flabel">語言 · 欄位，打唔到字</div>
               <div class="chips" style="border:0;padding-bottom:4px">
                 <span class="chip on" onclick="tog(this)">粵</span>
                 <span class="chip" onclick="tog(this)">英</span>
@@ -953,6 +968,20 @@
         <p>⭐ <b>結構係要用量嚟養嘅。</b> 台要有帖先唔空、嵌套要有支線先有用、
            板塊樹要有流量先分得開。人少嗰陣，<b>平鋪 ＋ filter 每次都贏</b> —
            而 filter 唔使量養，一個人都用得。</p>
+      </div>
+
+      <div class="card">
+        <h3>Tag 散開點解決：分三層</h3>
+        <p>Threads 個問題係<b>多倫多／Toronto／多倫多多倫多</b>全部係同一樣嘢但分咗幾個 tag。
+           論壇冇呢個問題，因為平台預先開好，只有一個。</p>
+        <p><b>但「多倫多」根本唔應該係 tag。</b> 散開係因為畀咗自由文字去代表
+           一樣<b>有標準答案</b>嘅嘢。</p>
+        <p>① <b>欄位</b>（城市 · 語言）— 揀嘅，打唔到字 → 唔可能散<br>
+           ② <b>策展話題</b>（出櫃 · 落地 · 感情）— 揀建議 ＋ 同義詞歸邊（打「出柜」自動變「出櫃」）<br>
+           ③ <b>自由 tag</b>（#行山 #打邊爐）— 想點打就點打，<b>散咗都唔緊要</b>，
+              因為冇人靠佢瀏覽，佢淨係用嚟偶遇</p>
+        <p><b>論壇嘅好處攞晒，代價唔使畀：</b> 有標準答案嗰兩層一樣係平台開好、冇得自由填；
+           但城市同語言<b>唔會「空」，因為佢哋唔係地方</b>。</p>
       </div>
 
       <div class="card">
