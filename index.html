@@ -297,6 +297,17 @@
   .nexthint{font-size:10.5px;color:var(--dim);font-weight:300;font-variant-numeric:tabular-nums}
   .dot{background:var(--accent);color:var(--on-accent);border-radius:999px;
     padding:0 5px;font-size:9px;font-weight:700;font-variant-numeric:tabular-nums}
+  .rangeline{display:flex;align-items:center;gap:11px;padding:2px 4px 4px;
+    font-size:12px;color:var(--text);font-variant-numeric:tabular-nums;font-weight:600}
+  .rangeline .track{flex:1;height:3px;border-radius:99px;background:var(--line);position:relative}
+  .rangeline .track i{position:absolute;left:18%;right:22%;top:0;bottom:0;
+    background:var(--accent);border-radius:99px;box-shadow:0 0 12px -2px var(--glow)}
+  .rangeline .track::before,.rangeline .track::after{
+    content:"";position:absolute;top:50%;width:13px;height:13px;border-radius:50%;
+    background:var(--card);border:2px solid var(--accent);transform:translateY(-50%)}
+  .rangeline .track::before{left:18%;margin-left:-6px}
+  .rangeline .track::after{right:22%;margin-right:-6px}
+
   .lcard{border:1px solid var(--line);border-radius:13px;padding:12px 13px;margin-bottom:10px;
     background:var(--card-2)}
   .lhead{display:flex;gap:10px;align-items:center;margin-bottom:10px}
@@ -756,7 +767,7 @@
         <section class="screen" data-page="people">
           <div class="appbar"><h2>搵人</h2>
             <span class="act"><span onclick="go('likes')">💌 <b class="dot">4</b></span>
-            　<span onclick="go('filter')">篩選 ▾</span></span></div>
+            　<span onclick="go('pfilter')">篩選 ▾</span></span></div>
           <div class="body" id="pbody">
             <div class="chips">
               <span class="chip on" onclick="tog(this)">未瞓</span>
@@ -924,6 +935,73 @@
               <span class="go" onclick="send()">送出</span>
             </div>
           </div>
+        </section>
+
+        <!-- ══ 搵人 filter（罐頭）══ -->
+        <section class="screen" data-page="pfilter">
+          <div class="appbar"><h2><span class="back" onclick="go('people')">‹</span> 篩選</h2>
+            <span class="act" onclick="go('people')">用佢</span></div>
+          <div class="body">
+            <p class="fnote">呢啲係罐頭 — 照業界標準做，唔使發明。
+              （大廳嗰個 Filter 係篩<b>內容</b>，呢個係篩<b>人</b>，兩樣嘢。）</p>
+
+            <div class="fgrp"><div class="flabel">年齡</div>
+              <div class="rangeline"><span>25</span><span class="track"><i></i></span><span>42</span></div>
+            </div>
+
+            <div class="fgrp"><div class="flabel">地區</div>
+              <div class="chips" style="border:0;padding-bottom:4px">
+                <span class="chip on" onclick="tog(this)">溫哥華</span>
+                <span class="chip on" onclick="tog(this)">本拿比</span>
+                <span class="chip on" onclick="tog(this)">列治文</span>
+                <span class="chip" onclick="tog(this)">高貴林</span>
+                <span class="chip" onclick="tog(this)">素里</span>
+                <span class="chip" onclick="tog(this)">全大溫</span>
+              </div>
+            </div>
+
+            <div class="fgrp"><div class="flabel">語言</div>
+              <div class="chips" style="border:0;padding-bottom:4px">
+                <span class="chip on" onclick="tog(this)">粵</span>
+                <span class="chip" onclick="tog(this)">英</span>
+                <span class="chip" onclick="tog(this)">普</span>
+              </div>
+            </div>
+
+            <div class="fgrp"><div class="flabel">最近上線</div>
+              <div class="chips" style="border:0;padding-bottom:4px">
+                <span class="chip on" onclick="tog(this)">而家未瞓</span>
+                <span class="chip" onclick="tog(this)">今日</span>
+                <span class="chip" onclick="tog(this)">一星期內</span>
+                <span class="chip" onclick="tog(this)">唔理</span>
+              </div>
+            </div>
+
+            <div class="fgrp"><div class="flabel">想搵咩</div>
+              <div class="chips" style="border:0;padding-bottom:4px">
+                <span class="chip on" onclick="tog(this)">認真拍拖</span>
+                <span class="chip on" onclick="tog(this)">先做朋友</span>
+                <span class="chip" onclick="tog(this)">一齊玩</span>
+                <span class="chip" onclick="tog(this)">未諗掂</span>
+              </div>
+            </div>
+
+            <div class="fgrp"><div class="flabel">其他</div>
+              <div class="chips" style="border:0;padding-bottom:4px">
+                <span class="chip on" onclick="tog(this)">有相</span>
+                <span class="chip" onclick="tog(this)">已擔保</span>
+                <span class="chip" onclick="tog(this)">唔顯示已撩過</span>
+              </div>
+              <div class="fhint">冇「身高」「體重」「收入」呢類 — 呢度唔係揀貨。</div>
+            </div>
+
+            <div style="padding:6px 4px 0"><span class="cta" onclick="go('people')">用佢</span></div>
+            <p class="fnote" style="margin-top:12px">
+              ⚠️ <b>「已驗證」唔做 filter</b> — 全部人都已驗證（入會嗰關過咗先入到嚟），
+              放喺度會令人以為有分等級。
+            </p>
+          </div>
+          <nav class="tabbar"><span>大廳</span><span>群</span><span class="on">搵人</span><span>我</span></nav>
         </section>
 
         <!-- ══ 撩你嘅人 ══ -->
@@ -1164,7 +1242,8 @@
           <button onclick="go('verify')">入會</button>
           <button onclick="go('forum')">大廳</button>
           <button onclick="go('thread')">帖內頁</button>
-          <button onclick="go('filter')">Filter</button>
+          <button onclick="go('filter')">大廳 Filter</button>
+          <button onclick="go('pfilter')">搵人 Filter</button>
           <button onclick="go('groups')">群</button>
           <button onclick="go('group')">開枱</button>
           <button onclick="go('people')">搵人</button>
@@ -1363,8 +1442,9 @@
 </div>
 
 <script>
-  const ORDER = ['verify','forum','notif','thread','groups','likes','group','people','me','photo','editor','chat','panic'];
-  const TABOF = {forum:'forum', thread:'forum', chat:'forum', notif:'forum', likes:'people',
+  const ORDER = ['verify','forum','notif','thread','groups','likes','pfilter','group','people','me','photo','editor','chat','panic'];
+  const TABOF = {forum:'forum', thread:'forum', chat:'forum', notif:'forum',
+                 likes:'people', pfilter:'people',
                  groups:'groups', group:'groups',
                  people:'people', me:'me', photo:'me', editor:'me'};
   let cur = 'forum';
