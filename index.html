@@ -162,6 +162,9 @@
   .autotag{font-size:9.5px;border:1px solid var(--line);border-radius:999px;
     padding:1px 8px;color:var(--dim);font-weight:300}
   .autotag.sug{border-color:var(--accent);color:var(--accent);border-style:dashed}
+  .autotag{cursor:pointer}
+  .autotag:hover{border-color:var(--accent);color:var(--accent)}
+  .autotag.changed{border-color:var(--accent);color:var(--accent);border-style:solid}
   .obhint{color:var(--dim);font-weight:300;margin-left:auto;font-size:9px}
   .sortline{display:flex;justify-content:space-between;align-items:baseline;
     padding:2px 4px 8px;font-size:10.5px;color:var(--dim);font-weight:300;flex:none}
@@ -402,9 +405,10 @@
             <div class="onebox" onclick="typedemo()">
               <div class="obtop" id="obtop">有咩想講？</div>
               <div class="obauto" id="obauto">
-                <span class="autotag">溫哥華</span><span class="autotag">粵</span>
-                <span class="autotag sug">出櫃？</span>
-                <span class="obhint">自動填 · 撳一下改</span>
+                <span class="autotag" id="acity" onclick="event.stopPropagation();cycle('city')">溫哥華</span>
+                <span class="autotag" id="alang" onclick="event.stopPropagation();cycle('lang')">粵</span>
+                <span class="autotag sug" id="atopic" onclick="event.stopPropagation();cycle('topic')">出櫃？</span>
+                <span class="obhint">預設自動 · 撳一下改</span>
               </div>
             </div>
           </div>
@@ -987,13 +991,17 @@
         <h3>出 post 只係打字</h3>
         <p>Threads 贏喺打一句就出得，唔使用腦。所以我哋<b>唔可以喺個框度排一堆欄位畀人揀</b> —
            就算全部 optional，佢哋一樣佔視線、一樣要人決定。</p>
-        <p><b>啲欄位由系統填：</b><br>
+        <p><b>啲欄位由系統填 —— 但係預設，唔係鎖。</b>
+           喺香港嘅人一樣可以出去多倫多板（打算移民、想問嘢），語言都改得。
+           <b>95% 乜都唔使揀，要改嘅撳一下。</b></p>
+        <p>👆 撳個作曲框睇打字示範，之後<b>撳嗰三粒 tag 試改</b>。</p>
+        <p><b>點嚟：</b><br>
            · <b>城市</b> — profile 已經有，設一次，之後每篇自動<br>
            · <b>語言</b> — 入會嗰段錄音已經標咗；打幾隻字都認得出<br>
            · <b>話題</b> — 打完之後<b>建議</b>一個，撳一下接受，唔撳就算</p>
         <p><b>三層係個資料模型，唔係一張表格。</b> 結構唔一定要用戶填 —
            可以推斷。而且啱返「AI 做加分唔做扣分」：標錯咗，你唔理佢就得。</p>
-        <p class="hintbar" style="margin:0">👆 撳個作曲框睇示範。</p>
+
       </div>
 
       <div class="card">
@@ -1180,10 +1188,25 @@
         setTimeout(() => a.classList.add('show'), 250);
         setTimeout(() => {
           t.textContent = '有咩想講？'; t.classList.remove('typed');
-          a.classList.remove('show'); typing = false;
+          typing = false;   // 留低啲自動 tag，等人撳得到試改
         }, 4200);
       }
     }, 55);
+  }
+
+  // 自動填係「預設」唔係「鎖」。喺香港嘅人可以出去多倫多板；語言一樣。
+  const CYC = {
+    city:  ['溫哥華','多倫多','倫敦','香港','雪梨'],
+    lang:  ['粵','英','普'],
+    topic: ['出櫃？','落地','感情','搵人玩','吹水','唔要話題'],
+  };
+  const IDX = {city:0, lang:0, topic:0};
+  function cycle(kind){
+    IDX[kind] = (IDX[kind] + 1) % CYC[kind].length;
+    const el = document.getElementById({city:'acity', lang:'alang', topic:'atopic'}[kind]);
+    el.textContent = CYC[kind][IDX[kind]];
+    el.classList.toggle('changed', IDX[kind] !== 0);
+    if (kind === 'topic') el.classList.toggle('sug', IDX[kind] === 0);
   }
 
   // 台 = 篩選，唔係另一個地方。同一堆 post，換個鏡頭睇。
