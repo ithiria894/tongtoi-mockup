@@ -336,6 +336,12 @@
     padding:2px 4px 12px;margin:0;border-bottom:1px solid var(--line)}
   .notifnote b{color:var(--text);font-weight:600}
 
+  .poke{border:1px solid var(--accent);color:var(--accent);border-radius:999px;
+    padding:1px 9px;font-size:9.5px;cursor:pointer;white-space:nowrap}
+  .poke.done{background:var(--accent);color:var(--on-accent)}
+  .rfoot{margin-top:7px}
+  .pokenote{font-size:9px;color:var(--accent);font-weight:300;margin-top:5px;line-height:1.5}
+
   .browsenote{font-size:9.5px;color:var(--dim);font-weight:300;line-height:1.55;
     padding:8px 4px 0;margin:0}
 
@@ -703,15 +709,18 @@
               <div class="rhead"><span class="who act" onclick="go('other')">阿丙</span>
                 <span class="city">本拿比</span><span>· 42 分鐘前</span></div>
               <p>我頭半年都係咁。老實講唔好指意有個現成嘅圈等你，係要自己開枱。我入咗行山組之後先識到人。</p>
+              <div class="rfoot"><span class="poke" onclick="pokeIt(this,'呢個回覆')">撩呢個回覆 ♡</span></div>
             </div>
             <div class="reply">
               <div class="rhead"><span class="who">細細粒</span><span class="city">多倫多</span><span>· 30 分鐘前</span></div>
               <div class="quote">阿丙：⋯係要自己開枱</div>
               <p>+1。多倫多都係咁，我開咗個煮嘢食嘅群，而家八個人，每個月見一次。</p>
+              <div class="rfoot"><span class="poke" onclick="pokeIt(this,'呢個回覆')">撩呢個回覆 ♡</span></div>
             </div>
             <div class="reply">
               <div class="rhead"><span class="who">Cheryl</span><span class="city">溫哥華</span><span>· 12 分鐘前</span></div>
               <p>啱啱落機兩個月，睇住呢條 thread 諗住喊 😭 有冇人溫哥華一齊行山</p>
+              <div class="rfoot"><span class="poke" onclick="pokeIt(this,'呢個回覆')">撩呢個回覆 ♡</span></div>
             </div>
             <div class="reply">
               <div class="rhead"><span class="who">阿霖</span><span class="city">溫東</span><span>· 3 分鐘前</span></div>
@@ -860,21 +869,24 @@
                 <span style="flex:1">
                   <div class="meta"><span class="bd" style="padding:0 6px;font-size:9.5px">吹水</span><span>· 2 分鐘前</span></div>
                   <div class="said">凌晨一點嘅超市，成間得我同一個補貨嘅阿姐。佢問我使唔使幫手攞高嗰排嘢。</div>
-                  <div class="foot"><span onclick="hit(this,'♡ 8','♥ 9')">♡ 8</span><span>💬 2</span></div>
+                  <div class="foot"><span onclick="hit(this,'♡ 8','♥ 9')">♡ 8</span><span>💬 2</span>
+                    <span class="poke" onclick="pokeIt(this,'呢句')">撩呢句 ♡</span></div>
                 </span>
               </div>
               <div class="oneline" style="padding-left:0">
                 <span style="flex:1">
                   <div class="meta"><span class="bd" style="padding:0 6px;font-size:9.5px">落地</span><span>· 前日</span></div>
                   <div class="said">住咗三年先第一次自己一個去睇醫生。原來冇咩大不了。</div>
-                  <div class="foot"><span onclick="hit(this,'♡ 34','♥ 35')">♡ 34</span><span>💬 7</span></div>
+                  <div class="foot"><span onclick="hit(this,'♡ 34','♥ 35')">♡ 34</span><span>💬 7</span>
+                    <span class="poke" onclick="pokeIt(this,'呢句')">撩呢句 ♡</span></div>
                 </span>
               </div>
               <div class="oneline" style="padding-left:0;border-bottom:0">
                 <span style="flex:1">
                   <div class="meta"><span class="bd" style="padding:0 6px;font-size:9.5px">感情</span><span>· 上星期</span></div>
                   <div class="said">分咗手半年，今日終於刪咗啲相。冇喊。</div>
-                  <div class="foot"><span onclick="hit(this,'♡ 92','♥ 93')">♡ 92</span><span>💬 18</span></div>
+                  <div class="foot"><span onclick="hit(this,'♡ 92','♥ 93')">♡ 92</span><span>💬 18</span>
+                    <span class="poke" onclick="pokeIt(this,'呢句')">撩呢句 ♡</span></div>
                 </span>
               </div>
             </div>
@@ -900,6 +912,7 @@
             <div class="cbar">
               <span onclick="hit(this,'♡ 12','♥ 13')">♡ 12</span>
               <span>💬 4</span><span>3 日前</span>
+              <span class="poke" onclick="pokeIt(this,'呢張相')">撩呢張相 ♡</span>
             </div>
             <div class="thread" style="padding-top:12px">
               <div class="bub them">睇落好正喎，收唔收食客</div>
@@ -1376,6 +1389,19 @@
         </details>
 
         <details>
+          <summary>⭐ 撩嘅對象唔限於策展內容</summary>
+          <p><b>Hinge 嘅限制：佢啲 element 係固定款式</b>（6 張相 ＋ 3 條 prompt）。
+             因為 Hinge 冇社群內容 — 佢冇嘢可以畀你撩。</p>
+          <p><b>我哋有。</b> 佢喺呢度產生過嘅任何嘢都撩得：
+             簡介 element · 相 · 出過嘅 post · 講過嘅一句 · <b>覆過人嘅嘢</b>。</p>
+          <p>⭐ 最後嗰樣先係最強：<br>
+             策展嘅 prompt 係佢<b>想你睇到</b>嘅自己。<br>
+             討論串入面嗰句回覆係佢<b>冇防備</b>嗰陣點對人。<br>
+             <b>後者係更好嘅證據</b> — 而且啱返個 thesis：你識人係經過內容，唔係經過 profile。</p>
+          <p>而且呢個令 profile 唔使「填」— 你喺大廳講過嘢，你個 profile 就自動有嘢畀人撩。</p>
+        </details>
+
+        <details>
           <summary>💥 Hinge 官方數字：撩 prompt 勝過撩相 47%</summary>
           <p><b>Hinge 標準：6 張相／片 ＋ 3 條 prompt</b>（題庫 105+ 條分 10 類），
              撳心喺<b>單一張相／單一條 prompt／單一段語音</b>上面，<b>可以附一句 comment</b>，
@@ -1589,6 +1615,19 @@
     s.className = 'sent';
     s.textContent = '撩咗 · 佢會見到你撩咗邊件嘢。佢覆返，私聊就開。';
     host.appendChild(s);
+  }
+
+  // 撩嘅對象唔限於策展內容 —— 佢喺呢度產生過嘅任何嘢都撩得：
+  // 簡介 element · 相 · 出過嘅 post · 講過嘅一句 · 覆過人嘅嘢。
+  // Hinge 做唔到，因為 Hinge 冇社群內容。
+  function pokeIt(el, what){
+    if (el.classList.contains('done')) return;
+    el.classList.add('done');
+    el.textContent = '撩咗 ' + what + ' ♥';
+    const note = document.createElement('div');
+    note.className = 'pokenote';
+    note.textContent = '佢會見到你撩咗' + what + '。佢覆返，私聊就開。';
+    el.parentElement.appendChild(note);
   }
 
   // Match ＝ 佢覆咗你。冇抽獎、冇煙花 —— 對話一開就已經有內容。
