@@ -224,6 +224,9 @@
   .bd.talky.on{border-color:var(--accent);color:var(--accent)}
   .bd.addf{border-style:dashed}
   .bd i{font-style:normal;opacity:.55;font-size:9.5px;font-variant-numeric:tabular-nums}
+  .twoway{font-size:9.5px;color:var(--dim);font-weight:300;line-height:1.6;
+    padding:0 4px 9px;margin:0;flex:none}
+  .twoway b{color:var(--text);font-weight:600}
   .tagnote{font-size:9.5px;color:var(--dim);font-weight:300;padding:0 4px 8px;
     line-height:1.55;flex:none}
   .tagnote b{color:var(--text);font-weight:600}
@@ -336,6 +339,10 @@
     padding:2px 4px 12px;margin:0;border-bottom:1px solid var(--line)}
   .notifnote b{color:var(--text);font-weight:600}
 
+  .gotoprof{font-size:9px;color:var(--dim);font-weight:300}
+  .reply2{border:1px solid var(--line);color:var(--dim);border-radius:999px;
+    padding:1px 9px;font-size:9.5px;cursor:pointer;white-space:nowrap;margin-right:2px}
+  .reply2:hover{border-color:var(--text);color:var(--text)}
   .poke{border:1px solid var(--accent);color:var(--accent);border-radius:999px;
     padding:1px 9px;font-size:9.5px;cursor:pointer;white-space:nowrap}
   .poke.done{background:var(--accent);color:var(--on-accent)}
@@ -607,6 +614,9 @@
             標籤按活躍度排。冇人用嘅自己沉走、唔會出現 —
             <b>所以永遠唔會有空台。</b>
           </div>
+          <p class="twoway">大廳<b>淨係得公開覆</b>。想私下搵一個人 →
+            <b>撳佢個頭像入 profile</b>，喺度搵返嗰句／嗰張相，就嗰件嘢搵佢。<br>
+            <b>睇你喺邊度，就知你做緊邊樣</b> — 冇得誤會。</p>
           <div class="sortline">
             <span onclick="go('filter')">最後回覆 · 溫哥華 · 全部時間　⚙</span>
             <span class="alt">有人回就浮返上嚟</span>
@@ -627,7 +637,8 @@
               <span style="flex:1">
                 <div class="meta"><span class="who">阿霖</span><span class="city">溫東</span><span>· 2 分鐘前</span></div>
                 <div class="said">凌晨一點嘅超市，成間得我同一個補貨嘅阿姐。佢問我使唔使幫手攞高嗰排嘢。</div>
-                <div class="foot"><span onclick="hit(this,'♡ 8','♥ 9')">♡ 8</span><span>💬 2</span><span>轉發</span></div>
+                <div class="foot"><span onclick="hit(this,'♡ 8','♥ 9')">♡ 8</span>
+                  <span class="reply2">💬 覆</span><span>轉發</span></div>
               </span>
             </div>
             <div class="oneline">
@@ -635,7 +646,8 @@
               <span style="flex:1">
                 <div class="meta"><span class="who">敏</span><span class="city">高貴林</span><span>· 26 分鐘前</span></div>
                 <div class="said">今日阿媽又問「幾時拉個返嚟食飯」。我笑咗一聲，講咗句「快啦」。</div>
-                <div class="foot"><span onclick="hit(this,'♡ 41','♥ 42')">♡ 41</span><span>💬 12</span><span>轉發</span></div>
+                <div class="foot"><span onclick="hit(this,'♡ 41','♥ 42')">♡ 41</span>
+                  <span class="reply2">💬 覆</span><span>轉發</span></div>
               </span>
             </div>
             <article class="post feedrow" onclick="go('thread')">
@@ -672,7 +684,8 @@
               <span style="flex:1">
                 <div class="meta"><span class="who">Yuki</span><span class="city">列治文</span><span>· 3 個鐘前</span></div>
                 <div class="said">阿爸今日第一次用廣東話同我講「你開心就得」。我唔知佢知唔知自己講緊咩。</div>
-                <div class="foot"><span onclick="hit(this,'♡ 156','♥ 157')">♡ 156</span><span>💬 23</span><span>轉發</span></div>
+                <div class="foot"><span onclick="hit(this,'♡ 156','♥ 157')">♡ 156</span>
+                  <span class="reply2">💬 覆</span><span>轉發</span></div>
               </span>
             </div>
             <article class="post feedrow" onclick="go('thread')">
@@ -709,18 +722,21 @@
               <div class="rhead"><span class="who act" onclick="go('other')">阿丙</span>
                 <span class="city">本拿比</span><span>· 42 分鐘前</span></div>
               <p>我頭半年都係咁。老實講唔好指意有個現成嘅圈等你，係要自己開枱。我入咗行山組之後先識到人。</p>
-              <div class="rfoot"><span class="poke" onclick="pokeIt(this,'呢個回覆')">撩呢個回覆 ♡</span></div>
+              <div class="rfoot"><span class="reply2">💬 公開覆</span>
+                <span class="gotoprof">想私下搵佢？撳佢個頭像入 profile</span></div>
             </div>
             <div class="reply">
               <div class="rhead"><span class="who">細細粒</span><span class="city">多倫多</span><span>· 30 分鐘前</span></div>
               <div class="quote">阿丙：⋯係要自己開枱</div>
               <p>+1。多倫多都係咁，我開咗個煮嘢食嘅群，而家八個人，每個月見一次。</p>
-              <div class="rfoot"><span class="poke" onclick="pokeIt(this,'呢個回覆')">撩呢個回覆 ♡</span></div>
+              <div class="rfoot"><span class="reply2">💬 公開覆</span>
+                <span class="gotoprof">想私下搵佢？撳佢個頭像入 profile</span></div>
             </div>
             <div class="reply">
               <div class="rhead"><span class="who">Cheryl</span><span class="city">溫哥華</span><span>· 12 分鐘前</span></div>
               <p>啱啱落機兩個月，睇住呢條 thread 諗住喊 😭 有冇人溫哥華一齊行山</p>
-              <div class="rfoot"><span class="poke" onclick="pokeIt(this,'呢個回覆')">撩呢個回覆 ♡</span></div>
+              <div class="rfoot"><span class="reply2">💬 公開覆</span>
+                <span class="gotoprof">想私下搵佢？撳佢個頭像入 profile</span></div>
             </div>
             <div class="reply">
               <div class="rhead"><span class="who">阿霖</span><span class="city">溫東</span><span>· 3 分鐘前</span></div>
@@ -870,7 +886,7 @@
                   <div class="meta"><span class="bd" style="padding:0 6px;font-size:9.5px">吹水</span><span>· 2 分鐘前</span></div>
                   <div class="said">凌晨一點嘅超市，成間得我同一個補貨嘅阿姐。佢問我使唔使幫手攞高嗰排嘢。</div>
                   <div class="foot"><span onclick="hit(this,'♡ 8','♥ 9')">♡ 8</span><span>💬 2</span>
-                    <span class="poke" onclick="pokeIt(this,'呢句')">撩呢句 ♡</span></div>
+                    <span class="poke" onclick="pokeIt(this,'呢句')">♡ 就呢句搵佢</span></div>
                 </span>
               </div>
               <div class="oneline" style="padding-left:0">
@@ -878,7 +894,7 @@
                   <div class="meta"><span class="bd" style="padding:0 6px;font-size:9.5px">落地</span><span>· 前日</span></div>
                   <div class="said">住咗三年先第一次自己一個去睇醫生。原來冇咩大不了。</div>
                   <div class="foot"><span onclick="hit(this,'♡ 34','♥ 35')">♡ 34</span><span>💬 7</span>
-                    <span class="poke" onclick="pokeIt(this,'呢句')">撩呢句 ♡</span></div>
+                    <span class="poke" onclick="pokeIt(this,'呢句')">♡ 就呢句搵佢</span></div>
                 </span>
               </div>
               <div class="oneline" style="padding-left:0;border-bottom:0">
@@ -886,7 +902,7 @@
                   <div class="meta"><span class="bd" style="padding:0 6px;font-size:9.5px">感情</span><span>· 上星期</span></div>
                   <div class="said">分咗手半年，今日終於刪咗啲相。冇喊。</div>
                   <div class="foot"><span onclick="hit(this,'♡ 92','♥ 93')">♡ 92</span><span>💬 18</span>
-                    <span class="poke" onclick="pokeIt(this,'呢句')">撩呢句 ♡</span></div>
+                    <span class="poke" onclick="pokeIt(this,'呢句')">♡ 就呢句搵佢</span></div>
                 </span>
               </div>
             </div>
@@ -912,7 +928,7 @@
             <div class="cbar">
               <span onclick="hit(this,'♡ 12','♥ 13')">♡ 12</span>
               <span>💬 4</span><span>3 日前</span>
-              <span class="poke" onclick="pokeIt(this,'呢張相')">撩呢張相 ♡</span>
+              <span class="poke" onclick="pokeIt(this,'呢張相')">♡ 就呢張相搵佢</span>
             </div>
             <div class="thread" style="padding-top:12px">
               <div class="bub them">睇落好正喎，收唔收食客</div>
@@ -1040,20 +1056,20 @@
 
         <!-- ══ 撩你嘅人 ══ -->
         <section class="screen" data-page="likes">
-          <div class="appbar"><h2><span class="back" onclick="go('people')">‹</span> 撩你</h2>
+          <div class="appbar"><h2><span class="back" onclick="go('people')">‹</span> 搵你</h2>
             <span class="act">4</span></div>
           <div class="body">
-            <p class="notifnote">佢哋撳咗你其中<b>一件</b>嘢，唔係「like 咗你」。
+            <p class="notifnote">佢哋係就你其中<b>一件</b>嘢搵你，唔係「like 咗你」。
               所以你一開就已經知道傾咩 — <b>你覆返，私聊就開</b>。冇「MATCH!」煙花，因為唔使。</p>
 
             <div class="lcard">
               <div class="lhead"><span class="ava up">丙</span>
                 <span><span class="nm">阿丙 <span class="badge">已驗證</span><span class="badge lang">粵</span></span>
                   <span class="sub">33 · 本拿比 · 而家未瞓</span></span></div>
-              <div class="lwhat"><span class="kind">撩咗你嘅 · 一句話</span>
+              <div class="lwhat"><span class="kind">就呢件嘢搵你 · 一句話</span>
                 <div class="txt">我唔識玩曖昧。想見你就會直接講。</div></div>
               <div class="lsay">「咁我直接講：星期六行山，你嚟唔嚟？」</div>
-              <div class="lrow"><span class="lreply" onclick="matchOpen('阿丙')">覆佢 → 開私聊</span>
+              <div class="lrow"><span class="lreply" onclick="matchOpen('阿丙')">覆佢 → 開對話</span>
                 <span class="lpass">算</span></div>
             </div>
 
@@ -1061,10 +1077,10 @@
               <div class="lhead"><span class="ava">Y</span>
                 <span><span class="nm">Yuki <span class="badge">已驗證</span><span class="badge lang">粵·英</span></span>
                   <span class="sub">31 · 列治文 · 喺呢邊出世</span></span></div>
-              <div class="lwhat"><span class="kind">撩咗你嘅 · 歌</span>
+              <div class="lwhat"><span class="kind">就呢件嘢搵你 · 歌</span>
                 <div class="txt">係咁先啦朋友 · Serrini</div></div>
               <div class="lsay">「呢首我喊過三次。你邊句最中？」</div>
-              <div class="lrow"><span class="lreply" onclick="matchOpen('Yuki')">覆佢 → 開私聊</span>
+              <div class="lrow"><span class="lreply" onclick="matchOpen('Yuki')">覆佢 → 開對話</span>
                 <span class="lpass">算</span></div>
             </div>
 
@@ -1072,10 +1088,10 @@
               <div class="lhead"><span class="ava">敏</span>
                 <span><span class="nm">敏 <span class="badge">已驗證</span><span class="badge lang">粵</span></span>
                   <span class="sub">39 · 高貴林 · 未出櫃</span></span></div>
-              <div class="lwhat"><span class="kind">撩咗你嘅 · 相</span>
+              <div class="lwhat"><span class="kind">就呢件嘢搵你 · 相</span>
                 <div class="txt">🍜 今晚自己煮，太多咗，有冇人要</div></div>
               <div class="lsay">「我要。」</div>
-              <div class="lrow"><span class="lreply" onclick="matchOpen('敏')">覆佢 → 開私聊</span>
+              <div class="lrow"><span class="lreply" onclick="matchOpen('敏')">覆佢 → 開對話</span>
                 <span class="lpass">算</span></div>
             </div>
 
@@ -1132,7 +1148,7 @@
                 <span class="nwhen">琴日</span></span>
             </div>
             <p class="notifnote" style="border:0;padding-top:14px">
-              全部係<b>真嘢</b>：有人覆你、有人撩你其中一件 element、有人報咗你張枱、有人睇過你。
+              全部係<b>真嘢</b>：有人覆你、有人就你其中一件 element 私訊你、有人報咗你張枱、有人睇過你。
               冇一條係「你可能會鍾意…」。<br><br>
               ⚠️ <b>排序唔可以淨係按熱度</b> — 新人第一篇冇人覆就永遠沉底，
               然後佢走。要溝埋「你未見過嘅嘢」加分。細節待定。
@@ -1283,7 +1299,7 @@
           <button onclick="go('people')">搵人</button>
           <button onclick="me()">Profile</button>
           <button onclick="go('editor')">加 element</button>
-          <button onclick="go('likes')">撩你 💌</button>
+          <button onclick="go('likes')">搵你 💌</button>
           <button onclick="go('notif')">通知</button>
           <button onclick="go('chat')">私訊</button>
           <button onclick="go('panic')">假面</button>
@@ -1308,7 +1324,7 @@
           <p>排序抄 <b>Reddit</b>（Hot／New／Top＋時間／Rising）· 狀態抄 <b>Discourse</b>
              （未讀／我未見過／仲未有人覆）· 交友 filter 抄 <b>Tinder／Hinge</b>
              （年齡 range／地區／語言／最近上線／想搵咩）· 群抄 <b>WhatsApp／TG</b> ·
-             Profile ＝ <b>IG</b> 相 grid ＋ <b>Hinge</b> 撩單件 ＋ <b>Threads</b> 貼文歷史 ·
+             Profile ＝ <b>IG</b> 相 grid ＋ <b>Hinge</b> 就單件私訊 ＋ <b>Threads</b> 貼文歷史 ·
              出 post 抄 <b>Threads</b> 一個框。</p>
           <p><b>只有真係冇人做過嘅先自己諗：</b> 語音門檻（唔使自拍）· 未瞓 · 假面 ·
              存低 filter 當自己個台。</p>
@@ -1389,25 +1405,57 @@
         </details>
 
         <details>
-          <summary>⭐ 撩嘅對象唔限於策展內容</summary>
+          <summary>⭐ 兩個入口分開：公海只有公開覆</summary>
+          <p><b>Hinge 冇公開 like、冇公開 reply</b> — 所以喺嗰度「like／reply」
+             一定係私下示好，唔可能誤會。<b>我哋兩樣都有</b>，所以唔可以喺同一個位擺兩個掣，
+             靠 label 分。</p>
+          <p>⭐ <b>用結構分，唔靠 label：</b><br>
+             · <b>大廳同討論串</b> — 淨係公開覆，<b>冇私下入口</b><br>
+             · <b>想私下搵佢</b> — 撳佢個頭像入 profile，喺度搵返嗰句／嗰張相，
+               <b>就嗰件嘢搵佢</b></p>
+          <p><b>睇你喺邊度，就知你做緊邊樣。</b> 冇得誤會。</p>
+          <p>而且加咗一層<b>有意義嘅摩擦</b>：你要真係撳入去睇過佢個人先搵得到佢，
+             唔會有人喺 feed 度亂撒。啱返 thesis：
+             <b>識人係經過內容 → 睇完 thread → 入佢 profile → 先出手。</b></p>
+          <p>私下嗰個唔係齋 DM：帶住你就邊件嘢搵佢，而且<b>要佢覆返先開到對話</b> —
+             唔覆＝乜都冇發生過，你個 inbox 唔會多咗個陌生人。</p>
+        </details>
+          <p>每一件嘢都有兩個做法：<b>💬 覆</b>（公開，大家見到）·
+             <b>♡ 撩</b>（私底下，只有佢見到）。</p>
+          <p><b>呢個唔係新嘢</b> — Twitter：Reply／DM · IG：Comment／DM · Reddit：Reply／PM。
+             用戶一世都喺度分緊「公開講」同「單獨傾」，<b>唔使學新概念</b>。</p>
+          <p>⚠️ <b>但呢個「私訊」唔係齋 DM。</b> Twitter／IG／Reddit 個 DM 係一個空白框 —
+             你自己諗點解釋「我搵你做乜」。Hinge 唔同：</p>
+          <p>· <b>開場已經有 context</b> — 就邊件嘢搵佢 ＋ 你講咗咩<br>
+             · 對方見到嘅唔係陌生人，係「佢因為我嗰句先嚟」<br>
+             · ⭐ <b>要佢覆返先開到對話</b> — 齋 DM 係直接入 inbox，呢個係一個<b>請求</b></p>
+          <p>最後嗰點最緊要：<b>冇覆 → 個對話根本冇開過</b>，你個 inbox 唔會多咗個陌生人。
+             呢個亦都係「安靜拒絕」嘅由來。</p>
+          <p>所以準確講：<b>公開／私底下呢個軸抄 Twitter；私底下嗰邊點運作，抄 Hinge。</b></p>
+          <p>而且<b>私訊入口喺內容出現嘅每一個地方都有</b> — 大廳、討論串、profile、相內頁。
+             唔止喺 profile 先有。</p>
+        </details>
+
+        <details>
+          <summary>⭐ 私訊嘅入口唔限於策展內容</summary>
           <p><b>Hinge 嘅限制：佢啲 element 係固定款式</b>（6 張相 ＋ 3 條 prompt）。
-             因為 Hinge 冇社群內容 — 佢冇嘢可以畀你撩。</p>
-          <p><b>我哋有。</b> 佢喺呢度產生過嘅任何嘢都撩得：
+             因為 Hinge 冇社群內容 — 佢冇嘢可以畀你做入口。</p>
+          <p><b>我哋有。</b> 佢喺呢度產生過嘅任何嘢都做得入口：
              簡介 element · 相 · 出過嘅 post · 講過嘅一句 · <b>覆過人嘅嘢</b>。</p>
           <p>⭐ 最後嗰樣先係最強：<br>
              策展嘅 prompt 係佢<b>想你睇到</b>嘅自己。<br>
              討論串入面嗰句回覆係佢<b>冇防備</b>嗰陣點對人。<br>
              <b>後者係更好嘅證據</b> — 而且啱返個 thesis：你識人係經過內容，唔係經過 profile。</p>
-          <p>而且呢個令 profile 唔使「填」— 你喺大廳講過嘢，你個 profile 就自動有嘢畀人撩。</p>
+          <p>而且呢個令 profile 唔使「填」— 你喺大廳講過嘢，你個 profile 就自動有嘢畀人做入口。</p>
         </details>
 
         <details>
-          <summary>💥 Hinge 官方數字：撩 prompt 勝過撩相 47%</summary>
+          <summary>💥 Hinge 數字：就 prompt 私訊，勝過就相 47%</summary>
           <p><b>Hinge 標準：6 張相／片 ＋ 3 條 prompt</b>（題庫 105+ 條分 10 類），
              撳心喺<b>單一張相／單一條 prompt／單一段語音</b>上面，<b>可以附一句 comment</b>，
              去對方個 Likes You queue。</p>
-          <p>💥 <b>而 Hinge 自己嘅數據：撩「prompt」比撩「相」，成功約到會嘅機率高 47%。</b>
-             即係撩一件<b>文字</b>嘢贏過撩一張臉 — <b>直接驗證咗我哋成個 element 設計</b>。</p>
+          <p>💥 <b>而 Hinge 自己嘅數據：就「prompt」私訊比就「相」私訊，成功約到會嘅機率高 47%。</b>
+             即係就一件<b>文字</b>嘢入手，贏過就一張臉入手 — <b>直接驗證咗我哋成個 element 設計</b>。</p>
           <p>所以 prompt 題庫要寫得好、分夠類 — <b>佢係 profile 嘅靈魂</b>，唔係附加品。</p>
           <p>唔抄嘅：<b>Roses</b>（付費插隊 — 細社群唔應該有人用錢插隊）、
              <b>Standouts</b>（會變成人氣榜）。</p>
@@ -1431,7 +1479,7 @@
         <details>
           <summary>Profile：一條 scroll，冇 tab</summary>
           <p><b>簡介</b>（Hinge）：固定幾件 element — 歌／問答／一句話／睇緊。
-             每件獨立可以 ♡ — 你 like 嘅係嗰件嘢唔係成個人，開場白自動有咗。</p>
+             每件獨立可以 ♡ — 你回應嘅係嗰件嘢唔係成個人，開場白自動有咗。</p>
           <p><b>講過嘅嘢</b>（Threads／FB）：自己出過嘅一句。<br>
              <b>貼文</b>（IG）：無限 grid，最新喺前。</p>
           <p>試過分 tab，拆咗 — 冇人會撳入第二格，而 IG 自己都係一條 scroll。
@@ -1441,7 +1489,7 @@
 
         <details>
           <summary>Match ＝ 佢覆咗你，唔係一個抽獎結果</summary>
-          <p>流程：<b>喺搵人度掃 → 撳 ♡ 撩佢其中一件嘢 → 佢見到你撩咗邊件 ＋ 你講咗咩 →
+          <p>流程：<b>喺搵人度掃 → 撳 ✉ 就佢其中一件嘢私訊 → 佢見到你係就邊件嘢搵佢 ＋ 你講咗咩 →
              佢覆返，私聊自動開。</b></p>
           <p><b>冇「MATCH!」煙花，因為唔使。</b> 個對話一開就已經有內容（你撩咗邊件嘢、佢覆咗咩），
              開場白天生就有 — 呢個正正係 Hinge 贏 Tinder 嗰點。</p>
@@ -1478,7 +1526,7 @@
           <p>我哋規模下最強嘅回訪動力唔係 feed 調校 — <b>幾千人，內容就係得咁多，點排都係嗰啲</b>。
              最強嗰樣係 <b>「有人覆咗你」</b>，而呢樣<b>大廠反而做唔到</b>
              （幾億人，你條 post 沉咗就係沉咗）。</p>
-          <p>通知全部係真嘢：有人覆你 · 有人撩你其中一件 element · 有人報咗你張枱 ·
+          <p>通知全部係真嘢：有人覆你 · 有人就你其中一件 element 私訊你 · 有人報咗你張枱 ·
              <b>有人睇過你 profile</b>。冇一條係「你可能會鍾意…」。</p>
           <p>⚠️ <b>排序唔可以淨係按熱度。</b> 純 bump 排有個死症：
              新人第一篇冇人覆 → 永遠沉底 → 冇人覆 → 佢走。<b>新人死亡螺旋。</b>
@@ -1506,7 +1554,7 @@
              好似掟個 location 或者 poll。</p>
           <p>⚠️ <b>開枱係多人機制，唔關私聊事。</b> 兩個人喺私聊講「聽日食宵夜？」使乜咁大陣象 —
              加個 RSVP 卡落一對一對話係典型嘅過度設計。兩條路分開：<br>
-             · 一對一：搵人 → 撩 → 佢覆 → 私聊 → <b>自己講就得</b><br>
+             · 一對一：搵人 → 私訊 → 佢覆 → 對話 → <b>自己講就得</b><br>
              · 多人：群／大廳 → <b>開枱</b>（有名額、有名單）</p>
           <p>但張枱係一個<b>物件</b>：時間、地點、上限、報名名單跟住佢走。
              所以佢可以同時出現喺群同大廳 — <b>唔係兩套開枱，係同一張枱兩個地方，一份名單</b>。
@@ -1613,20 +1661,20 @@
     if (!host || host.querySelector('.sent')) return;
     const s = document.createElement('div');
     s.className = 'sent';
-    s.textContent = '撩咗 · 佢會見到你撩咗邊件嘢。佢覆返，私聊就開。';
+    s.textContent = '已私訊 · 佢會見到你係就邊件嘢搵佢。佢覆返，對話先開。';
     host.appendChild(s);
   }
 
-  // 撩嘅對象唔限於策展內容 —— 佢喺呢度產生過嘅任何嘢都撩得：
+  // 撩嘅對象唔限於策展內容 —— 佢喺呢度產生過嘅任何嘢都做得入口：
   // 簡介 element · 相 · 出過嘅 post · 講過嘅一句 · 覆過人嘅嘢。
   // Hinge 做唔到，因為 Hinge 冇社群內容。
   function pokeIt(el, what){
     if (el.classList.contains('done')) return;
     el.classList.add('done');
-    el.textContent = '撩咗 ' + what + ' ♥';
+    el.textContent = '✓ 就' + what + '搵咗佢';
     const note = document.createElement('div');
     note.className = 'pokenote';
-    note.textContent = '佢會見到你撩咗' + what + '。佢覆返，私聊就開。';
+    note.textContent = '佢會見到你係就' + what + '搵佢。佢覆返，對話先開。';
     el.parentElement.appendChild(note);
   }
 
@@ -1804,7 +1852,7 @@
               <span class="like" onclick="lk(this)">♡</span>
             </div>`).join('')}
         </div>
-        <p class="browsenote">左右掃去下一個。撳 ♡ 撩其中一件 —
+        <p class="browsenote">左右掃去下一個。撳 ✉ 就其中一件私訊 —
           <b>唔係 yes／no 一個人</b>，所以冇「match!」彈窗，開場白亦都自動有咗。</p>
       </div>`;
     document.getElementById('nexthint').textContent = (pIdx+1) + ' / ' + PEOPLE.length;
