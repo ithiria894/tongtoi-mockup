@@ -1,857 +1,388 @@
-<title>同枱 — 廣東話女同社群 App</title>
+<title>同枱 — 可撳原型</title>
 
 <style>
-  /* ══════════════════════════════════════════════════════════════
-     同枱 · 設計方向「夜燈」
-     深藍黑房、一盞暖燈。啲畫面係擺喺燈下面嘅物件，唔係規格表。
-     字體：繁體香港字形優先，serif 只用喺引句。fc-match 驗過本機真係有。
-     ══════════════════════════════════════════════════════════════ */
   :root {
-    --void:    #080A0E;
-    --n-900:   #0D1117;
-    --n-800:   #131922;
-    --n-700:   #19212B;
-    --n-600:   #222C38;
-    --n-500:   #33404F;
-    --n-300:   #79858F;
-    --n-100:   #EDE6DB;
-    --amber:   #E8A87C;
-    --amber-lo:#B0713F;
-    --mist:    #7C9BB5;
-    --rose:    #C97B7B;
+    --n-900:#0D1117; --n-800:#131922; --n-700:#19212B; --n-600:#222C38;
+    --n-500:#33404F; --n-300:#79858F; --n-100:#EDE6DB;
+    --amber:#E8A87C; --amber-lo:#B0713F; --mist:#7C9BB5; --rose:#C97B7B;
 
-    --bg:        var(--n-900);
-    --room:      var(--void);
-    --card:      var(--n-700);
-    --card-2:    var(--n-600);
-    --text:      var(--n-100);
-    --dim:       var(--n-300);
-    --line:      var(--n-500);
-    --hair:      rgba(255,255,255,.055);
-    --accent:    var(--amber);
-    --on-accent: #1D1309;
-    --glow:      rgba(232,168,124,.16);
-    --glow-soft: rgba(232,168,124,.055);
-    --grain:     .035;
+    --bg:var(--n-900); --room:#080A0E; --card:var(--n-700); --card-2:var(--n-600);
+    --text:var(--n-100); --dim:var(--n-300); --line:var(--n-500);
+    --hair:rgba(255,255,255,.055); --accent:var(--amber); --on-accent:#1D1309;
+    --glow:rgba(232,168,124,.16); --glow-soft:rgba(232,168,124,.055); --grain:.035;
 
-    --sans: "PingFang HK","PingFang TC","Noto Sans CJK HK","Noto Sans TC",
-            "Microsoft JhengHei","Heiti TC",system-ui,-apple-system,sans-serif;
-    --serif: "Songti TC","Noto Serif CJK HK","Noto Serif TC","Source Han Serif TC",
-             "MingLiU",serif;
+    --sans:"PingFang HK","PingFang TC","Noto Sans CJK HK","Noto Sans TC",
+           "Microsoft JhengHei","Heiti TC",system-ui,-apple-system,sans-serif;
+    --serif:"Songti TC","Noto Serif CJK HK","Noto Serif TC","MingLiU",serif;
   }
-
   @media (prefers-color-scheme: light) {
     :root:not([data-theme="dark"]) {
-      --bg:        #F6F2EB;
-      --room:      #E9E2D6;
-      --card:      #FFFFFF;
-      --card-2:    #F3EEE5;
-      --text:      #14161A;
-      --dim:       #6A7076;
-      --line:      #DCD4C6;
-      --hair:      rgba(0,0,0,.05);
-      --accent:    var(--amber-lo);
-      --on-accent: #FFFFFF;
-      --glow:      rgba(176,113,63,.15);
-      --glow-soft: rgba(176,113,63,.05);
-      --grain:     .022;
+      --bg:#F6F2EB; --room:#E9E2D6; --card:#fff; --card-2:#F3EEE5;
+      --text:#14161A; --dim:#6A7076; --line:#DCD4C6; --hair:rgba(0,0,0,.05);
+      --accent:var(--amber-lo); --on-accent:#fff;
+      --glow:rgba(176,113,63,.15); --glow-soft:rgba(176,113,63,.05); --grain:.022;
     }
   }
   :root[data-theme="light"] {
-    --bg:        #F6F2EB;
-    --room:      #E9E2D6;
-    --card:      #FFFFFF;
-    --card-2:    #F3EEE5;
-    --text:      #14161A;
-    --dim:       #6A7076;
-    --line:      #DCD4C6;
-    --hair:      rgba(0,0,0,.05);
-    --accent:    var(--amber-lo);
-    --on-accent: #FFFFFF;
-    --glow:      rgba(176,113,63,.15);
-    --glow-soft: rgba(176,113,63,.05);
-    --grain:     .022;
+    --bg:#F6F2EB; --room:#E9E2D6; --card:#fff; --card-2:#F3EEE5;
+    --text:#14161A; --dim:#6A7076; --line:#DCD4C6; --hair:rgba(0,0,0,.05);
+    --accent:var(--amber-lo); --on-accent:#fff;
+    --glow:rgba(176,113,63,.15); --glow-soft:rgba(176,113,63,.05); --grain:.022;
+  }
+  :root[data-theme="dark"] {
+    --bg:var(--n-900); --room:#080A0E; --card:var(--n-700); --card-2:var(--n-600);
+    --text:var(--n-100); --dim:var(--n-300); --line:var(--n-500);
+    --hair:rgba(255,255,255,.055); --accent:var(--amber); --on-accent:#1D1309;
+    --glow:rgba(232,168,124,.16); --glow-soft:rgba(232,168,124,.055); --grain:.035;
   }
 
-  /* ── 房 ─────────────────────────────────────────────── */
   .room {
-    position: relative;
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--sans);
-    line-height: 1.7;
-    overflow-x: hidden;
-    padding: clamp(28px,6vw,80px) 0 84px;
+    position:relative; background:var(--bg); color:var(--text);
+    font-family:var(--sans); line-height:1.65; min-height:100vh;
+    padding:clamp(22px,4vw,44px) clamp(14px,4vw,40px) 60px; overflow-x:hidden;
   }
-  /* 燈：一大團暖光由上面打落嚟 */
-  .room::before {
-    content: ""; position: absolute; inset: 0; pointer-events: none;
-    background:
-      radial-gradient(58% 42% at 50% -4%, var(--glow) 0%, transparent 68%),
-      radial-gradient(90% 60% at 50% 12%, var(--glow-soft) 0%, transparent 76%);
-  }
-  /* 顆粒：唔想個黑係死板嘅數碼黑 */
-  .room::after {
-    content: ""; position: absolute; inset: 0; pointer-events: none;
-    opacity: var(--grain); mix-blend-mode: overlay;
-    background-image:
-      repeating-conic-gradient(from 0deg at 50% 50%, #fff 0deg 1deg, #000 1deg 2deg);
-    background-size: 3px 3px;
-  }
-  .wrap { position: relative; z-index: 1; }
-  .col { max-width: 61ch; margin: 0 auto; padding: 0 clamp(18px,5vw,44px); }
+  .room::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(56% 40% at 50% -6%,var(--glow) 0%,transparent 68%);}
+  .room::after{content:"";position:absolute;inset:0;pointer-events:none;
+    opacity:var(--grain);mix-blend-mode:overlay;
+    background-image:repeating-conic-gradient(from 0deg at 50% 50%,#fff 0deg 1deg,#000 1deg 2deg);
+    background-size:3px 3px;}
+  .wrap{position:relative;z-index:1;max-width:940px;margin:0 auto;}
 
-  /* ── 標題 ───────────────────────────────────────────── */
-  .mast { position: relative; }
-  .vstripe {
-    position: absolute; top: 4px; left: clamp(-2px,1vw,10px);
-    writing-mode: vertical-rl; text-orientation: upright;
-    font-size: 11px; letter-spacing: .55em; color: var(--dim);
-    opacity: .75; user-select: none;
-  }
-  .eyebrow {
-    font-size: 11px; letter-spacing: .3em; text-transform: uppercase;
-    color: var(--dim); margin-bottom: 22px; font-variant-numeric: tabular-nums;
-  }
-  .wordmark {
-    font-size: clamp(54px,13vw,104px); font-weight: 900;
-    line-height: .92; letter-spacing: .02em; margin: 0 0 14px;
-    text-wrap: balance;
-  }
-  .wordmark em {
-    font-style: normal; color: var(--accent);
-    text-shadow: 0 0 44px var(--glow), 0 0 12px var(--glow-soft);
-  }
-  .tagline {
-    font-family: var(--serif); font-weight: 400;
-    font-size: clamp(16px,2.5vw,21px); color: var(--dim);
-    margin: 0 0 26px; letter-spacing: .06em;
-  }
-  .lede { margin: 0 0 12px; font-weight: 300; font-size: 15px; }
-  .note { font-size: 13px; color: var(--dim); font-weight: 300; }
+  /* ── 頁頭 ── */
+  .head{margin-bottom:26px;}
+  .eyebrow{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:14px;}
+  h1.wm{font-size:clamp(36px,7vw,56px);font-weight:900;line-height:1;margin:0 0 10px;letter-spacing:.02em;}
+  h1.wm em{font-style:normal;color:var(--accent);text-shadow:0 0 40px var(--glow);}
+  .head p{margin:0;font-weight:300;font-size:14px;color:var(--dim);max-width:56ch;}
+  .head p b{color:var(--text);font-weight:600;}
 
-  .pillrow { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
-  .pill {
-    font-size: 11.5px; padding: 5px 12px; border-radius: 999px;
-    border: 1px solid var(--line); color: var(--dim); font-weight: 300;
-  }
-  .pill.on {
-    border-color: var(--accent); color: var(--accent);
-    box-shadow: 0 0 20px -8px var(--glow);
-  }
+  /* ── 佈局：電話 + 側邊說明 ── */
+  .stage{display:flex;gap:clamp(20px,4vw,46px);align-items:flex-start;flex-wrap:wrap;}
 
-  /* ── 燈下面嗰張枱 ──────────────────────────────────── */
-  .table {
-    margin-top: clamp(34px,6vw,58px);
-    background:
-      radial-gradient(64% 78% at 50% 6%, var(--glow-soft) 0%, transparent 70%),
-      var(--room);
-    border-block: 1px solid var(--hair);
-    overflow-x: auto; overflow-y: hidden;
-    padding: clamp(34px,5vw,54px) 0 clamp(30px,4vw,44px);
+  .device{flex:none;position:relative;}
+  .phone{
+    width:322px;height:690px;border-radius:36px;overflow:hidden;background:var(--card);
+    border:1px solid var(--line);display:flex;flex-direction:column;position:relative;
+    box-shadow:0 36px 74px -34px rgba(0,0,0,.92),0 0 46px -22px var(--glow),inset 0 1px 0 var(--hair);
   }
-  .rail {
-    display: flex; align-items: flex-start; gap: 24px;
-    padding: 0 clamp(18px,5vw,44px); width: max-content;
-  }
-  /* 斜落嚟：似擺喺枱上面，唔似一行規格 */
-  .slot { width: 288px; }
-  .slot:nth-child(1) { margin-top: 0; }
-  .slot:nth-child(2) { margin-top: 22px; }
-  .slot:nth-child(3) { margin-top: 44px; }
-  .slot:nth-child(4) { margin-top: 22px; }
-  .slot:nth-child(5) { margin-top: 0; }
-  .slot:nth-child(6) { margin-top: 30px; }
+  .status{display:flex;justify-content:space-between;padding:14px 20px 5px;
+    font-size:10.5px;color:var(--dim);font-variant-numeric:tabular-nums;flex:none;}
+  .appbar{display:flex;align-items:center;justify-content:space-between;
+    padding:4px 16px 11px;flex:none;gap:8px;}
+  .appbar h2{font-size:18px;font-weight:800;letter-spacing:.05em;margin:0;
+    display:flex;align-items:center;gap:7px;}
+  .appbar .act{font-size:11.5px;color:var(--accent);font-weight:400;cursor:pointer;}
+  .back{cursor:pointer;color:var(--accent);font-weight:400;}
+  .body{flex:1;overflow-y:auto;padding:0 14px 10px;scrollbar-width:thin;}
+  .body::-webkit-scrollbar{width:4px}
+  .body::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
 
-  .slot > figcaption {
-    margin-top: 16px; font-size: 12px; color: var(--dim);
-    font-weight: 300; line-height: 1.66;
+  .tabbar{flex:none;display:grid;grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--line);padding:9px 4px 14px;background:var(--n-800);}
+  :root[data-theme="light"] .tabbar{background:var(--card-2)}
+  @media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .tabbar{background:var(--card-2)}}
+  .tabbar button{
+    all:unset;text-align:center;font-size:10.5px;color:var(--dim);
+    letter-spacing:.1em;cursor:pointer;padding:3px 0;border-radius:6px;
   }
-  .slot > figcaption b {
-    display: block; color: var(--text); font-size: 13px;
-    font-weight: 700; letter-spacing: .16em; margin-bottom: 4px;
-  }
+  .tabbar button.on{color:var(--accent)}
+  .tabbar button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-  /* ── 電話 ───────────────────────────────────────────── */
-  .phone {
-    width: 288px; height: 612px; border-radius: 30px; overflow: hidden;
-    background: var(--card);
-    border: 1px solid var(--line);
-    display: flex; flex-direction: column;
-    box-shadow:
-      0 34px 70px -34px rgba(0,0,0,.92),
-      0 0 44px -22px var(--glow),
-      inset 0 1px 0 var(--hair);
-    transition: transform .5s cubic-bezier(.2,.7,.3,1), box-shadow .5s;
-  }
-  .slot:hover .phone {
-    transform: translateY(-7px);
-    box-shadow:
-      0 44px 84px -34px rgba(0,0,0,.95),
-      0 0 70px -20px var(--glow),
-      inset 0 1px 0 var(--hair);
-  }
+  /* screens */
+  .screen{display:none;height:100%;flex-direction:column}
+  .screen.on{display:flex}
 
-  .status {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 14px 18px 5px; font-size: 10px; color: var(--dim);
-    font-variant-numeric: tabular-nums; flex: none; letter-spacing: .04em;
-  }
-  .appbar {
-    display: flex; align-items: baseline; justify-content: space-between;
-    padding: 3px 18px 11px; flex: none;
-  }
-  .appbar h2 { font-size: 18px; font-weight: 800; letter-spacing: .06em; margin: 0; }
-  .appbar .act { font-size: 11.5px; color: var(--accent); font-weight: 400; }
+  /* ── 通用零件 ── */
+  .awake{display:flex;align-items:center;gap:8px;margin:0 2px 10px;padding:8px 11px;
+    border-radius:10px;background:var(--card-2);font-size:11px;color:var(--dim);}
+  .awake b{color:var(--text);font-weight:700;font-variant-numeric:tabular-nums}
+  .lamp{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none;
+    box-shadow:0 0 10px 2px var(--glow);animation:breathe 7s ease-in-out infinite}
+  @keyframes breathe{0%,100%{opacity:.55}50%{opacity:1}}
 
-  .awake {
-    display: flex; align-items: center; gap: 8px; margin: 0 18px 10px;
-    padding: 8px 11px; border-radius: 10px; background: var(--card-2);
-    font-size: 11px; color: var(--dim); flex: none;
-  }
-  .awake b { color: var(--text); font-weight: 700; font-variant-numeric: tabular-nums; }
-  .lamp {
-    width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
-    flex: none; box-shadow: 0 0 10px 2px var(--glow);
-    animation: breathe 7s ease-in-out infinite;
-  }
-  @keyframes breathe {
-    0%,100% { opacity: .55; box-shadow: 0 0 7px 1px var(--glow); }
-    50%     { opacity: 1;   box-shadow: 0 0 14px 3px var(--glow); }
-  }
+  .post{border-bottom:1px solid var(--line);padding:12px 4px;cursor:pointer}
+  .post:last-child{border-bottom:0}
+  .post:hover{background:var(--card-2)}
+  .meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:10.5px;color:var(--dim);margin-bottom:5px}
+  .who{color:var(--text);font-weight:600}
+  .city{border:1px solid var(--line);border-radius:999px;padding:1px 7px;font-size:9.5px}
+  .post h3{font-size:13.5px;font-weight:700;margin:0 0 4px;line-height:1.5}
+  .post p{font-size:12px;color:var(--dim);margin:0;font-weight:300}
+  .stat{margin-top:7px;font-size:10px;color:var(--dim);display:flex;gap:13px;font-variant-numeric:tabular-nums}
 
-  .body { flex: 1; overflow: hidden; padding: 0 14px; }
-  .tabbar {
-    flex: none; display: grid; grid-template-columns: repeat(4,1fr);
-    border-top: 1px solid var(--line); padding: 10px 4px 15px;
-    background: var(--n-800);
-  }
-  :root[data-theme="light"] .tabbar { background: var(--card-2); }
-  @media (prefers-color-scheme: light) {
-    :root:not([data-theme="dark"]) .tabbar { background: var(--card-2); }
-  }
-  .tabbar span { text-align: center; font-size: 10px; color: var(--dim); letter-spacing: .12em; }
-  .tabbar span.on { color: var(--accent); }
+  .person{display:flex;gap:11px;padding:11px 4px;border-bottom:1px solid var(--line);
+    align-items:flex-start;cursor:pointer}
+  .person:last-child{border-bottom:0}
+  .person:hover{background:var(--card-2)}
+  .ava{width:40px;height:40px;border-radius:50%;flex:none;position:relative;
+    background:var(--card-2);border:1px solid var(--line);
+    display:grid;place-items:center;font-size:15px;color:var(--accent)}
+  .ava.up::after{content:"";position:absolute;right:-1px;bottom:-1px;width:10px;height:10px;
+    border-radius:50%;background:var(--accent);border:2px solid var(--card);box-shadow:0 0 8px 1px var(--glow)}
+  .nm{font-size:13px;font-weight:700}
+  .sub{font-size:10.5px;color:var(--dim);font-weight:300}
+  .say{font-size:12px;margin-top:3px;font-weight:300}
+  .badge{font-size:9px;letter-spacing:.08em;color:var(--mist);border:1px solid var(--mist);
+    border-radius:999px;padding:0 6px;margin-left:5px;white-space:nowrap;font-weight:400}
+  .badge.lang{color:var(--accent);border-color:var(--accent)}
 
-  /* ── 帖 ─────────────────────────────────────────────── */
-  .post { border-bottom: 1px solid var(--line); padding: 13px 4px; }
-  .post:last-child { border-bottom: 0; }
-  .meta {
-    display: flex; align-items: center; gap: 7px; flex-wrap: wrap;
-    font-size: 10.5px; color: var(--dim); margin-bottom: 6px;
-  }
-  .who { color: var(--text); font-weight: 600; }
-  .city { border: 1px solid var(--line); border-radius: 999px; padding: 1px 7px; font-size: 9.5px; letter-spacing: .06em; }
-  .post h3 { font-size: 13.5px; font-weight: 700; margin: 0 0 4px; line-height: 1.52; }
-  .post p { font-size: 12px; color: var(--dim); margin: 0; font-weight: 300; }
-  .stat { margin-top: 8px; font-size: 10px; color: var(--dim); font-variant-numeric: tabular-nums; display: flex; gap: 13px; }
+  .chips{display:flex;gap:6px;flex-wrap:wrap;padding:2px 4px 10px;
+    border-bottom:1px solid var(--line);margin-bottom:2px}
+  .chip{font-size:10px;padding:3px 9px;border-radius:999px;border:1px solid var(--line);
+    color:var(--dim);font-weight:300;cursor:pointer}
+  .chip.on{border-color:var(--accent);color:var(--accent)}
 
-  /* ── 入會 ───────────────────────────────────────────── */
-  .verify { padding: 4px 5px 0; }
-  .verify h3 { font-size: 20px; font-weight: 800; line-height: 1.48; margin: 6px 0 10px; }
-  .verify > p { font-size: 12px; color: var(--dim); margin: 0 0 22px; font-weight: 300; }
-  .steps { display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; }
-  .step { display: flex; gap: 12px; align-items: flex-start; }
-  .num {
-    width: 21px; height: 21px; border-radius: 50%; flex: none; margin-top: 2px;
-    border: 1px solid var(--accent); color: var(--accent);
-    display: grid; place-items: center; font-size: 10.5px;
-    font-variant-numeric: tabular-nums;
-  }
-  .step b { display: block; font-size: 12.5px; font-weight: 700; }
-  .step small { font-size: 11px; color: var(--dim); line-height: 1.58; font-weight: 300; }
-  .cta {
-    display: block; text-align: center; background: var(--accent); color: var(--on-accent);
-    border-radius: 11px; padding: 12px; font-size: 13.5px; font-weight: 700; letter-spacing: .1em;
-    box-shadow: 0 0 30px -8px var(--glow);
-  }
-  .fineprint { font-size: 10px; color: var(--dim); margin-top: 13px; text-align: center; font-weight: 300; }
-  /* 隨機驗證句 */
-  .phrase {
-    margin: 2px 0 6px; padding: 11px 13px; border-radius: 10px;
-    background: var(--card-2); border: 1px dashed var(--line);
-  }
-  .phrase q {
-    display: block; quotes: none; font-size: 14px; font-weight: 600;
-    line-height: 1.55; letter-spacing: .02em;
-  }
-  .phrase small {
-    display: block; margin-top: 6px; font-size: 10px;
-    color: var(--dim); font-weight: 300; line-height: 1.5;
-  }
-  .reroll { color: var(--accent); }
+  .cta{display:block;text-align:center;background:var(--accent);color:var(--on-accent);
+    border-radius:11px;padding:12px;font-size:13.5px;font-weight:700;letter-spacing:.08em;
+    cursor:pointer;box-shadow:0 0 26px -8px var(--glow)}
+  .ghost{display:block;text-align:center;border:1px solid var(--line);color:var(--text);
+    border-radius:11px;padding:10px;font-size:12.5px;font-weight:600;cursor:pointer;margin-top:8px}
 
-  /* ── 人 ─────────────────────────────────────────────── */
-  .person { display: flex; gap: 11px; padding: 12px 4px; border-bottom: 1px solid var(--line); align-items: flex-start; }
-  .person:last-child { border-bottom: 0; }
-  .ava {
-    width: 39px; height: 39px; border-radius: 50%; flex: none; position: relative;
-    background: var(--card-2); border: 1px solid var(--line);
-    display: grid; place-items: center; font-size: 14px; color: var(--accent);
-  }
-  .ava.up::after {
-    content: ""; position: absolute; right: -1px; bottom: -1px;
-    width: 10px; height: 10px; border-radius: 50%;
-    background: var(--accent); border: 2px solid var(--card);
-    box-shadow: 0 0 9px 1px var(--glow);
-  }
-  .nm { font-size: 13px; font-weight: 700; }
-  .sub { font-size: 10.5px; color: var(--dim); font-weight: 300; }
-  .say { font-size: 12px; margin-top: 3px; font-weight: 300; }
-  .badge {
-    font-size: 9px; letter-spacing: .1em; color: var(--mist);
-    border: 1px solid var(--mist); border-radius: 999px; padding: 0 6px;
-    margin-left: 5px; white-space: nowrap; font-weight: 400;
-  }
-  .badge.lang {
-    color: var(--accent); border-color: var(--accent);
-    box-shadow: 0 0 14px -6px var(--glow);
-  }
-  /* 篩選 chip：喺「搵人」頂 */
-  .chips {
-    display: flex; gap: 6px; flex-wrap: wrap; padding: 2px 4px 10px;
-    border-bottom: 1px solid var(--line); margin-bottom: 2px;
-  }
-  .chip {
-    font-size: 10px; padding: 3px 9px; border-radius: 999px;
-    border: 1px solid var(--line); color: var(--dim); font-weight: 300;
-    white-space: nowrap;
-  }
-  .chip.on {
-    border-color: var(--accent); color: var(--accent);
-    box-shadow: 0 0 16px -7px var(--glow);
-  }
+  /* 入會 */
+  .verify{padding:4px 4px 0}
+  .verify h3{font-size:20px;font-weight:800;line-height:1.45;margin:6px 0 9px}
+  .verify>p{font-size:12px;color:var(--dim);margin:0 0 18px;font-weight:300}
+  .phrase{margin:0 0 16px;padding:12px 13px;border-radius:11px;background:var(--card-2);
+    border:1px dashed var(--line)}
+  .phrase q{display:block;quotes:none;font-size:14.5px;font-weight:600;line-height:1.5}
+  .phrase small{display:block;margin-top:6px;font-size:10px;color:var(--dim);font-weight:300;line-height:1.5}
+  .rec{width:74px;height:74px;border-radius:50%;margin:6px auto 12px;display:grid;place-items:center;
+    border:2px solid var(--accent);color:var(--accent);font-size:26px;cursor:pointer;
+    box-shadow:0 0 30px -8px var(--glow)}
+  .rec.busy{animation:pulse 1.1s ease-in-out infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 22px -10px var(--glow)}50%{box-shadow:0 0 40px 0 var(--glow)}}
+  .steps{display:flex;flex-direction:column;gap:13px;margin-top:6px}
+  .step{display:flex;gap:11px;align-items:flex-start}
+  .num{width:20px;height:20px;border-radius:50%;flex:none;margin-top:2px;
+    border:1px solid var(--accent);color:var(--accent);display:grid;place-items:center;font-size:10px}
+  .step b{display:block;font-size:12.5px;font-weight:700}
+  .step small{font-size:11px;color:var(--dim);line-height:1.55;font-weight:300}
+  .fineprint{font-size:10px;color:var(--dim);margin-top:12px;text-align:center;font-weight:300}
 
-  /* ── Profile：混合 element 流 ───────────────────────
-     相只係其中一種 card。每張 card 獨立可以 like。         */
-  .phead { display: flex; gap: 12px; align-items: flex-start; padding: 6px 4px 11px; }
-  .phead .ava { width: 56px; height: 56px; font-size: 20px; }
-  .pname { font-size: 16px; font-weight: 800; letter-spacing: .02em; }
-  .pmeta { font-size: 11px; color: var(--dim); font-weight: 300; margin-top: 1px; }
-  .pbio { font-size: 12.5px; font-weight: 300; margin-top: 5px; line-height: 1.55; }
+  /* thread */
+  .op{padding:4px 4px 11px;border-bottom:1px solid var(--line)}
+  .op h3{font-size:15px;font-weight:700;line-height:1.5;margin:6px 0 7px}
+  .op p{font-size:12.5px;font-weight:300;margin:0 0 9px;line-height:1.65}
+  .opbar{display:flex;gap:14px;font-size:10.5px;color:var(--dim)}
+  .reply{padding:10px 4px;border-bottom:1px solid var(--line)}
+  .reply:last-child{border-bottom:0}
+  .rhead{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--dim);margin-bottom:4px}
+  .reply p{font-size:12.5px;font-weight:300;margin:0;line-height:1.6}
+  .quote{border-left:2px solid var(--line);padding-left:8px;margin:0 0 5px;font-size:11px;color:var(--dim);font-weight:300}
 
-  .stream { display: flex; flex-direction: column; gap: 9px; padding: 0 4px 4px; }
-  .el {
-    position: relative; border-radius: 12px; overflow: hidden;
-    background: var(--card-2); border: 1px solid var(--line);
-    padding: 11px 12px;
-  }
-  .el .kind {
-    font-size: 9px; letter-spacing: .18em; color: var(--dim);
-    font-weight: 500; margin-bottom: 6px; display: block;
-  }
-  .el .like {
-    position: absolute; right: 8px; bottom: 8px;
-    width: 22px; height: 22px; border-radius: 50%;
-    background: var(--card); border: 1px solid var(--accent); color: var(--accent);
-    display: grid; place-items: center; font-size: 10px;
-    box-shadow: 0 0 15px -6px var(--glow);
-  }
-  .el .txt { font-size: 13px; font-weight: 600; line-height: 1.55; padding-right: 26px; }
-  .el .sub { font-size: 10.5px; color: var(--dim); font-weight: 300; margin-top: 3px; padding-right: 26px; }
+  /* profile */
+  .phead{display:flex;gap:12px;align-items:flex-start;padding:4px 4px 10px}
+  .phead .ava{width:58px;height:58px;font-size:20px}
+  .pname{font-size:16px;font-weight:800}
+  .pmeta{font-size:11px;color:var(--dim);font-weight:300;margin-top:1px}
+  .pbio{font-size:12.5px;font-weight:300;margin-top:5px;line-height:1.55}
+  .seg{display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--line);margin:0 4px 12px}
+  .seg button{all:unset;text-align:center;padding:9px 0;font-size:12px;color:var(--dim);
+    cursor:pointer;border-bottom:2px solid transparent;font-weight:600}
+  .seg button.on{color:var(--accent);border-bottom-color:var(--accent)}
+  .seg button:focus-visible{outline:2px solid var(--accent);outline-offset:-4px}
+  .pane{display:none}
+  .pane.on{display:block}
 
-  /* 相 element：兩格並排 */
-  .el.photo { padding: 11px 12px 12px; }
-  .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
-  .shot {
-    aspect-ratio: 4/5; border-radius: 7px; display: grid; place-items: center;
-    font-size: 22px; border: 1px solid var(--line);
-  }
-  .shot.a { background: linear-gradient(155deg, rgba(232,168,124,.26), rgba(124,155,181,.12)); }
-  .shot.b { background: linear-gradient(155deg, rgba(124,155,181,.24), rgba(232,168,124,.08)); }
+  /* 簡介：Hinge 式固定 element */
+  .stream{display:flex;flex-direction:column;gap:9px;padding:0 4px 6px}
+  .el{position:relative;border-radius:12px;background:var(--card-2);border:1px solid var(--line);padding:11px 12px}
+  .el .kind{font-size:9px;letter-spacing:.18em;color:var(--dim);font-weight:500;margin-bottom:6px;display:block}
+  .el .like{position:absolute;right:8px;bottom:8px;width:23px;height:23px;border-radius:50%;
+    background:var(--card);border:1px solid var(--accent);color:var(--accent);
+    display:grid;place-items:center;font-size:11px;cursor:pointer}
+  .el .like.hit{background:var(--accent);color:var(--on-accent)}
+  .el .txt{font-size:13px;font-weight:600;line-height:1.55;padding-right:28px}
+  .el .sub2{font-size:10.5px;color:var(--dim);font-weight:300;margin-top:3px;padding-right:28px}
+  .shots{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+  .shot{aspect-ratio:4/5;border-radius:7px;display:grid;place-items:center;font-size:22px;border:1px solid var(--line)}
+  .song{display:flex;gap:10px;align-items:center;padding-right:28px}
+  .cover{width:40px;height:40px;border-radius:6px;flex:none;
+    background:linear-gradient(140deg,var(--accent),var(--mist));
+    display:grid;place-items:center;font-size:15px;color:var(--on-accent)}
+  .adder{border:1px dashed var(--line);border-radius:12px;padding:13px;text-align:center;
+    font-size:11.5px;color:var(--dim);font-weight:300;cursor:pointer}
+  .adder:hover{border-color:var(--accent);color:var(--accent)}
 
-  /* 歌 element */
-  .song { display: flex; gap: 10px; align-items: center; padding-right: 26px; }
-  .cover {
-    width: 40px; height: 40px; border-radius: 6px; flex: none;
-    background: linear-gradient(140deg, var(--accent), var(--mist));
-    display: grid; place-items: center; font-size: 15px; color: var(--on-accent);
-  }
-  .wave { display: flex; align-items: flex-end; gap: 2px; height: 15px; margin-top: 7px; }
-  .wave i {
-    width: 2px; background: var(--accent); opacity: .5; border-radius: 1px; display: block;
-  }
+  /* 貼文：IG grid */
+  .gridbar{display:flex;justify-content:space-between;align-items:center;
+    padding:0 4px 9px;font-size:10.5px;color:var(--dim);font-variant-numeric:tabular-nums}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:0 4px}
+  .cell{aspect-ratio:1;border-radius:3px;display:grid;place-items:center;font-size:19px;
+    border:1px solid var(--line);cursor:pointer;position:relative}
+  .cell:hover{outline:1px solid var(--accent)}
+  .cell .n{position:absolute;right:3px;bottom:2px;font-size:8.5px;color:var(--dim)}
+  .g1{background:linear-gradient(150deg,rgba(232,168,124,.24),rgba(124,155,181,.10))}
+  .g2{background:linear-gradient(150deg,rgba(124,155,181,.22),rgba(232,168,124,.07))}
+  .g3{background:linear-gradient(150deg,rgba(201,123,123,.20),rgba(232,168,124,.10))}
 
-  /* ── 傾偈 ───────────────────────────────────────────── */
-  .thread { display: flex; flex-direction: column; gap: 9px; padding: 8px 2px; }
-  .bub { max-width: 78%; padding: 9px 13px; border-radius: 16px; font-size: 12px; line-height: 1.62; font-weight: 300; }
-  .bub.them { background: var(--card-2); border-bottom-left-radius: 5px; }
-  .bub.me {
-    background: var(--accent); color: var(--on-accent); font-weight: 400;
-    align-self: flex-end; border-bottom-right-radius: 5px;
-  }
-  .daymark { text-align: center; font-size: 9.5px; color: var(--dim); letter-spacing: .18em; margin: 4px 0; }
-  .composer {
-    display: flex; align-items: center; gap: 9px; padding: 10px 4px 4px;
-    border-top: 1px solid var(--line); font-size: 11.5px; color: var(--dim); font-weight: 300;
-  }
-  .composer .field { flex: 1; border: 1px solid var(--line); border-radius: 999px; padding: 7px 13px; }
+  /* 相內頁 */
+  .photo-big{aspect-ratio:1;border-radius:12px;display:grid;place-items:center;
+    font-size:56px;border:1px solid var(--line);margin:0 4px 10px}
+  .caption{padding:0 6px;font-size:12.5px;font-weight:300;line-height:1.6}
+  .cbar{display:flex;gap:15px;padding:10px 6px 0;font-size:11.5px;color:var(--dim)}
+  .cbar span{cursor:pointer}
+  .cbar .hit{color:var(--accent)}
 
-  /* ── 討論區內頁 ────────────────────────────────────── */
-  .op { padding: 4px 4px 12px; border-bottom: 1px solid var(--line); }
-  .op h3 { font-size: 15px; font-weight: 700; line-height: 1.5; margin: 6px 0 7px; }
-  .op p { font-size: 12.5px; font-weight: 300; color: var(--text); margin: 0 0 9px; line-height: 1.65; }
-  .opbar { display: flex; gap: 14px; font-size: 10.5px; color: var(--dim); font-variant-numeric: tabular-nums; }
-  .reply { padding: 11px 4px; border-bottom: 1px solid var(--line); }
-  .reply:last-child { border-bottom: 0; }
-  .rhead { display: flex; align-items: center; gap: 6px; font-size: 10.5px; color: var(--dim); margin-bottom: 4px; }
-  .reply p { font-size: 12.5px; font-weight: 300; margin: 0; line-height: 1.6; }
-  .quote {
-    border-left: 2px solid var(--line); padding-left: 8px; margin: 0 0 5px;
-    font-size: 11px; color: var(--dim); font-weight: 300;
-  }
+  /* 群 / 開枱 */
+  .event{margin:2px 4px 12px;padding:13px;border-radius:13px;background:var(--card-2);
+    border:1px solid var(--accent);box-shadow:0 0 24px -12px var(--glow)}
+  .event .when{font-size:10.5px;letter-spacing:.14em;color:var(--accent);font-weight:500}
+  .event h3{font-size:15px;font-weight:700;margin:6px 0 4px}
+  .event .where{font-size:11.5px;color:var(--dim);font-weight:300}
+  .faces{display:flex;margin:11px 0 9px;align-items:center}
+  .faces .f{width:26px;height:26px;border-radius:50%;margin-right:-7px;background:var(--card);
+    border:1px solid var(--line);display:grid;place-items:center;font-size:11px;color:var(--accent)}
+  .faces .more{color:var(--dim);font-size:10.5px;margin-left:15px;font-weight:300}
+  .join{display:block;text-align:center;background:var(--accent);color:var(--on-accent);
+    border-radius:9px;padding:9px;font-size:12.5px;font-weight:700;cursor:pointer}
+  .join.done{background:transparent;color:var(--accent);border:1px solid var(--accent)}
 
-  /* ── Element 編輯器 ───────────────────────────────── */
-  .picker { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; padding: 8px 4px 0; }
-  .ptile {
-    border: 1px solid var(--line); border-radius: 11px; padding: 12px 6px;
-    text-align: center; background: var(--card-2);
-  }
-  .ptile.on { border-color: var(--accent); box-shadow: 0 0 20px -8px var(--glow); }
-  .ptile b { display: block; font-size: 19px; font-weight: 400; margin-bottom: 4px; }
-  .ptile span { font-size: 10.5px; color: var(--dim); font-weight: 300; }
-  .ptile.on span { color: var(--accent); }
-  .compose {
-    margin: 14px 4px 0; padding: 12px; border-radius: 12px;
-    background: var(--card-2); border: 1px solid var(--accent);
-  }
-  .compose .qsel {
-    font-size: 11px; color: var(--accent); font-weight: 400;
-    display: flex; justify-content: space-between; margin-bottom: 8px;
-  }
-  .compose .ans { font-size: 13px; font-weight: 600; line-height: 1.55; }
-  .compose .caret { color: var(--accent); }
-  .hintline { font-size: 10.5px; color: var(--dim); font-weight: 300; margin: 12px 4px 0; line-height: 1.55; }
+  /* 傾偈 */
+  .thread{display:flex;flex-direction:column;gap:9px;padding:8px 2px}
+  .bub{max-width:78%;padding:9px 13px;border-radius:16px;font-size:12.5px;line-height:1.6;font-weight:300}
+  .bub.them{background:var(--card-2);border-bottom-left-radius:5px}
+  .bub.me{background:var(--accent);color:var(--on-accent);align-self:flex-end;border-bottom-right-radius:5px}
+  .daymark{text-align:center;font-size:10px;color:var(--dim);letter-spacing:.16em;margin:4px 0}
+  .composer{display:flex;align-items:center;gap:9px;padding:9px 4px 2px;border-top:1px solid var(--line);
+    font-size:12px;color:var(--dim);font-weight:300}
+  .composer .field{flex:1;border:1px solid var(--line);border-radius:999px;padding:7px 13px}
+  .composer .go{color:var(--accent);cursor:pointer}
 
-  /* ── 開枱 ─────────────────────────────────────────── */
-  .event {
-    margin: 4px 4px 0; padding: 14px 13px; border-radius: 13px;
-    background: var(--card-2); border: 1px solid var(--accent);
-    box-shadow: 0 0 26px -12px var(--glow);
-  }
-  .event .when { font-size: 10.5px; letter-spacing: .14em; color: var(--accent); font-weight: 500; }
-  .event h3 { font-size: 15.5px; font-weight: 700; margin: 6px 0 4px; line-height: 1.45; }
-  .event .where { font-size: 11.5px; color: var(--dim); font-weight: 300; }
-  .faces { display: flex; margin: 11px 0 9px; }
-  .faces .f {
-    width: 27px; height: 27px; border-radius: 50%; margin-right: -7px;
-    background: var(--card); border: 1px solid var(--line);
-    display: grid; place-items: center; font-size: 11px; color: var(--accent);
-  }
-  .faces .more { color: var(--dim); font-size: 10.5px; margin-left: 14px; align-self: center; font-weight: 300; }
-  .join {
-    display: block; text-align: center; background: var(--accent); color: var(--on-accent);
-    border-radius: 9px; padding: 9px; font-size: 12.5px; font-weight: 700; letter-spacing: .08em;
-  }
+  /* element 編輯器 */
+  .picker{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;padding:6px 4px 0}
+  .ptile{border:1px solid var(--line);border-radius:11px;padding:11px 6px;text-align:center;
+    background:var(--card-2);cursor:pointer}
+  .ptile.on{border-color:var(--accent);box-shadow:0 0 18px -8px var(--glow)}
+  .ptile b{display:block;font-size:18px;font-weight:400;margin-bottom:4px}
+  .ptile span{font-size:10.5px;color:var(--dim);font-weight:300}
+  .ptile.on span{color:var(--accent)}
+  .compose{margin:13px 4px 0;padding:12px;border-radius:12px;background:var(--card-2);border:1px solid var(--accent)}
+  .compose .qsel{font-size:11px;color:var(--accent);display:flex;justify-content:space-between;margin-bottom:8px}
+  .compose .ans{font-size:13px;font-weight:600;line-height:1.55}
 
-  /* ── 假面 ─────────────────────────────────────────── */
-  .calc { display: flex; flex-direction: column; height: 100%; padding: 0 10px 8px; }
-  .calcout {
-    flex: none; text-align: right; padding: 26px 10px 18px;
-    font-size: 40px; font-weight: 300; font-variant-numeric: tabular-nums;
-    letter-spacing: .02em;
-  }
-  .keys { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; flex: 1; }
-  .key {
-    border-radius: 50%; display: grid; place-items: center;
-    background: var(--card-2); font-size: 17px; font-weight: 400;
-    border: 1px solid var(--line);
-  }
-  .key.op2 { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
-  .key.fn { color: var(--dim); }
+  /* 假面 */
+  .calc{display:flex;flex-direction:column;height:100%;padding:0 12px 12px}
+  .calcout{text-align:right;padding:34px 8px 20px;font-size:42px;font-weight:300;font-variant-numeric:tabular-nums}
+  .keys{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;flex:1}
+  .key{border-radius:50%;display:grid;place-items:center;background:var(--card-2);
+    font-size:17px;border:1px solid var(--line);cursor:pointer}
+  .key.op2{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+  .key.fn{color:var(--dim)}
+  .escape{text-align:center;font-size:10px;color:var(--dim);padding-top:10px;cursor:pointer}
 
-  /* ── 對照 ───────────────────────────────────────────── */
-  .why { margin-top: clamp(44px,6vw,78px); }
-  .why h2 { font-size: clamp(23px,4vw,30px); font-weight: 800; margin: 0 0 6px; letter-spacing: .02em; }
-  .why > p { color: var(--dim); margin: 0 0 28px; font-weight: 300; }
-  .cmp .row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; padding: 17px 0; border-top: 1px solid var(--line); }
-  .cmp .row:last-child { border-bottom: 1px solid var(--line); }
-  .cmp h4 {
-    grid-column: 1 / -1; margin: 0 0 3px; font-size: 11px;
-    letter-spacing: .2em; text-transform: uppercase; color: var(--dim); font-weight: 500;
-  }
-  .cmp .old, .cmp .new { font-size: 12.5px; font-weight: 300; }
-  .cmp .old { color: var(--dim); }
-  .cmp .old::before {
-    content: "Butterfly"; display: block; font-size: 9.5px; letter-spacing: .2em;
-    text-transform: uppercase; color: var(--rose); margin-bottom: 5px; font-weight: 600;
-  }
-  .cmp .new::before {
-    content: "同枱"; display: block; font-size: 9.5px; letter-spacing: .2em;
-    color: var(--accent); margin-bottom: 5px; font-weight: 600;
-  }
+  /* ── 側邊說明 ── */
+  .notes{flex:1;min-width:280px;padding-top:4px}
+  .notes h3{font-size:12px;font-weight:700;letter-spacing:.18em;margin:0 0 8px;color:var(--text)}
+  .notes p{font-size:13px;font-weight:300;color:var(--dim);margin:0 0 14px;line-height:1.7;max-width:52ch}
+  .notes p b{color:var(--text);font-weight:600}
+  .notes .card{border:1px solid var(--line);border-radius:13px;padding:15px 16px;margin-bottom:12px;
+    background:var(--card)}
+  .jump{display:flex;flex-wrap:wrap;gap:7px;margin-top:4px}
+  .jump button{all:unset;font-size:11.5px;padding:5px 11px;border-radius:999px;
+    border:1px solid var(--line);color:var(--dim);cursor:pointer;font-weight:300}
+  .jump button:hover,.jump button:focus-visible{border-color:var(--accent);color:var(--accent)}
+  .hintbar{font-size:11.5px;color:var(--dim);font-weight:300;margin-top:14px;line-height:1.6}
+  .kbd{border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:10.5px;color:var(--text)}
 
-  .foot {
-    margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line);
-    font-size: 12.5px; color: var(--dim); font-weight: 300;
+  @media (max-width:760px){
+    .stage{flex-direction:column}
+    .phone{width:min(322px,92vw);height:min(690px,78vh)}
   }
-  .foot em { font-family: var(--serif); font-style: normal; color: var(--text); letter-spacing: .04em; }
-
-  /* ── 入場 ───────────────────────────────────────────── */
-  .rise { animation: rise .85s cubic-bezier(.2,.75,.3,1) both; }
-  .slot:nth-child(1) .phone { animation-delay: .04s; }
-  .slot:nth-child(2) .phone { animation-delay: .13s; }
-  .slot:nth-child(3) .phone { animation-delay: .22s; }
-  .slot:nth-child(4) .phone { animation-delay: .31s; }
-  .slot:nth-child(5) .phone { animation-delay: .40s; }
-  .slot:nth-child(6) .phone { animation-delay: .49s; }
-  @keyframes rise {
-    from { opacity: 0; transform: translateY(26px) scale(.985); }
-    to   { opacity: 1; transform: none; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .rise { animation: none; }
-    .lamp { animation: none; }
-    .phone, .slot:hover .phone { transition: none; transform: none; }
-  }
-
-  @media (max-width: 560px) {
-    .vstripe { display: none; }
-    .slot, .phone { width: 262px; }
-    .phone { height: 566px; }
-    .slot:nth-child(n) { margin-top: 0; }
-    .cmp .row { grid-template-columns: 1fr; gap: 12px; }
-  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 
 <div class="room">
  <div class="wrap">
 
-  <header class="col mast">
-    <div class="vstripe">夜燈</div>
-    <div class="eyebrow">草圖 v5 · 十個畫面 · 2026-08-16</div>
-    <h1 class="wordmark">同<em>枱</em></h1>
-    <p class="tagline">廣東話。女仔。就係咁簡單。</p>
-    <p class="lede">
-      Butterfly 撐咗十二年，而家兩年冇更新、驗證碼收唔到，啲人喺佢個討論區出帖叫人入 Telegram 群。
-      個需求冇死，係個 app 死咗。
-    </p>
-    <p class="note">設計草圖，唔係成品。所有文字、人物、貼文都係示意用。</p>
-    <div class="pillrow">
-      <span class="pill on">廣東話行先</span>
-      <span class="pill on">海外都揀到城市</span>
-      <span class="pill on">唔使自拍</span>
-      <span class="pill on">讀一句嘢就入到</span>
-      <span class="pill on">粵／英／普 自動標籤</span>
-      <span class="pill">唔使香港電話號碼</span>
-      <span class="pill">傾偈唔使走去 Telegram</span>
-      <span class="pill on">Profile = IG × Hinge</span>
-    </div>
+  <header class="head">
+    <div class="eyebrow">可撳原型 · 2026-08-16</div>
+    <h1 class="wm">同<em>枱</em></h1>
+    <p>撳落去真係行到 —— 撳個帖入內頁、撳個人入 profile、撳個群開枱、切換
+       <b>簡介／貼文</b>、撳 ♡、錄音、開假面。<b>個名仲未定。</b></p>
   </header>
 
-  <div class="table">
-    <div class="rail">
+  <div class="stage">
 
-      <figure class="slot">
-        <div class="phone rise">
-          <div class="status"><span>01:24</span><span>▮▮▮</span></div>
+    <div class="device">
+      <div class="phone">
+        <div class="status"><span>01:24</span><span>▮▮▮</span></div>
+
+        <!-- ══ 入會 ══ -->
+        <section class="screen" data-page="verify">
           <div class="appbar"><h2>入會</h2></div>
           <div class="body">
             <div class="verify">
               <h3>唔使自拍。<br>讀一句嘢就得。</h3>
               <p>唔要 email、唔要電話、唔要 Facebook。淨係要把聲，聽完即刻刪。</p>
-
               <div class="phrase">
-                <q>今日落雨，我想食碗雲吞麵</q>
-                <small>每次都唔同句。內容完全中性 — 當住人面前讀出嚟都唔會出事。<span class="reroll">換一句</span></small>
+                <q id="phrase-txt">今日落雨，我想食碗雲吞麵</q>
+                <small>每次都唔同句。內容中性 — 當住人面前讀都唔會出事。
+                  <span class="act" onclick="reroll()">換一句 ↻</span></small>
               </div>
-
-              <div class="steps">
+              <div class="rec" id="rec" onclick="record()">●</div>
+              <p class="fineprint" id="recmsg">撳一撳，讀出上面嗰句</p>
+              <div class="steps" style="margin-top:14px">
                 <div class="step"><span class="num">1</span><span>
-                  <b>撳住，讀一次</b>
-                  <small>大約十秒。黑燈、素顏、瞓喺床都錄得 — 唔使見得人。</small>
-                </span></div>
+                  <b>AI 只負責放行</b>
+                  <small>唔確定嘅一律轉真人聽，唔會自動拒絕你。</small></span></div>
                 <div class="step"><span class="num">2</span><span>
-                  <b>通常即刻入到</b>
-                  <small>AI 只負責放行。唔確定嘅一律轉真人聽，唔會自動拒絕你。</small>
-                </span></div>
-                <div class="step"><span class="num">3</span><span>
                   <b>順便標返你講咩話</b>
-                  <small>同一段錄音跑語言 ID，標粵／英／普做篩選用。唔使做多一步。</small>
-                </span></div>
+                  <small>同一段錄音標粵／英／普，唔使做多一步。</small></span></div>
               </div>
-
-              <span class="cta">撳住錄音</span>
-              <p class="fineprint">而家唔方便出聲？<span class="reroll">遲啲先錄</span> · 或者揀真人視像</p>
+              <p class="fineprint">而家唔方便出聲？<span class="act">遲啲先錄</span> · 或者真人視像</p>
             </div>
           </div>
-          <nav class="tabbar"><span class="on">入會</span><span>條款</span><span>私隱</span><span>幫手</span></nav>
-        </div>
-        <figcaption>
-          <b>入會</b>
-          Tinder／Bumble／Hinge 同 Giggle 都要自拍或者面部掃描 —— 而張面正正係最認得出你嘅嘢。
-          聲音唔使見得人，讀一句中性嘅嘢就完事。
-          <br><br>
-          聲紋性別分類喺 VoxCeleb2 有 98.9%，但個數係喺 cis 二元標籤資料集跑出嚟 ——
-          所以 AI 只准放行、唔准拒絕，唔確定嘅落人手。門口唔追求完美：真係夾硬入到嚟嘅人，靠下一版捉。
-        </figcaption>
-      </figure>
+        </section>
 
-      <figure class="slot">
-        <div class="phone rise">
-          <div class="status"><span>01:24</span><span>▮▮▮</span></div>
-          <div class="appbar"><h2>討論區</h2><span class="act">溫哥華 ▾　✉ 3</span></div>
-          <div class="awake"><span class="lamp"></span>而家仲有 <b>34</b> 個人未瞓</div>
+        <!-- ══ 討論區 ══ -->
+        <section class="screen on" data-page="forum">
+          <div class="appbar"><h2>討論區</h2><span class="act" onclick="go('chat')">溫哥華 ▾　✉ 3</span></div>
           <div class="body">
-            <article class="post">
+            <div class="awake"><span class="lamp"></span>而家仲有 <b>34</b> 個人未瞓</div>
+            <article class="post" onclick="go('thread')">
+              <div class="meta"><span class="who">Yuen</span><span class="city">香港</span><span>· 1 小時前</span></div>
+              <h3>移咗民之後點識人？</h3>
+              <p>香港有 Butterfly 都算有個地方，出到去先發現咩都冇。</p>
+              <div class="stat"><span>♡ 204</span><span>86 回覆</span></div>
+            </article>
+            <article class="post" onclick="go('thread')">
               <div class="meta"><span class="who">阿丙</span><span class="city">本拿比</span><span>· 4 分鐘前</span></div>
               <h3>瞓唔著。有冇人一齊夜遊？</h3>
               <p>Metrotown 附近，行下食個宵夜都得。純粹想搵人講廣東話。</p>
-              <div class="stat"><span>14 回覆</span><span>31 個掛住</span></div>
+              <div class="stat"><span>♡ 31</span><span>14 回覆</span></div>
             </article>
-            <article class="post">
-              <div class="meta"><span class="who">Yuen</span><span class="city">香港</span><span>· 1 小時前</span></div>
-              <h3>移咗民之後點識人？</h3>
-              <p>香港有 Butterfly 都算有個地方，出到去先發現咩都冇。想聽下已經走咗嘅人點做。</p>
-              <div class="stat"><span>86 回覆</span><span>204 個掛住</span></div>
-            </article>
-            <article class="post">
+            <article class="post" onclick="go('thread')">
               <div class="meta"><span class="who">細細粒</span><span class="city">多倫多</span><span>· 今朝</span></div>
               <h3>同屋企出咗櫃，佢哋好平靜，我反而喊咗</h3>
               <p>成日以為最難嗰關會好慘烈，點知阿媽淨係話咗句「哦，食飯先啦」。</p>
-              <div class="stat"><span>127 回覆</span><span>512 個掛住</span></div>
+              <div class="stat"><span>♡ 512</span><span>127 回覆</span></div>
             </article>
-            <article class="post">
+            <article class="post" onclick="go('thread')">
               <div class="meta"><span class="who">K</span><span class="city">列治文</span><span>· 琴日</span></div>
               <h3>周六行 Quarry Rock，有冇人一齊</h3>
               <p>朝早九點 Deep Cove 停車場等，行完食嘢。已經有三個人。</p>
-              <div class="stat"><span>22 回覆</span><span>60 個掛住</span></div>
+              <div class="stat"><span>♡ 60</span><span>22 回覆</span></div>
             </article>
           </div>
-          <nav class="tabbar"><span class="on">討論區</span><span>群</span><span>搵人</span><span>我</span></nav>
-        </div>
-        <figcaption>
-          <b>討論區</b>
-          城市係一個 filter，唔係一個標籤。溫哥華人一開就見到溫哥華嘅嘢，唔使喺成個香港討論區入面篩。
-        </figcaption>
-      </figure>
+        </section>
 
-      <figure class="slot">
-        <div class="phone rise">
-          <div class="status"><span>01:24</span><span>▮▮▮</span></div>
-          <div class="appbar"><h2>搵人</h2><span class="act">篩選 ▾</span></div>
-          <div class="awake"><span class="lamp"></span>先顯示 <b>而家未瞓</b> 嘅人</div>
-          <div class="body">
-            <div class="chips">
-              <span class="chip on">未瞓</span>
-              <span class="chip on">講粵語</span>
-              <span class="chip">大溫</span>
-              <span class="chip">30–40</span>
-            </div>
-            <div class="person"><span class="ava up">丙</span><span>
-              <span class="nm">阿丙 <span class="badge">已驗證</span><span class="badge lang">粵</span></span>
-              <span class="sub">33 · 本拿比 · 香港嚟</span>
-              <span class="say">返夜更，日頭得閒。想搵人行山。</span>
-            </span></div>
-            <div class="person"><span class="ava up">霖</span><span>
-              <span class="nm">阿霖 <span class="badge">已驗證</span><span class="badge lang">粵</span></span>
-              <span class="sub">28 · 溫東 · 三年前嚟</span>
-              <span class="say">煮嘢食係我強項，識人係我弱項。</span>
-            </span></div>
-            <div class="person"><span class="ava">Y</span><span>
-              <span class="nm">Yuki <span class="badge">已驗證</span><span class="badge lang">粵·英</span></span>
-              <span class="sub">31 · 列治文 · 喺呢邊出世</span>
-              <span class="say">粵語識聽識講，寫就麻麻。睇緊《日落下的彩虹》。</span>
-            </span></div>
-            <div class="person"><span class="ava">敏</span><span>
-              <span class="nm">敏 <span class="badge">已驗證</span><span class="badge lang">粵</span></span>
-              <span class="sub">39 · 高貴林 · 未出櫃</span>
-              <span class="say">低調啲好，先做朋友。</span>
-            </span></div>
-            <div class="person"><span class="ava up">C</span><span>
-              <span class="nm">Cheryl <span class="badge">已驗證</span><span class="badge lang">粵·普</span></span>
-              <span class="sub">26 · 溫哥華市中心</span>
-              <span class="say">啱啱落機兩個月，乜都唔識，求帶。</span>
-            </span></div>
-          </div>
-          <nav class="tabbar"><span>討論區</span><span>群</span><span class="on">搵人</span><span>我</span></nav>
-        </div>
-        <figcaption>
-          <b>搵人</b>
-          唔係碌卡配對。列表、一句人話、直接開口。「而家未瞓」排先 —— 深夜想搵人傾，最需要嘅係有人而家仲醒。
-          <br><br>
-          粵／英／普係<b style="display:inline;letter-spacing:0">標籤，唔係門檻</b>。語言 ID 準（VoxLingua107 93%），
-          但地區口音唔準，而且 CBC、細個移民、潮州客家家庭嘅粵語必然唔「標準」 —— 佢哋正正就係用戶。
-        </figcaption>
-      </figure>
-
-      <figure class="slot">
-        <div class="phone rise">
-          <div class="status"><span>01:31</span><span>▮▮▮</span></div>
-          <div class="appbar"><h2>‹ 阿丙</h2><span class="act">本拿比</span></div>
-          <div class="body">
-            <div class="thread">
-              <div class="daymark">今晚</div>
-              <div class="bub them">見你話瞓唔著 😌</div>
-              <div class="bub them">我都係，睇咗三集嘢都仲精神</div>
-              <div class="bub me">你住邊頭？我喺 Metrotown</div>
-              <div class="bub them">行十五分鐘就到，咁啱喎</div>
-              <div class="bub them">不過我而家出去嘅話聽朝實死</div>
-              <div class="bub me">咁聽日？食個宵夜</div>
-              <div class="bub them">好呀。我知間鋪開到兩點</div>
-            </div>
-            <div class="composer"><span class="field">寫啲嘢…</span><span>送出</span></div>
-          </div>
-          <nav class="tabbar"><span>討論區</span><span class="on">群</span><span>搵人</span><span>我</span></nav>
-        </div>
-        <figcaption>
-          <b>傾偈</b>
-          最重要嗰版。Butterfly 啲人走去開 Telegram 群，就係因為呢一版唔好用。呢版做得差，成個 app 都會漏人。
-        </figcaption>
-      </figure>
-
-      <figure class="slot">
-        <div class="phone rise">
-          <div class="status"><span>01:24</span><span>▮▮▮</span></div>
-          <div class="appbar"><h2>群</h2><span class="act">開新群</span></div>
-          <div class="body">
-            <div class="person"><span class="ava up">夜</span><span>
-              <span class="nm">夜貓組</span>
-              <span class="sub">87 人 · 而家 12 個未瞓</span>
-              <span class="say">阿霖：又係一個瞓唔著嘅星期二…</span>
-            </span></div>
-            <div class="person"><span class="ava up">溫</span><span>
-              <span class="nm">溫哥華 30+ 傾偈</span>
-              <span class="sub">148 人 · 今日 62 條</span>
-              <span class="say">Yuki：邊間打邊爐好食啲…</span>
-            </span></div>
-            <div class="person"><span class="ava">新</span><span>
-              <span class="nm">啱啱落地互助</span>
-              <span class="sub">309 人 · 今日 27 條</span>
-              <span class="say">Cheryl：請問點樣考車牌…</span>
-            </span></div>
-            <div class="person"><span class="ava">櫃</span><span>
-              <span class="nm">未出櫃 · 只限已驗證</span>
-              <span class="sub">76 人 · 唔搜尋得到</span>
-              <span class="say">敏：今日又被問幾時拉個返屋企…</span>
-            </span></div>
-            <div class="person"><span class="ava">行</span><span>
-              <span class="nm">行山組</span>
-              <span class="sub">201 人 · 今日 8 條</span>
-              <span class="say">阿丙：Quarry Rock 相…</span>
-            </span></div>
-          </div>
-          <nav class="tabbar"><span>討論區</span><span class="on">群</span><span>搵人</span><span>我</span></nav>
-        </div>
-        <figcaption>
-          <b>群</b>
-          呢個就係要贏返嚟嗰樣。人哋走去 Telegram 開群，係因為佢哋要群。咁就內置返，仲要係驗證過先入到 ——
-          呢樣 Telegram 做唔到。
-        </figcaption>
-      </figure>
-
-      <figure class="slot">
-        <div class="phone rise">
-          <div class="status"><span>01:24</span><span>▮▮▮</span></div>
-          <div class="appbar"><h2>阿霖</h2><span class="act">✉ 傾偈</span></div>
-          <div class="body">
-            <div class="phead">
-              <span class="ava up">霖</span>
-              <span>
-                <span class="pname">阿霖 <span class="badge">已驗證</span><span class="badge lang">粵</span></span>
-                <span class="pmeta">28 · 溫東 · 三年前嚟 · 而家未瞓</span>
-                <span class="pbio">煮嘢食係我強項，識人係我弱項。</span>
-              </span>
-            </div>
-
-            <div class="stream">
-
-              <div class="el photo">
-                <span class="kind">相</span>
-                <div class="shots">
-                  <span class="shot a">🍜</span>
-                  <span class="shot b">🐈</span>
-                </div>
-                <span class="like">♡</span>
-              </div>
-
-              <div class="el">
-                <span class="kind">歌</span>
-                <div class="song">
-                  <span class="cover">♪</span>
-                  <span>
-                    <span class="txt">係咁先啦朋友</span>
-                    <span class="sub">Serrini · 最近一個月循環到爛</span>
-                  </span>
-                </div>
-                <div class="wave">
-                  <i style="height:5px"></i><i style="height:11px"></i><i style="height:7px"></i>
-                  <i style="height:14px"></i><i style="height:9px"></i><i style="height:15px"></i>
-                  <i style="height:6px"></i><i style="height:12px"></i><i style="height:8px"></i>
-                  <i style="height:13px"></i><i style="height:5px"></i><i style="height:10px"></i>
-                </div>
-                <span class="like">♡</span>
-              </div>
-
-              <div class="el">
-                <span class="kind">問答</span>
-                <div class="txt">返到屋企一定要即刻沖涼先做嘢</div>
-                <div class="sub">一個我死都唔會改嘅習慣</div>
-                <span class="like">♡</span>
-              </div>
-
-              <div class="el">
-                <span class="kind">一句話</span>
-                <div class="txt">我唔識玩曖昧。想見你就會直接講。</div>
-                <span class="like">♡</span>
-              </div>
-
-              <div class="el">
-                <span class="kind">睇緊</span>
-                <div class="txt">日落下的彩虹</div>
-                <div class="sub">ViuTV · 追到第 11 集，有冇人一齊喊</div>
-                <span class="like">♡</span>
-              </div>
-
-              <div class="el" style="border-style:dashed;text-align:center;padding:14px 12px">
-                <div class="sub" style="padding:0;margin:0">＋ 加多一件 · 相／歌／問答／一句話／睇緊／地方…</div>
-              </div>
-
-            </div>
-          </div>
-          <nav class="tabbar"><span>討論區</span><span>群</span><span>搵人</span><span class="on">我</span></nav>
-        </div>
-        <figcaption>
-          <b>PROFILE — 混合 ELEMENT 流</b>
-          IG 得相，Hinge 得問答。呢度<b style="display:inline;letter-spacing:0">相只係其中一種 element</b> ——
-          歌、一句話、問答、睇緊咩，全部平起平坐咁排喺一條流入面。
-          Scroll 一次就知呢個人係點。
-          <br><br>
-          每張卡自己有粒 ♡：你 like 嘅係<b style="display:inline;letter-spacing:0">嗰件嘢</b>，唔係成個人。
-          開場白自動有咗，唔使諗，亦都唔使錄音。
-          <br><br>
-          <b style="display:inline;letter-spacing:0">架構上 element 係一個可以加嘅類型</b> —— 之後加播客、書、常去嘅地方，
-          唔使重新設計成個 profile。相係自願：一張都唔貼照樣有得玩。
-          </figcaption>
-      </figure>
-
-    </div>
-  </div>
-
-  <div class="col" style="margin-top:clamp(40px,6vw,64px)">
-    <h2 style="font-size:clamp(21px,3.4vw,27px);font-weight:800;margin:0 0 6px;letter-spacing:.02em">再入去啲</h2>
-    <p style="color:var(--dim);font-weight:300;margin:0">
-      上面係主幹。呢四版係啲真係決定體驗嘅位 —— 討論區內頁、element 點加、開枱、同埋假面。
-    </p>
-  </div>
-
-  <div class="table" style="margin-top:clamp(22px,3vw,34px)">
-    <div class="rail">
-
-      <figure class="slot">
-        <div class="phone rise">
-          <div class="status"><span>01:24</span><span>▮▮▮</span></div>
-          <div class="appbar"><h2>‹ 討論區</h2><span class="act">⋯</span></div>
+        <!-- ══ 討論區內頁 ══ -->
+        <section class="screen" data-page="thread">
+          <div class="appbar"><h2><span class="back" onclick="go('forum')">‹</span> 討論區</h2><span class="act">⋯</span></div>
           <div class="body">
             <div class="op">
               <div class="meta"><span class="who">Yuen</span><span class="city">香港</span><span>· 1 小時前</span></div>
               <h3>移咗民之後點識人？</h3>
               <p>香港有 Butterfly 都算有個地方，出到去先發現咩都冇。<br><br>
                  落地一年半，同事全部係鬼佬，識到嘅華人又唔係圈內。想聽下已經走咗嘅人點做。</p>
-              <div class="opbar"><span>♡ 204</span><span>86 回覆</span><span>轉發</span></div>
+              <div class="opbar"><span class="act" onclick="hit(this,'♡ 204','♥ 205')">♡ 204</span>
+                <span>86 回覆</span><span>轉發</span></div>
             </div>
             <div class="reply">
-              <div class="rhead"><span class="who">阿丙</span><span class="city">本拿比</span><span>· 42 分鐘前</span></div>
+              <div class="rhead"><span class="who act" onclick="go('other')">阿丙</span>
+                <span class="city">本拿比</span><span>· 42 分鐘前</span></div>
               <p>我頭半年都係咁。老實講唔好指意有個現成嘅圈等你，係要自己開枱。我入咗行山組之後先識到人。</p>
             </div>
             <div class="reply">
@@ -863,66 +394,43 @@
               <div class="rhead"><span class="who">Cheryl</span><span class="city">溫哥華</span><span>· 12 分鐘前</span></div>
               <p>啱啱落機兩個月，睇住呢條 thread 諗住喊 😭 有冇人溫哥華一齊行山</p>
             </div>
+            <div class="reply">
+              <div class="rhead"><span class="who">阿霖</span><span class="city">溫東</span><span>· 3 分鐘前</span></div>
+              <p>行山組週六去 Quarry Rock，你入嚟啦 <span class="act" onclick="go('group')">→ 行山組</span></p>
+            </div>
           </div>
-          <nav class="tabbar"><span class="on">討論區</span><span>群</span><span>搵人</span><span>我</span></nav>
-        </div>
-        <figcaption>
-          <b>討論區內頁</b>
-          呢度就係 thesis 落地嘅地方：你唔係喺卡片堆入面揀人，你係睇住一條 thread，
-          見到阿丙點答、細細粒點答，然後至撳入去睇佢個 profile。
-          <b style="display:inline;letter-spacing:0">識人係經過內容，唔係經過 algorithm。</b>
-        </figcaption>
-      </figure>
+        </section>
 
-      <figure class="slot">
-        <div class="phone rise">
-          <div class="status"><span>01:24</span><span>▮▮▮</span></div>
-          <div class="appbar"><h2>加一件</h2><span class="act">完成</span></div>
+        <!-- ══ 群列表 ══ -->
+        <section class="screen" data-page="groups">
+          <div class="appbar"><h2>群</h2><span class="act">開新群</span></div>
           <div class="body">
-            <div class="picker">
-              <span class="ptile"><b>▣</b><span>相</span></span>
-              <span class="ptile on"><b>♪</b><span>歌</span></span>
-              <span class="ptile"><b>？</b><span>問答</span></span>
-              <span class="ptile"><b>「」</b><span>一句話</span></span>
-              <span class="ptile"><b>▶</b><span>睇緊</span></span>
-              <span class="ptile"><b>＋</b><span>之後加</span></span>
-            </div>
-
-            <div class="compose">
-              <div class="qsel"><span>揀一條問題</span><span>換 ↻</span></div>
-              <div class="ans">一個我死都唔會改嘅習慣<span class="caret">｜</span></div>
-            </div>
-
-            <p class="hintline">
-              每一種 element 有自己嘅編輯器，但個流程一樣：揀類型 → 填 → 排位置。<br>
-              加多一種類型唔使改呢一版。
-            </p>
-
-            <div class="steps" style="margin-top:16px">
-              <div class="step"><span class="num">✓</span><span>
-                <b>唔使填晒</b>
-                <small>一件 element 都已經係個 profile。想加幾多就幾多。</small>
-              </span></div>
-              <div class="step"><span class="num">✓</span><span>
-                <b>相係自願</b>
-                <small>淨係用文字同歌砌一個完整 profile，完全得。</small>
-              </span></div>
-            </div>
+            <div class="person" onclick="go('group')"><span class="ava up">行</span><span>
+              <span class="nm">行山組</span>
+              <span class="sub">201 人 · 週六開枱 · 今日 8 條</span>
+              <span class="say">阿丙：Quarry Rock 相…</span></span></div>
+            <div class="person" onclick="go('group')"><span class="ava up">夜</span><span>
+              <span class="nm">夜貓組</span>
+              <span class="sub">87 人 · 而家 12 個未瞓</span>
+              <span class="say">阿霖：又係一個瞓唔著嘅星期二…</span></span></div>
+            <div class="person" onclick="go('group')"><span class="ava">溫</span><span>
+              <span class="nm">溫哥華 30+ 傾偈</span>
+              <span class="sub">148 人 · 今日 62 條</span>
+              <span class="say">Yuki：邊間打邊爐好食啲…</span></span></div>
+            <div class="person" onclick="go('group')"><span class="ava">新</span><span>
+              <span class="nm">啱啱落地互助</span>
+              <span class="sub">309 人 · 今日 27 條</span>
+              <span class="say">Cheryl：請問點樣考車牌…</span></span></div>
+            <div class="person" onclick="go('group')"><span class="ava">櫃</span><span>
+              <span class="nm">未出櫃 · 只限已驗證</span>
+              <span class="sub">76 人 · 唔搜尋得到</span>
+              <span class="say">敏：今日又被問幾時拉個返屋企…</span></span></div>
           </div>
-          <nav class="tabbar"><span>討論區</span><span>群</span><span>搵人</span><span class="on">我</span></nav>
-        </div>
-        <figcaption>
-          <b>ELEMENT 編輯器</b>
-          揀類型 → 填 → 排位置。六格入面已經有一格係「之後加」——
-          個編輯器由第一日就當自己會有新類型，所以加播客、書、常去嘅地方嗰陣，
-          <b style="display:inline;letter-spacing:0">呢一版一行都唔使改</b>。
-        </figcaption>
-      </figure>
+        </section>
 
-      <figure class="slot">
-        <div class="phone rise">
-          <div class="status"><span>01:24</span><span>▮▮▮</span></div>
-          <div class="appbar"><h2>‹ 行山組</h2><span class="act">201 人</span></div>
+        <!-- ══ 群內頁 + 開枱 ══ -->
+        <section class="screen" data-page="group">
+          <div class="appbar"><h2><span class="back" onclick="go('groups')">‹</span> 行山組</h2><span class="act">201 人</span></div>
           <div class="body">
             <div class="event">
               <div class="when">開枱 · 星期六 09:00</div>
@@ -931,101 +439,437 @@
               <div class="faces">
                 <span class="f">丙</span><span class="f">霖</span><span class="f">Y</span>
                 <span class="f">K</span><span class="f">C</span>
-                <span class="more">5 個報咗名 · 仲有 3 位</span>
+                <span class="more" id="joincount">5 個報咗名 · 仲有 3 位</span>
               </div>
-              <span class="join">我要去</span>
+              <span class="join" id="joinbtn" onclick="joinEvent()">我要去</span>
             </div>
-
-            <div class="thread" style="padding-top:14px">
+            <div class="thread">
               <div class="bub them">落雨點算？</div>
               <div class="bub them">細雨照行，大雨改去飲茶 ☕</div>
               <div class="bub me">我可以車兩個人，Metrotown 上車</div>
               <div class="bub them">我搭你順風車得唔得 🙏</div>
             </div>
+            <div class="composer"><span class="field">寫啲嘢…</span><span class="go">送出</span></div>
           </div>
-          <nav class="tabbar"><span>討論區</span><span class="on">群</span><span>搵人</span><span>我</span></nav>
-        </div>
-        <figcaption>
-          <b>開枱</b>
-          群入面直接開一個枱：時間、地點、幾多人、邊個報咗名。
-          <br><br>
-          Butterfly 同 Telegram 群都做唔到「由傾偈變成真係見面」呢一步 ——
-          而呢步先係人真正想要嘅。個名「同枱」都係由呢度嚟。
-        </figcaption>
-      </figure>
+        </section>
 
-      <figure class="slot">
-        <div class="phone rise">
-          <div class="status"><span>01:24</span><span>▮▮▮</span></div>
-          <div class="body" style="padding:0;display:flex">
-            <div class="calc" style="flex:1">
-              <div class="calcout">1,024</div>
-              <div class="keys">
-                <span class="key fn">AC</span><span class="key fn">±</span><span class="key fn">%</span><span class="key op2">÷</span>
-                <span class="key">7</span><span class="key">8</span><span class="key">9</span><span class="key op2">×</span>
-                <span class="key">4</span><span class="key">5</span><span class="key">6</span><span class="key op2">−</span>
-                <span class="key">1</span><span class="key">2</span><span class="key">3</span><span class="key op2">＋</span>
-                <span class="key">0</span><span class="key">.</span><span class="key">⌫</span><span class="key op2">＝</span>
+        <!-- ══ 搵人 ══ -->
+        <section class="screen" data-page="people">
+          <div class="appbar"><h2>搵人</h2><span class="act">篩選 ▾</span></div>
+          <div class="body">
+            <div class="awake"><span class="lamp"></span>先顯示 <b>而家未瞓</b> 嘅人</div>
+            <div class="chips">
+              <span class="chip on" onclick="tog(this)">未瞓</span>
+              <span class="chip on" onclick="tog(this)">講粵語</span>
+              <span class="chip" onclick="tog(this)">大溫</span>
+              <span class="chip" onclick="tog(this)">30–40</span>
+            </div>
+            <div class="person" onclick="go('other')"><span class="ava up">丙</span><span>
+              <span class="nm">阿丙 <span class="badge">已驗證</span><span class="badge lang">粵</span></span>
+              <span class="sub">33 · 本拿比 · 香港嚟</span>
+              <span class="say">返夜更，日頭得閒。想搵人行山。</span></span></div>
+            <div class="person" onclick="go('other')"><span class="ava up">霖</span><span>
+              <span class="nm">阿霖 <span class="badge">已驗證</span><span class="badge lang">粵</span></span>
+              <span class="sub">28 · 溫東 · 三年前嚟</span>
+              <span class="say">煮嘢食係我強項，識人係我弱項。</span></span></div>
+            <div class="person" onclick="go('other')"><span class="ava">Y</span><span>
+              <span class="nm">Yuki <span class="badge">已驗證</span><span class="badge lang">粵·英</span></span>
+              <span class="sub">31 · 列治文 · 喺呢邊出世</span>
+              <span class="say">粵語識聽識講，寫就麻麻。</span></span></div>
+            <div class="person" onclick="go('other')"><span class="ava">敏</span><span>
+              <span class="nm">敏 <span class="badge">已驗證</span><span class="badge lang">粵</span></span>
+              <span class="sub">39 · 高貴林 · 未出櫃</span>
+              <span class="say">低調啲好，先做朋友。</span></span></div>
+            <div class="person" onclick="go('other')"><span class="ava up">C</span><span>
+              <span class="nm">Cheryl <span class="badge">已驗證</span><span class="badge lang">粵·普</span></span>
+              <span class="sub">26 · 溫哥華市中心</span>
+              <span class="say">啱啱落機兩個月，乜都唔識，求帶。</span></span></div>
+          </div>
+        </section>
+
+        <!-- ══ 我 / 人哋 profile ══ -->
+        <section class="screen" data-page="me">
+          <div class="appbar">
+            <h2><span class="back" id="pback" style="display:none" onclick="go('people')">‹</span> <span id="pt">我</span></h2>
+            <span class="act" id="pact" onclick="go('editor')">編輯</span>
+          </div>
+          <div class="body">
+            <div class="phead">
+              <span class="ava up">霖</span>
+              <span>
+                <span class="pname">阿霖 <span class="badge">已驗證</span><span class="badge lang">粵</span></span>
+                <span class="pmeta">28 · 溫東 · 三年前嚟 · 而家未瞓</span>
+                <span class="pbio">煮嘢食係我強項，識人係我弱項。</span>
+              </span>
+            </div>
+
+            <div class="seg">
+              <button id="seg-a" class="on" onclick="pane('a')">簡介</button>
+              <button id="seg-b" onclick="pane('b')">貼文 · 24</button>
+            </div>
+
+            <!-- 簡介：Hinge 式，固定幾件 -->
+            <div class="pane on" id="pane-a">
+              <div class="stream">
+                <div class="el">
+                  <span class="kind">相</span>
+                  <div class="shots"><span class="shot g1">🍜</span><span class="shot g2">🐈</span></div>
+                  <span class="like" onclick="lk(this)">♡</span>
+                </div>
+                <div class="el">
+                  <span class="kind">歌</span>
+                  <div class="song"><span class="cover">♪</span><span>
+                    <span class="txt">係咁先啦朋友</span>
+                    <span class="sub2">Serrini · 最近一個月循環到爛</span></span></div>
+                  <span class="like" onclick="lk(this)">♡</span>
+                </div>
+                <div class="el">
+                  <span class="kind">問答</span>
+                  <div class="txt">返到屋企一定要即刻沖涼先做嘢</div>
+                  <div class="sub2">一個我死都唔會改嘅習慣</div>
+                  <span class="like" onclick="lk(this)">♡</span>
+                </div>
+                <div class="el">
+                  <span class="kind">一句話</span>
+                  <div class="txt">我唔識玩曖昧。想見你就會直接講。</div>
+                  <span class="like" onclick="lk(this)">♡</span>
+                </div>
+                <div class="el">
+                  <span class="kind">睇緊</span>
+                  <div class="txt">日落下的彩虹</div>
+                  <div class="sub2">ViuTV · 追到第 11 集，有冇人一齊喊</div>
+                  <span class="like" onclick="lk(this)">♡</span>
+                </div>
+                <div class="adder" onclick="go('editor')">＋ 加一件 · 相／歌／問答／一句話／睇緊…</div>
               </div>
             </div>
+
+            <!-- 貼文：IG grid，無限累積 -->
+            <div class="pane" id="pane-b">
+              <div class="gridbar"><span>24 個貼文 · 最新喺前</span><span class="act">＋ 出貼文</span></div>
+              <div class="grid" id="grid"></div>
+            </div>
           </div>
+        </section>
+
+        <!-- ══ 貼文內頁 ══ -->
+        <section class="screen" data-page="photo">
+          <div class="appbar"><h2><span class="back" onclick="go('me')">‹</span> 貼文</h2><span class="act">⋯</span></div>
+          <div class="body">
+            <div class="photo-big g1" id="photo-big">🍜</div>
+            <p class="caption" id="photo-cap">今晚自己煮，太多咗，有冇人要 🍜</p>
+            <div class="cbar">
+              <span onclick="hit(this,'♡ 12','♥ 13')">♡ 12</span>
+              <span>💬 4</span><span>3 日前</span>
+            </div>
+            <div class="thread" style="padding-top:12px">
+              <div class="bub them">睇落好正喎，收唔收食客</div>
+              <div class="bub them">下次煮多啲我上嚟食 🙋</div>
+              <div class="bub me">得，星期三？</div>
+            </div>
+            <div class="composer"><span class="field">寫個回應…</span><span class="go">送出</span></div>
+          </div>
+        </section>
+
+        <!-- ══ Element 編輯器 ══ -->
+        <section class="screen" data-page="editor">
+          <div class="appbar"><h2><span class="back" onclick="go('me')">‹</span> 加一件</h2>
+            <span class="act" onclick="go('me')">完成</span></div>
+          <div class="body">
+            <div class="picker">
+              <span class="ptile" onclick="pick(this,'相')"><b>▣</b><span>相</span></span>
+              <span class="ptile on" onclick="pick(this,'歌')"><b>♪</b><span>歌</span></span>
+              <span class="ptile" onclick="pick(this,'問答')"><b>？</b><span>問答</span></span>
+              <span class="ptile" onclick="pick(this,'一句話')"><b>「」</b><span>一句話</span></span>
+              <span class="ptile" onclick="pick(this,'睇緊')"><b>▶</b><span>睇緊</span></span>
+              <span class="ptile" onclick="pick(this,'之後加')"><b>＋</b><span>之後加</span></span>
+            </div>
+            <div class="compose">
+              <div class="qsel"><span id="edkind">歌</span><span class="act">換 ↻</span></div>
+              <div class="ans" id="edans">揀首歌，寫一句點解係佢</div>
+            </div>
+            <p class="fineprint" style="text-align:left;margin-top:14px">
+              每種 element 有自己嘅編輯器，但流程一樣：揀類型 → 填 → 排位置。<br>
+              加多一種類型唔使改呢一版。
+            </p>
+            <div class="steps" style="margin-top:14px">
+              <div class="step"><span class="num">✓</span><span><b>唔使填晒</b>
+                <small>一件都已經係個 profile。</small></span></div>
+              <div class="step"><span class="num">✓</span><span><b>相係自願</b>
+                <small>淨係用文字同歌砌一個完整 profile，完全得。</small></span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ══ 私訊 ══ -->
+        <section class="screen" data-page="chat">
+          <div class="appbar"><h2><span class="back" onclick="go('forum')">‹</span> 阿丙</h2><span class="act">本拿比</span></div>
+          <div class="body">
+            <div class="thread" id="chatthread">
+              <div class="daymark">今晚</div>
+              <div class="bub them">見你話瞓唔著 😌</div>
+              <div class="bub them">我都係，睇咗三集嘢都仲精神</div>
+              <div class="bub me">你住邊頭？我喺 Metrotown</div>
+              <div class="bub them">行十五分鐘就到，咁啱喎</div>
+              <div class="bub them">不過我而家出去嘅話聽朝實死</div>
+            </div>
+            <div class="composer">
+              <span class="field" id="chatfield">咁聽日？食個宵夜</span>
+              <span class="go" onclick="send()">送出</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ══ 假面 ══ -->
+        <section class="screen" data-page="panic">
+          <div class="body" style="padding:0;display:flex">
+            <div class="calc" style="flex:1">
+              <div class="calcout" id="calcout">1,024</div>
+              <div class="keys">
+                <span class="key fn" onclick="ck('AC')">AC</span><span class="key fn" onclick="ck('±')">±</span>
+                <span class="key fn" onclick="ck('%')">%</span><span class="key op2" onclick="ck('÷')">÷</span>
+                <span class="key" onclick="ck('7')">7</span><span class="key" onclick="ck('8')">8</span>
+                <span class="key" onclick="ck('9')">9</span><span class="key op2" onclick="ck('×')">×</span>
+                <span class="key" onclick="ck('4')">4</span><span class="key" onclick="ck('5')">5</span>
+                <span class="key" onclick="ck('6')">6</span><span class="key op2" onclick="ck('−')">−</span>
+                <span class="key" onclick="ck('1')">1</span><span class="key" onclick="ck('2')">2</span>
+                <span class="key" onclick="ck('3')">3</span><span class="key op2" onclick="ck('＋')">＋</span>
+                <span class="key" onclick="ck('0')">0</span><span class="key" onclick="ck('.')">.</span>
+                <span class="key" onclick="ck('⌫')">⌫</span><span class="key op2" onclick="ck('＝')">＝</span>
+              </div>
+              <div class="escape" onclick="go('forum')">（撳 8888 ＝ 返到去 · 呢度撳我快啲）</div>
+            </div>
+          </div>
+        </section>
+
+        <nav class="tabbar" id="tabbar">
+          <button data-tab="forum"  onclick="go('forum')"  class="on">討論區</button>
+          <button data-tab="groups" onclick="go('groups')">群</button>
+          <button data-tab="people" onclick="go('people')">搵人</button>
+          <button data-tab="me"     onclick="me()">我</button>
+        </nav>
+      </div>
+    </div>
+
+    <aside class="notes">
+      <div class="card">
+        <h3>試下撳</h3>
+        <div class="jump">
+          <button onclick="go('verify')">入會（錄音）</button>
+          <button onclick="go('forum')">討論區</button>
+          <button onclick="go('thread')">帖內頁</button>
+          <button onclick="go('groups')">群</button>
+          <button onclick="go('group')">開枱</button>
+          <button onclick="go('people')">搵人</button>
+          <button onclick="me()">我 · 簡介／貼文</button>
+          <button onclick="go('editor')">加 element</button>
+          <button onclick="go('chat')">私訊</button>
+          <button onclick="go('panic')">假面 🚨</button>
         </div>
-        <figcaption>
-          <b>假面</b>
-          搖一搖，或者由上面掃落 —— 即刻變成一個真係用得嘅計數機。
-          要撳一段特定數字先返到去。
-          <br><br>
-          對「同屋企人住」「阿媽會攞我電話」嘅人，呢個唔係花巧，
-          <b style="display:inline;letter-spacing:0">係用唔用得落去嘅分別</b>。
-          配埋 app 名同 icon 可以改成「筆記」「天氣」，兩樣夾埋先完整。
-        </figcaption>
-      </figure>
+        <p class="hintbar">底部四個 tab 真係㩒得。帖入內頁、人入 profile、群入開枱。
+          <span class="kbd">← →</span> 揭上／落一版。</p>
+      </div>
 
-    </div>
+      <div class="card">
+        <h3>PROFILE 分兩層</h3>
+        <p><b>簡介</b>＝ Hinge 嗰邊。固定幾件 element（相／歌／問答／一句話／睇緊），
+           係「我係邊個」，好耐先改一次。每件獨立可以 ♡ —— 你 like 嘅係嗰件嘢，唔係成個人，
+           所以開場白自動有咗。</p>
+        <p><b>貼文</b>＝ IG 嗰邊。無限咁 post，累積成個 grid，最新喺前，
+           係「我最近做緊乜」。撳入去有 caption 同回應。</p>
+        <p>兩層唔同性質，所以要分開。Hinge 得前者，IG 得後者。</p>
+      </div>
+
+      <div class="card">
+        <h3>入會</h3>
+        <p>唔使自拍。讀一句<b>隨機而且中性</b>嘅句子 —— 當住屋企人面前讀都唔會出事。
+           AI 只負責放行，唔確定嘅落人手，<b>永不自動拒絕</b>。
+           同一段錄音順便標返你講粵／英／普。</p>
+      </div>
+
+      <div class="card">
+        <h3>假面</h3>
+        <p>搖一搖變成一個真係用得嘅計數機，撳返一段特定數字先返到去。
+           對「同屋企人住、阿媽會攞我電話」嘅人，唔係花巧，係用唔用得落去嘅分別。</p>
+      </div>
+
+      <p class="hintbar">⚠️ 設計草圖。所有人物、貼文、對話全部虛構。<b>個名仲未定。</b></p>
+    </aside>
+
   </div>
-
-  <section class="col why">
-    <h2>差在邊度</h2>
-    <p>每一項都對應一個查得到嘅問題，唔係憑感覺加功能。</p>
-    <div class="cmp">
-      <div class="row">
-        <h4>入會</h4>
-        <div class="old">SMS 電話驗證。用戶投訴收唔到驗證碼、舊號碼再登記唔到。</div>
-        <div class="new">讀一句隨機句子就入到。唔要 email、電話、Facebook。AI 秒過，唔確定先落人手。</div>
-      </div>
-      <div class="row">
-        <h4>要交乜出去</h4>
-        <div class="old">電話號碼 — 一個綁實你身份、改唔到、追查得到嘅嘢。</div>
-        <div class="new">一段十秒錄音，核完即刪。唔使自拍、唔使見得人、唔留面部生物特徵。</div>
-      </div>
-      <div class="row">
-        <h4>地區</h4>
-        <div class="old">香港為主。海外會員自己攝入去。</div>
-        <div class="new">城市係第一層。溫哥華、多倫多、倫敦各自有枱。</div>
-      </div>
-      <div class="row">
-        <h4>語言</h4>
-        <div class="old">冇語言資訊。淨係假設你講廣東話。</div>
-        <div class="new">同一段驗證錄音跑語言 ID，標返粵／英／普。做篩選同排序，唔做門檻。</div>
-      </div>
-      <div class="row">
-        <h4>群組</h4>
-        <div class="old">冇。所以人喺討論區出帖，叫人入 Telegram 群。</div>
-        <div class="new">內置群。要驗證先入到，唔會有陌生男人。</div>
-      </div>
-      <div class="row">
-        <h4>維護</h4>
-        <div class="old">iOS 同 Android 都停留喺 2024 年 1 月。評分 2.7 星。</div>
-        <div class="new">—— 呢格要用時間去證明，寫喺度冇用。</div>
-      </div>
-    </div>
-
-    <p class="foot">
-      設計方向：<em>夜燈</em>。呢個 app 大部分時間會喺夜晚打開 ——
-      瞓唔著、唔想一個人、又唔想畀屋企人見到個螢幕好鮮色。
-      所以唔用彩虹、唔用霓虹，用一盞燈：夜晚仲光住，即係仲有人喺度。
-    </p>
-  </section>
-
  </div>
 </div>
+
+<script>
+  const ORDER = ['verify','forum','thread','groups','group','people','me','photo','editor','chat','panic'];
+  const TABOF = {forum:'forum', thread:'forum', chat:'forum',
+                 groups:'groups', group:'groups',
+                 people:'people', me:'me', photo:'me', editor:'me'};
+  let cur = 'forum';
+  let viewingOther = false;
+
+  function go(page){
+    cur = page;
+    document.querySelectorAll('.screen').forEach(s =>
+      s.classList.toggle('on', s.dataset.page === page));
+    const tb = document.getElementById('tabbar');
+    tb.style.display = (page === 'panic' || page === 'verify') ? 'none' : 'grid';
+    const t = TABOF[page];
+    tb.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.tab === t));
+    document.querySelector('.body') && document.querySelectorAll('.body').forEach(b => b.scrollTop = 0);
+  }
+
+  // 「我」vs 睇人哋
+  function me(){ viewingOther = false; setProfileChrome(); go('me'); }
+  function setProfileChrome(){
+    document.getElementById('pback').style.display = viewingOther ? 'inline' : 'none';
+    document.getElementById('pt').textContent = viewingOther ? '阿霖' : '我';
+    document.getElementById('pact').textContent = viewingOther ? '✉ 傾偈' : '編輯';
+    document.getElementById('pact').onclick = viewingOther ? () => go('chat') : () => go('editor');
+  }
+  const _go = go;
+  go = function(p){
+    if (p === 'other'){ viewingOther = true; setProfileChrome(); _go('me'); return; }
+    if (p === 'me' && !viewingOther) setProfileChrome();
+    _go(p);
+  };
+
+  // profile 兩層
+  function pane(which){
+    document.getElementById('seg-a').classList.toggle('on', which === 'a');
+    document.getElementById('seg-b').classList.toggle('on', which === 'b');
+    document.getElementById('pane-a').classList.toggle('on', which === 'a');
+    document.getElementById('pane-b').classList.toggle('on', which === 'b');
+  }
+
+  // IG grid：砌 24 格，撳入內頁
+  const SHOTS = ['🍜','🐈','🏔','🌊','🍰','📚','☕','🌧','🍲','🐟','🕯','🥬',
+                 '🍵','🌿','🎧','🧣','🍞','🚲','🪴','🌙','🥟','🎣','🧺','🍋'];
+  const CAPS = {
+    '🍜':'今晚自己煮，太多咗，有冇人要 🍜',
+    '🐈':'佢又坐咗喺我張枱度唔肯走',
+    '🏔':'Quarry Rock。行到隻腳軟但值得',
+    '🌊':'落雨行海邊，人少啲反而正',
+    '🍰':'第一次整芝士餅，賣相麻麻但好食',
+    '📚':'呢本睇咗三個月都未完'
+  };
+  (function buildGrid(){
+    const g = document.getElementById('grid');
+    SHOTS.forEach((s, i) => {
+      const c = document.createElement('span');
+      c.className = 'cell g' + (i % 3 + 1);
+      c.textContent = s;
+      c.onclick = () => openPhoto(s, c.className);
+      g.appendChild(c);
+    });
+  })();
+  function openPhoto(emoji, cls){
+    const big = document.getElementById('photo-big');
+    big.textContent = emoji;
+    big.className = 'photo-big ' + (cls.split(' ')[1] || 'g1');
+    document.getElementById('photo-cap').textContent = CAPS[emoji] || '冇寫 caption';
+    go('photo');
+  }
+
+  // ♡
+  function lk(el){
+    el.classList.toggle('hit');
+    el.textContent = el.classList.contains('hit') ? '♥' : '♡';
+  }
+  function hit(el, a, b){
+    const on = el.dataset.on === '1';
+    el.dataset.on = on ? '0' : '1';
+    el.textContent = on ? a : b;
+    el.classList.toggle('hit', !on);
+  }
+  function tog(el){ el.classList.toggle('on'); }
+
+  // 入會錄音
+  const PHRASES = ['今日落雨，我想食碗雲吞麵','部電梯又壞咗，行樓梯上去',
+                   '雪櫃仲有兩個橙，聽日食','個窗開咗成晚，凍到𤷪',
+                   '樓下間鋪執咗笠，好可惜'];
+  function reroll(){
+    const p = document.getElementById('phrase-txt');
+    let n; do { n = PHRASES[Math.floor(Math.random() * PHRASES.length)]; } while (n === p.textContent);
+    p.textContent = n;
+  }
+  let recording = false;
+  function record(){
+    const r = document.getElementById('rec'), m = document.getElementById('recmsg');
+    if (recording) return;
+    recording = true; r.classList.add('busy'); r.textContent = '■'; m.textContent = '錄緊音… 讀出上面嗰句';
+    setTimeout(() => {
+      r.classList.remove('busy'); r.textContent = '✓'; m.textContent = '收到。AI 核緊…';
+      setTimeout(() => {
+        m.innerHTML = '<b style="color:var(--accent)">通過咗 · 語言標籤：粵</b><br>錄音已刪除';
+        setTimeout(() => { recording = false; r.textContent = '●'; go('forum'); }, 1400);
+      }, 1100);
+    }, 1600);
+  }
+
+  // 開枱
+  let joined = false;
+  function joinEvent(){
+    joined = !joined;
+    const b = document.getElementById('joinbtn'), c = document.getElementById('joincount');
+    b.textContent = joined ? '✓ 報咗名' : '我要去';
+    b.classList.toggle('done', joined);
+    c.textContent = joined ? '6 個報咗名 · 仲有 2 位' : '5 個報咗名 · 仲有 3 位';
+  }
+
+  // element 編輯器
+  const HINT = {'相':'揀相，可以加一句 caption','歌':'揀首歌，寫一句點解係佢',
+    '問答':'一個我死都唔會改嘅習慣','一句話':'寫一句你想人一睇就明嘅嘢',
+    '睇緊':'睇緊咩劇／書，追到邊','之後加':'播客、書、常去嘅地方… 加新類型唔使改呢一版'};
+  function pick(el, kind){
+    document.querySelectorAll('.ptile').forEach(p => p.classList.remove('on'));
+    el.classList.add('on');
+    document.getElementById('edkind').textContent = kind;
+    document.getElementById('edans').textContent = HINT[kind];
+  }
+
+  // 私訊
+  function send(){
+    const f = document.getElementById('chatfield'), th = document.getElementById('chatthread');
+    if (!f.textContent.trim()) return;
+    const b = document.createElement('div');
+    b.className = 'bub me'; b.textContent = f.textContent;
+    th.appendChild(b);
+    f.textContent = '';
+    setTimeout(() => {
+      const r = document.createElement('div');
+      r.className = 'bub them'; r.textContent = '好呀。我知間鋪開到兩點';
+      th.appendChild(r);
+      th.parentElement.scrollTop = th.parentElement.scrollHeight;
+    }, 900);
+  }
+
+  // 假面計數機
+  let buf = '';
+  function ck(k){
+    const out = document.getElementById('calcout');
+    if (k === 'AC'){ buf = ''; out.textContent = '0'; return; }
+    if (k === '⌫'){ buf = buf.slice(0, -1); out.textContent = buf || '0'; return; }
+    if ('0123456789.'.includes(k)){
+      buf += k;
+      out.textContent = buf;
+      if (buf.endsWith('8888')){ buf = ''; out.textContent = '0'; go('forum'); }
+      return;
+    }
+    if (k === '＝'){ out.textContent = buf || '0'; buf = ''; }
+  }
+
+  // 鍵盤
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    const i = ORDER.indexOf(cur);
+    if (i < 0) return;
+    const n = e.key === 'ArrowRight'
+      ? (i + 1) % ORDER.length
+      : (i - 1 + ORDER.length) % ORDER.length;
+    const t = ORDER[n];
+    if (t === 'me') me(); else go(t);
+  });
+
+  go('forum');
+</script>
