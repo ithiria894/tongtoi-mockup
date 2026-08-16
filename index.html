@@ -297,6 +297,19 @@
   .nexthint{font-size:10.5px;color:var(--dim);font-weight:300;font-variant-numeric:tabular-nums}
   .dot{background:var(--accent);color:var(--on-accent);border-radius:999px;
     padding:0 5px;font-size:9px;font-weight:700;font-variant-numeric:tabular-nums}
+  .lcard{border:1px solid var(--line);border-radius:13px;padding:12px 13px;margin-bottom:10px;
+    background:var(--card-2)}
+  .lhead{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+  .lhead .ava{width:38px;height:38px;font-size:14px}
+  .lwhat{border-left:2px solid var(--accent);padding-left:10px;margin-bottom:9px}
+  .lwhat .kind{margin-bottom:4px}
+  .lwhat .txt{font-size:12.5px;font-weight:600;line-height:1.5}
+  .lsay{font-size:13px;font-weight:400;line-height:1.6;margin-bottom:11px}
+  .lrow{display:flex;gap:9px;align-items:center}
+  .lreply{flex:1;text-align:center;background:var(--accent);color:var(--on-accent);
+    border-radius:9px;padding:9px;font-size:12.5px;font-weight:700;cursor:pointer}
+  .lpass{font-size:11.5px;color:var(--dim);padding:0 12px;cursor:pointer}
+
   .nrow{display:flex;gap:11px;padding:12px 4px;border-bottom:1px solid var(--line);cursor:pointer}
   .nrow:hover{background:var(--card-2)}
   .nrow.new{position:relative}
@@ -338,6 +351,8 @@
     background:var(--card);border:1px solid var(--accent);color:var(--accent);
     display:grid;place-items:center;font-size:11px;cursor:pointer}
   .el .like.hit{background:var(--accent);color:var(--on-accent)}
+  .el .sent{font-size:9.5px;color:var(--accent);font-weight:300;line-height:1.5;
+    margin-top:8px;padding-top:7px;border-top:1px dashed var(--line)}
   .el .txt{font-size:13px;font-weight:600;line-height:1.55;padding-right:28px}
   .el .sub2{font-size:10.5px;color:var(--dim);font-weight:300;margin-top:3px;padding-right:28px}
   .shots{display:grid;grid-template-columns:1fr 1fr;gap:4px}
@@ -739,7 +754,9 @@
 
         <!-- ══ 搵人：一個人一版，直碌 ══ -->
         <section class="screen" data-page="people">
-          <div class="appbar"><h2>搵人</h2><span class="act" onclick="go('filter')">篩選 ▾</span></div>
+          <div class="appbar"><h2>搵人</h2>
+            <span class="act"><span onclick="go('likes')">💌 <b class="dot">4</b></span>
+            　<span onclick="go('filter')">篩選 ▾</span></span></div>
           <div class="body" id="pbody">
             <div class="chips">
               <span class="chip on" onclick="tog(this)">未瞓</span>
@@ -907,6 +924,55 @@
               <span class="go" onclick="send()">送出</span>
             </div>
           </div>
+        </section>
+
+        <!-- ══ 撩你嘅人 ══ -->
+        <section class="screen" data-page="likes">
+          <div class="appbar"><h2><span class="back" onclick="go('people')">‹</span> 撩你</h2>
+            <span class="act">4</span></div>
+          <div class="body">
+            <p class="notifnote">佢哋撳咗你其中<b>一件</b>嘢，唔係「like 咗你」。
+              所以你一開就已經知道傾咩 — <b>你覆返，私聊就開</b>。冇「MATCH!」煙花，因為唔使。</p>
+
+            <div class="lcard">
+              <div class="lhead"><span class="ava up">丙</span>
+                <span><span class="nm">阿丙 <span class="badge">已驗證</span><span class="badge lang">粵</span></span>
+                  <span class="sub">33 · 本拿比 · 而家未瞓</span></span></div>
+              <div class="lwhat"><span class="kind">撩咗你嘅 · 一句話</span>
+                <div class="txt">我唔識玩曖昧。想見你就會直接講。</div></div>
+              <div class="lsay">「咁我直接講：星期六行山，你嚟唔嚟？」</div>
+              <div class="lrow"><span class="lreply" onclick="matchOpen('阿丙')">覆佢 → 開私聊</span>
+                <span class="lpass">算</span></div>
+            </div>
+
+            <div class="lcard">
+              <div class="lhead"><span class="ava">Y</span>
+                <span><span class="nm">Yuki <span class="badge">已驗證</span><span class="badge lang">粵·英</span></span>
+                  <span class="sub">31 · 列治文 · 喺呢邊出世</span></span></div>
+              <div class="lwhat"><span class="kind">撩咗你嘅 · 歌</span>
+                <div class="txt">係咁先啦朋友 · Serrini</div></div>
+              <div class="lsay">「呢首我喊過三次。你邊句最中？」</div>
+              <div class="lrow"><span class="lreply" onclick="matchOpen('Yuki')">覆佢 → 開私聊</span>
+                <span class="lpass">算</span></div>
+            </div>
+
+            <div class="lcard">
+              <div class="lhead"><span class="ava">敏</span>
+                <span><span class="nm">敏 <span class="badge">已驗證</span><span class="badge lang">粵</span></span>
+                  <span class="sub">39 · 高貴林 · 未出櫃</span></span></div>
+              <div class="lwhat"><span class="kind">撩咗你嘅 · 相</span>
+                <div class="txt">🍜 今晚自己煮，太多咗，有冇人要</div></div>
+              <div class="lsay">「我要。」</div>
+              <div class="lrow"><span class="lreply" onclick="matchOpen('敏')">覆佢 → 開私聊</span>
+                <span class="lpass">算</span></div>
+            </div>
+
+            <p class="notifnote" style="border:0;padding-top:12px">
+              <b>唔覆＝乜都唔會發生。</b> 冇人知你睇過，佢個 like 就咁靜靜哋收埋。
+              呢個對未出櫃嗰批好重要 — <b>拒絕唔使講出口</b>。
+            </p>
+          </div>
+          <nav class="tabbar"><span>大廳</span><span>群</span><span class="on">搵人</span><span>我</span></nav>
         </section>
 
         <!-- ══ 通知 ══ -->
@@ -1104,6 +1170,7 @@
           <button onclick="go('people')">搵人</button>
           <button onclick="me()">Profile</button>
           <button onclick="go('editor')">加 element</button>
+          <button onclick="go('likes')">撩你 💌</button>
           <button onclick="go('notif')">通知</button>
           <button onclick="go('chat')">私訊</button>
           <button onclick="go('panic')">假面</button>
@@ -1205,6 +1272,18 @@
         </details>
 
         <details>
+          <summary>Match ＝ 佢覆咗你，唔係一個抽獎結果</summary>
+          <p>流程：<b>喺搵人度掃 → 撳 ♡ 撩佢其中一件嘢 → 佢見到你撩咗邊件 ＋ 你講咗咩 →
+             佢覆返，私聊自動開。</b></p>
+          <p><b>冇「MATCH!」煙花，因為唔使。</b> 個對話一開就已經有內容（你撩咗邊件嘢、佢覆咗咩），
+             開場白天生就有 — 呢個正正係 Hinge 贏 Tinder 嗰點。</p>
+          <p>Tinder 個 match 係<b>抽獎結果</b>：兩個人互相 yes 咗一張臉，然後對住空白框
+             諗「講咩好」。我哋個 match 係<b>一次對話嘅第二句</b>。</p>
+          <p>⭐ <b>唔覆＝乜都唔會發生。</b> 冇人知你睇過，佢個 like 就咁靜靜哋收埋 —
+             <b>拒絕唔使講出口</b>。呢樣對未出櫃嗰批好重要。</p>
+        </details>
+
+        <details>
           <summary>Profile 係堵「加你 IG 睇下」個窿</summary>
           <p>而家其他 app 個流程：<b>識到 → 交換 IG → 走去 IG 睇佢咩人 → 之後就喺 IG 傾</b>。</p>
           <p><b>一交換 IG，關係就離開咗個平台。</b> 對大廠係流失；對我哋啲用戶更慘 —
@@ -1280,8 +1359,8 @@
 </div>
 
 <script>
-  const ORDER = ['verify','forum','notif','thread','groups','group','people','me','photo','editor','chat','panic'];
-  const TABOF = {forum:'forum', thread:'forum', chat:'forum', notif:'forum',
+  const ORDER = ['verify','forum','notif','thread','groups','likes','group','people','me','photo','editor','chat','panic'];
+  const TABOF = {forum:'forum', thread:'forum', chat:'forum', notif:'forum', likes:'people',
                  groups:'groups', group:'groups',
                  people:'people', me:'me', photo:'me', editor:'me'};
   let cur = 'forum';
@@ -1356,6 +1435,20 @@
   function lk(el){
     el.classList.toggle('hit');
     el.textContent = el.classList.contains('hit') ? '♥' : '♡';
+    if (!el.classList.contains('hit')) return;
+    const host = el.closest('.el');
+    if (!host || host.querySelector('.sent')) return;
+    const s = document.createElement('div');
+    s.className = 'sent';
+    s.textContent = '撩咗 · 佢會見到你撩咗邊件嘢。佢覆返，私聊就開。';
+    host.appendChild(s);
+  }
+
+  // Match ＝ 佢覆咗你。冇抽獎、冇煙花 —— 對話一開就已經有內容。
+  function matchOpen(who){
+    const bar = document.querySelector('[data-page=chat] .appbar h2');
+    if (bar) bar.innerHTML = '<span class="back" onclick="go(\'likes\')">‹</span> ' + who;
+    go('chat');
   }
   function hit(el, a, b){
     const on = el.dataset.on === '1';
