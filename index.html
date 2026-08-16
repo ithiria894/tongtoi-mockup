@@ -99,11 +99,21 @@
     display:flex;align-items:center;gap:7px;}
   .appbar .act{font-size:11.5px;color:var(--accent);font-weight:400;cursor:pointer;}
   .back{cursor:pointer;color:var(--accent);font-weight:400;}
-  .body{flex:1;overflow-y:auto;padding:0 14px 10px;scrollbar-width:thin;}
+  .body{flex:1;min-height:0;overflow-y:auto;padding:0 14px 18px;scrollbar-width:none;
+    overscroll-behavior:contain;}
   .body::-webkit-scrollbar{width:4px}
   .body::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
 
-  .tabbar{flex:none;display:grid;grid-template-columns:repeat(4,1fr);
+  /* 橫向捲嘅標籤列：右邊漸變 —— 唔加嘅話最尾個 chip 似被硬切走，似 bug 多過似 scroll。
+     mask-image 令個淡出跟住底色走，換 theme 都唔使改。 */
+  .boards{-webkit-mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 26px),transparent 100%);
+          mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 26px),transparent 100%)}
+  .boards.atend{-webkit-mask-image:none;mask-image:none}
+
+  .body::-webkit-scrollbar{width:0;height:0}
+  .chips::-webkit-scrollbar,.boards::-webkit-scrollbar{height:0}
+
+  .tabbar{flex:none;display:grid;grid-template-columns:repeat(5,1fr);
     border-top:1px solid var(--line);padding:9px 4px 14px;background:var(--n-800);}
   :root[data-theme="light"] .tabbar{background:var(--card-2)}
   @media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .tabbar{background:var(--card-2)}}
@@ -113,9 +123,98 @@
   }
   .tabbar button.on{color:var(--accent)}
   .tabbar button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .tabbar button{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px}
+  .tabbar svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7;
+    stroke-linecap:round;stroke-linejoin:round;transition:transform .18s ease}
+  .tabbar button.on svg{transform:translateY(-1px)}
+  .tabbar i{font-style:normal;font-size:9px;letter-spacing:.02em}
+  /* 未讀數：抄 iOS ／ IG —— 貼住個 icon 右上角，唔係一行字 */
+  /* ── 傾偈 list：抄 Telegram／WhatsApp。群同私訊同一條 list，按最新排。
+     群 = 圓角方 avatar，私訊 = 圓形 —— Slack／Teams 嘅慣例，一眼分得出，唔使加字。 ── */
+  /* 設計註解：解釋畀睇 mockup 嘅人聽，唔係 app 文案。
+     預設收埋 —— 開住嘅話 Thread 版 690px 入面有 394px 係頭部，
+     真內容剩返 241px，睇落唔似一個 app，似一份說明書。 */
+  .phone:not(.annot) .dnote{display:none}
+  .phone.annot .dnote{outline:1px dashed rgba(232,168,124,.35);outline-offset:2px;border-radius:6px}
+  .annotbtn{display:flex;align-items:center;gap:8px;margin-top:10px;padding:9px 11px;
+    border:1px solid var(--line);border-radius:10px;cursor:pointer;font-size:11px;color:var(--dim)}
+  .annotbtn:hover{border-color:var(--accent);color:var(--text)}
+  .annotbtn .sw{flex:none;width:30px;height:17px;border-radius:9px;background:var(--line);
+    position:relative;transition:background .18s ease}
+  .annotbtn .sw::after{content:"";position:absolute;top:2px;left:2px;width:13px;height:13px;
+    border-radius:50%;background:var(--card);transition:transform .18s ease}
+  .annotbtn.on .sw{background:var(--accent)}
+  .annotbtn.on .sw::after{transform:translateX(13px)}
+
+  /* 分段控制 —— iOS segmented control ／ Threads Activity 個做法。
+     一個 tab 入面幾種內容，唔應該再開多個底 tab，用分段。 */
+  /* 群入面：開枱／投票唔係另一個畫面，係流入面一條有發起人嘅訊息 */
+  .msgevent{align-self:stretch;margin:4px 0}
+  .mehead{display:flex;align-items:center;gap:6px;font-size:9.5px;color:var(--dim);
+    font-weight:300;margin:0 6px 5px}
+  .mehead .f{width:18px;height:18px;border-radius:50%;background:var(--card);
+    border:1px solid var(--line);display:grid;place-items:center;font-size:9px;
+    color:var(--text);margin:0}
+  .mewhen{margin-left:auto;font-variant-numeric:tabular-nums}
+  .msgevent .event,.msgevent .poll{margin:0}
+  .bub .who{display:block;font-size:9.5px;color:var(--mist);font-weight:600;
+    margin-bottom:2px;letter-spacing:.02em}
+  .bub.me .who{display:none}
+  .pinned{cursor:pointer}
+  .pinned .pinby{float:right;font-size:9px;color:var(--dim);font-weight:300}
+  .pinned:hover{border-color:var(--accent)}
+
+  .seg{display:flex;gap:3px;margin:0 4px 12px;padding:3px;border-radius:11px;
+    background:var(--card-2);border:1px solid var(--line)}
+  .seg span{flex:1;text-align:center;padding:6px 4px;border-radius:8px;font-size:10.5px;
+    color:var(--dim);cursor:pointer;transition:background .16s ease,color .16s ease;
+    display:flex;align-items:center;justify-content:center;gap:4px}
+  .seg span.on{background:var(--card);color:var(--text);font-weight:600;
+    box-shadow:0 1px 3px rgba(0,0,0,.28)}
+  .seg span:hover:not(.on){color:var(--text)}
+  .seg em{font-style:normal;min-width:15px;height:15px;padding:0 4px;border-radius:8px;
+    background:var(--rose);color:#fff;font-size:8.5px;font-weight:700;line-height:15px;
+    font-variant-numeric:tabular-nums}
+
+  .crow{display:flex;gap:11px;align-items:center;padding:11px 4px;
+    border-bottom:1px solid var(--line);cursor:pointer}
+  .crow:last-of-type{border-bottom:0}
+  .crow:hover{background:var(--card-2)}
+  .cava{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;
+    font-size:15px;font-weight:600;background:var(--card-2);border:1px solid var(--line);
+    color:var(--text);position:relative}
+  .cava.grp{border-radius:14px}
+  .cava.up::after{content:"";position:absolute;right:-1px;bottom:-1px;width:11px;height:11px;
+    border-radius:50%;background:var(--amber);box-shadow:0 0 0 2.5px var(--card),0 0 9px var(--glow)}
+  .cmid{flex:1;min-width:0}
+  .cname{display:flex;align-items:center;gap:5px;font-size:12.5px;font-weight:600;margin-bottom:3px}
+  .ctype{font-size:8.5px;font-weight:500;letter-spacing:.08em;color:var(--dim);
+    border:1px solid var(--line);border-radius:4px;padding:1px 4px}
+  .csay{font-size:11px;color:var(--dim);font-weight:300;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .csay b{color:var(--text);font-weight:400}
+  .cend{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+  .cwhen{font-size:9.5px;color:var(--dim);font-variant-numeric:tabular-nums}
+  .cbadge{min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--accent);
+    color:var(--n-900);font-size:9.5px;font-weight:700;line-height:18px;text-align:center;
+    font-variant-numeric:tabular-nums}
+  .cbadge.mute{background:var(--line);color:var(--dim)}
+  .cfind{display:flex;align-items:center;gap:9px;margin:2px 4px 8px;padding:11px 12px;
+    border:1px dashed var(--line);border-radius:12px;cursor:pointer;font-size:11.5px;color:var(--dim)}
+  .cfind:hover{border-color:var(--accent);color:var(--text)}
+  .cfind b{color:var(--accent);font-weight:600}
+
+  .tabbar .tdot{position:absolute;top:-3px;left:calc(50% + 5px);min-width:15px;height:15px;
+    padding:0 4px;border-radius:8px;background:var(--rose);color:#fff;font-size:9px;font-weight:700;
+    line-height:15px;text-align:center;font-variant-numeric:tabular-nums;
+    box-shadow:0 0 0 2px var(--n-800)}
 
   /* screens */
-  .screen{display:none;height:100%;flex-direction:column}
+  /* ⚠️ flexbox 陷阱：flex item 嘅 min-height 預設係 auto，即係「唔准縮到細過內容」。
+     所以內容一長，.body 就撐大 .screen，將底 bar 推出 .phone 之外，
+     再畀 overflow:hidden 剪走 —— 睇落就好似「呢版冇底 bar」。
+     min-height:0 先係叫佢肯縮、改為自己內部 scroll。 */
+  .screen{display:none;height:100%;min-height:0;flex-direction:column}
   .screen.on{display:flex}
 
   /* ── 通用零件 ── */
@@ -555,9 +654,16 @@
   .foot{font-size:11px;color:var(--dim);font-weight:300;line-height:1.6;margin:0}
   .foot b{color:var(--text);font-weight:600}
 
+  /* ⚠️ 手機一定要用 dvh 唔可以用 vh —— vh 當 URL bar 收埋計，
+     URL bar 一出現，個 frame 底部（連底 bar）就跌咗落 fold 以下，
+     用戶會以為「呢版冇底 bar」。dvh 跟住實際可見高度變。 */
   @media (max-width:760px){
     .stage{flex-direction:column}
-    .phone{width:min(322px,92vw);height:min(690px,78vh)}
+    .phone{width:min(322px,92vw);height:min(690px,76dvh)}
+    .room{padding-top:14px}
+  }
+  @supports not (height:1dvh){
+    @media (max-width:760px){ .phone{height:min(690px,68vh)} }
   }
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -615,8 +721,7 @@
         <!-- ══ 討論區 ══ -->
         <section class="screen on" data-page="forum">
           <div class="appbar"><h2>Thread</h2>
-            <span class="act"><span onclick="go('notif')">🔔 <b class="dot">5</b></span>
-            　<span onclick="go('chat')">✉ 3</span>　溫哥華 ▾</span></div>
+            <span class="act">溫哥華 ▾</span></div>
           <div style="padding:0 2px 9px;flex:none">
             <div class="onebox" onclick="typedemo()">
               <div class="obtop" id="obtop">有咩想講？</div>
@@ -628,7 +733,7 @@
                 </span>
               </div>
             </div>
-            <p class="nonote">post 可以完全冇話題、冇 tag — 呢個係常態。撳個框睇示範（兩篇輪住嚟）。</p>
+            <p class="dnote nonote">post 可以完全冇話題、冇 tag — 呢個係常態。撳個框睇示範（兩篇輪住嚟）。</p>
             <div class="toast" id="toast">
               <span>已出 · 似係講緊 <b id="tt">出櫃</b> · <span id="ttfix" onclick="fixtag()">改</span>
               <span style="opacity:.6">（大部分 post 唔會有呢個）</span></span>
@@ -644,11 +749,11 @@
             <span class="bd" onclick="board(this,'吹水')">吹水 <i>7</i></span>
             <span class="bd addf" onclick="go('filter')">＋ 存個 filter</span>
           </div>
-          <div class="tagnote">
+          <div class="dnote tagnote">
             標籤按活躍度排。冇人用嘅自己沉走、唔會出現 —
             <b>所以永遠唔會有空台。</b>
           </div>
-          <p class="twoway">Thread <b>淨係得公開覆</b>。想私下搵一個人 →
+          <p class="dnote twoway">Thread <b>淨係得公開覆</b>。想私下搵一個人 →
             <b>撳佢個頭像入 profile</b>，喺度搵返嗰句／嗰張相，就嗰件嘢搵佢。<br>
             <b>睇你喺邊度，就知你做緊邊樣</b> — 冇得誤會。<br>
             <b>唔使自己搵返</b>：你由邊句撳入去，profile 就跳到嗰句。</p>
@@ -757,21 +862,21 @@
               <div class="rhead"><span class="who act" onclick="go('other','我頭半年都係咁。老實講唔好指意有個現成嘅圈等你，係要自己開枱。我入咗行山組之後先識到人。','回覆')">阿丙</span>
                 <span class="city">本拿比</span><span>· 42 分鐘前</span></div>
               <p>我頭半年都係咁。老實講唔好指意有個現成嘅圈等你，係要自己開枱。我入咗行山組之後先識到人。</p>
-              <div class="rfoot"><span class="reply2">💬 公開覆</span>
-                <span class="gotoprof act" onclick="go('other','我頭半年都係咁。老實講唔好指意有個現成嘅圈等你，係要自己開枱。我入咗行山組之後先識到人。','回覆')">想私下搵佢？入佢 profile</span></div>
+              <div class="rfoot"><span class="reply2">💬 覆</span>
+                <span class="dnote gotoprof act" onclick="go('other','我頭半年都係咁。老實講唔好指意有個現成嘅圈等你，係要自己開枱。我入咗行山組之後先識到人。','回覆')">想私下搵佢？入佢 profile</span></div>
             </div>
             <div class="reply">
               <div class="rhead"><span class="who">細細粒</span><span class="city">多倫多</span><span>· 30 分鐘前</span></div>
               <div class="quote">阿丙：⋯係要自己開枱</div>
               <p>+1。多倫多都係咁，我開咗個煮嘢食嘅群，而家八個人，每個月見一次。</p>
-              <div class="rfoot"><span class="reply2">💬 公開覆</span>
-                <span class="gotoprof act" onclick="go('other','我頭半年都係咁。老實講唔好指意有個現成嘅圈等你，係要自己開枱。我入咗行山組之後先識到人。','回覆')">想私下搵佢？入佢 profile</span></div>
+              <div class="rfoot"><span class="reply2">💬 覆</span>
+                <span class="dnote gotoprof act" onclick="go('other','我頭半年都係咁。老實講唔好指意有個現成嘅圈等你，係要自己開枱。我入咗行山組之後先識到人。','回覆')">想私下搵佢？入佢 profile</span></div>
             </div>
             <div class="reply">
               <div class="rhead"><span class="who">Cheryl</span><span class="city">溫哥華</span><span>· 12 分鐘前</span></div>
               <p>啱啱落機兩個月，睇住呢條 thread 諗住喊 😭 有冇人溫哥華一齊行山</p>
-              <div class="rfoot"><span class="reply2">💬 公開覆</span>
-                <span class="gotoprof act" onclick="go('other','我頭半年都係咁。老實講唔好指意有個現成嘅圈等你，係要自己開枱。我入咗行山組之後先識到人。','回覆')">想私下搵佢？入佢 profile</span></div>
+              <div class="rfoot"><span class="reply2">💬 覆</span>
+                <span class="dnote gotoprof act" onclick="go('other','我頭半年都係咁。老實講唔好指意有個現成嘅圈等你，係要自己開枱。我入咗行山組之後先識到人。','回覆')">想私下搵佢？入佢 profile</span></div>
             </div>
             <div class="reply">
               <div class="rhead"><span class="who">阿霖</span><span class="city">溫東</span><span>· 3 分鐘前</span></div>
@@ -781,10 +886,82 @@
         </section>
 
         <!-- ══ 群列表 ══ -->
-        <section class="screen" data-page="groups">
-          <div class="appbar"><h2>群</h2><span class="act">開新群</span></div>
+        <!-- ══ 傾偈：群同私訊同一條 list（抄 Telegram）══ -->
+        <section class="screen" data-page="chats">
+          <div class="appbar"><h2>傾偈</h2><span class="act" onclick="go('groups')">＋ 群</span></div>
           <div class="body">
-            <p class="grouprule">同 WhatsApp／TG group 一樣 — <b>群主自己改個名，改咩都得</b>。</p>
+            <div class="cfind" onclick="go('groups')">🔍 <span><b>搵群</b> · 開新群</span></div>
+
+            <div class="crow" onclick="go('group')">
+              <span class="cava grp up">行</span>
+              <span class="cmid">
+                <span class="cname">行山組 <span class="ctype">群 · 201</span></span>
+                <span class="csay"><b>阿丙：</b>Quarry Rock 相影得好靚，睇下</span></span>
+              <span class="cend"><span class="cwhen">21:04</span><span class="cbadge">3</span></span>
+            </div>
+
+            <div class="crow" onclick="matchOpen('阿丙')">
+              <span class="cava up">丙</span>
+              <span class="cmid">
+                <span class="cname">阿丙</span>
+                <span class="csay">不過我而家出去嘅話聽朝實死</span></span>
+              <span class="cend"><span class="cwhen">20:51</span><span class="cbadge">1</span></span>
+            </div>
+
+            <div class="crow" onclick="go('group')">
+              <span class="cava grp up">夜</span>
+              <span class="cmid">
+                <span class="cname">夜晚鳩噏 group <span class="ctype">群 · 87</span></span>
+                <span class="csay"><b>阿霖：</b>又係一個瞓唔著嘅星期二…</span></span>
+              <span class="cend"><span class="cwhen">20:33</span><span class="cbadge">12</span></span>
+            </div>
+
+            <div class="crow" onclick="matchOpen('Yuki')">
+              <span class="cava">Y</span>
+              <span class="cmid">
+                <span class="cname">Yuki</span>
+                <span class="csay">你講嗰間打邊爐叫咩名嚟？</span></span>
+              <span class="cend"><span class="cwhen">19:12</span></span>
+            </div>
+
+            <div class="crow" onclick="go('group')">
+              <span class="cava grp">新</span>
+              <span class="cmid">
+                <span class="cname">啱啱落地互助 <span class="ctype">群 · 309</span></span>
+                <span class="csay"><b>Cheryl：</b>請問點樣考車牌…</span></span>
+              <span class="cend"><span class="cwhen">今日</span><span class="cbadge mute">27</span></span>
+            </div>
+
+            <div class="crow" onclick="go('group')">
+              <span class="cava grp">櫃</span>
+              <span class="cmid">
+                <span class="cname">未出櫃 · 只限已驗證 <span class="ctype">群 · 76</span></span>
+                <span class="csay"><b>敏：</b>今日又被問幾時拉個返屋企…</span></span>
+              <span class="cend"><span class="cwhen">琴日</span></span>
+            </div>
+
+            <div class="crow" onclick="matchOpen('敏')">
+              <span class="cava">敏</span>
+              <span class="cmid">
+                <span class="cname">敏</span>
+                <span class="csay">我要。</span></span>
+              <span class="cend"><span class="cwhen">琴日</span></span>
+            </div>
+
+            <p class="dnote gridnote" style="padding-top:12px">
+              <b>群同私訊唔分兩個 tab</b> — Telegram 就係咁，而 Telegram 正正就係贏喺群嗰個。
+              分開兩個 list 等於逼你記住「呢個對話係邊種」，但你根本唔會咁諗嘢。<br>
+              圓角方 = 群，圓形 = 一個人。唔使加字都分得出。
+            </p>
+          </div>
+        </section>
+
+        <section class="screen" data-page="groups">
+          <div class="appbar"><h2><span class="back" onclick="go('chats')">‹</span> 搵群</h2>
+            <span class="act">開新群</span></div>
+          <div class="body">
+            <p class="dnote grouprule">同 WhatsApp／TG group 一樣 — <b>群主自己改個名，改咩都得</b>。
+              入咗嘅群會出現喺「傾偈」度，同私訊一齊排。</p>
             <div class="person" onclick="go('group')"><span class="ava up">行</span><span>
               <span class="nm">行山組</span>
               <span class="sub">201 人 · 週六開枱 · 今日 8 條</span>
@@ -812,42 +989,66 @@
         <section class="screen" data-page="group">
           <div class="appbar"><h2><span class="back" onclick="go('groups')">‹</span> 行山組</h2><span class="act">201 人</span></div>
           <div class="body">
-            <div class="pinned">📌 <b>置頂</b> · 每個月第一個星期六大團行，新人一定夾到人。</div>
-            <div class="event">
-              <div class="when">開枱 · 星期六 09:00</div>
-              <h3>Quarry Rock</h3>
-              <div class="where">Deep Cove 停車場等 · 行完食嘢 · 上限 8 人</div>
-              <div class="faces">
-                <span class="f">丙</span><span class="f">霖</span><span class="f">Y</span>
-                <span class="f">K</span><span class="f">C</span>
-                <span class="more" id="joincount">5 個報咗名 · 仲有 3 位</span>
-              </div>
-              <span class="join" id="joinbtn" onclick="joinEvent()">我要去</span>
-              <div class="pushup">✓ 已貼咗上 Thread · 全城見到，任何人報得名</div>
+            <!-- 📌 置頂 ＝ 管理員權限，可以釘任何一條訊息（Telegram 做法）。
+                 唔係專門畀開枱 —— 開枱同投票只係流入面嘅一種訊息。 -->
+            <div class="pinned" onclick="alert('（示範）撳入去跳到嗰條原訊息')">
+              📌 <b>置頂</b> · 每個月第一個星期六大團行，新人一定夾到人。
+              <span class="pinby">阿丙釘咗</span>
             </div>
+
             <div class="thread">
-              <div class="bub them">落雨點算？</div>
-              <div class="bub them">細雨照行，大雨改去飲茶 ☕</div>
+              <div class="daymark">星期三</div>
+              <div class="bub them"><b class="who">阿霖</b>下次行邊度好？</div>
+              <div class="bub them"><b class="who">Yuki</b>Quarry Rock 未去過，好行嘛？</div>
+
+              <!-- 開枱 ＝ 流入面一條特別訊息，有發起人、有時間戳 -->
+              <div class="msgevent">
+                <div class="mehead"><span class="f">丙</span>阿丙開咗張枱<span class="mewhen">14:22</span></div>
+                <div class="event">
+                  <div class="when">開枱 · 星期六 09:00</div>
+                  <h3>Quarry Rock</h3>
+                  <div class="where">Deep Cove 停車場等 · 行完食嘢 · 上限 8 人</div>
+                  <div class="faces">
+                    <span class="f">丙</span><span class="f">霖</span><span class="f">Y</span>
+                    <span class="f">K</span><span class="f">C</span>
+                    <span class="more" id="joincount">5 個報咗名 · 仲有 3 位</span>
+                  </div>
+                  <span class="join" id="joinbtn" onclick="joinEvent()">我要去</span>
+                  <div class="pushup">✓ 已貼咗上 Thread · 全城見到，任何人報得名</div>
+                </div>
+              </div>
+
+              <div class="bub them"><b class="who">阿霖</b>落雨點算？</div>
+              <div class="bub them"><b class="who">阿丙</b>細雨照行，大雨改去飲茶 ☕</div>
               <div class="bub me">我可以車兩個人，Metrotown 上車</div>
-              <div class="bub them">我搭你順風車得唔得 🙏</div>
+              <div class="bub them"><b class="who">Cheryl</b>我搭你順風車得唔得 🙏</div>
+
+              <!-- 投票都係一條訊息 -->
+              <div class="msgevent">
+                <div class="mehead"><span class="f">霖</span>阿霖開咗個投票<span class="mewhen">20:07</span></div>
+                <div class="poll">
+                  <div class="txt">今個月第二次行邊條路線？</div>
+                  <div class="opt"><span class="bar" style="width:62%"></span><span>Lynn Canyon · 8 票</span></div>
+                  <div class="opt"><span class="bar" style="width:31%"></span><span>Lighthouse Park · 4 票</span></div>
+                </div>
+              </div>
+
+              <div class="bub them"><b class="who">K</b>投咗 🙋</div>
             </div>
-            <div class="poll">
-              <span class="kind">投票 · 抄 TG</span>
-              <div class="txt">今個月第二次行邊條路線？</div>
-              <div class="opt"><span class="bar" style="width:62%"></span><span>Lynn Canyon · 8 票</span></div>
-              <div class="opt"><span class="bar" style="width:31%"></span><span>Lighthouse Park · 4 票</span></div>
-            </div>
+
             <div class="composer"><span class="field">寫啲嘢…</span><span class="go">送出</span></div>
-            <p class="gridnote" style="padding-top:10px">群嘅標準功能照抄 Telegram：置頂訊息 · 投票 ·
-              管理員權限 · reaction · <b>慢速模式</b>（版主工具）。Topics 分串有量先做。</p>
+            <p class="dnote gridnote" style="padding-top:10px">
+              <b>群入面主要就係傾偈。</b> 開枱同投票唔係另一種畫面，係流入面嘅一條訊息 —
+              有發起人、有時間，同其他對話一齊向下排。<br>
+              置頂係管理員權限，<b>釘邊條都得</b>（抄 Telegram）。其餘照抄：投票 · 管理員權限 ·
+              reaction · <b>慢速模式</b>。Topics 分串有量先做。</p>
           </div>
         </section>
 
         <!-- ══ 搵人：一個人一版，直碌 ══ -->
         <section class="screen" data-page="people">
           <div class="appbar"><h2>搵人</h2>
-            <span class="act"><span onclick="go('likes')">💌 <b class="dot">4</b></span>
-            　<span onclick="go('pfilter')">篩選 ▾</span></span></div>
+            <span class="act" onclick="go('pfilter')">篩選 ▾</span></div>
           <div class="body" id="pbody">
             <div class="chips">
               <span class="chip on" onclick="tog(this)">未瞓</span>
@@ -863,7 +1064,6 @@
             </div>
             <p class="deckend" id="deckend">掃到底就冇 — 呢度得幾千人，唔係無限供應。</p>
           </div>
-          <nav class="tabbar"><span>Thread</span><span>群</span><span class="on">搵人</span><span>我</span></nav>
         </section>
 
         <!-- ══ 我 / 人哋 profile ══ -->
@@ -956,7 +1156,7 @@
             <!-- post：IG grid，無限累積。冇 tab — 同一條 scroll 落去就見到 -->
             <div id="pane-b">
               <div class="secline"><span id="postcount">post · 24</span><span class="act">＋ 出 post</span></div>
-              <p class="gridnote">呢個 grid 係你<b>本相簿</b>，唔係一條 feed —
+              <p class="dnote gridnote">呢個 grid 係你<b>本相簿</b>，唔係一條 feed —
                 係「話畀人聽你係咩人」，唔係「我今日做咗乜」。<br>
                 得三兩張係<b>正常</b>，唔係未填好。<b>◔ ＝ 淨係喺呢度出現，冇入過 Thread。</b></p>
               <div class="grid" id="grid"></div>
@@ -1038,7 +1238,7 @@
           <div class="appbar"><h2><span class="back" onclick="go('people')">‹</span> 篩選</h2>
             <span class="act" onclick="go('people')">用佢</span></div>
           <div class="body">
-            <p class="fnote">呢啲係罐頭 — 照業界標準做，唔使發明。
+            <p class="dnote fnote">呢啲係罐頭 — 照業界標準做，唔使發明。
               （Thread 嗰個 Filter 係篩<b>內容</b>，呢個係篩<b>人</b>，兩樣嘢。）</p>
 
             <div class="fgrp"><div class="flabel">年齡</div>
@@ -1092,20 +1292,23 @@
             </div>
 
             <div style="padding:6px 4px 0"><span class="cta" onclick="go('people')">用佢</span></div>
-            <p class="fnote" style="margin-top:12px">
+            <p class="dnote fnote" style="margin-top:12px">
               ⚠️ <b>「已驗證」唔做 filter</b> — 全部人都已驗證（註冊嗰關過咗先入到嚟），
               放喺度會令人以為有分等級。
             </p>
           </div>
-          <nav class="tabbar"><span>Thread</span><span>群</span><span class="on">搵人</span><span>我</span></nav>
         </section>
 
         <!-- ══ 撩你嘅人 ══ -->
         <section class="screen" data-page="likes">
-          <div class="appbar"><h2><span class="back" onclick="go('people')">‹</span> 搵你</h2>
-            <span class="act">4</span></div>
+          <div class="appbar"><h2>通知</h2><span class="act">4 個未覆</span></div>
           <div class="body">
-            <p class="notifnote">佢哋係就你其中<b>一件</b>嘢搵你，唔係「like 咗你」。
+            <div class="seg">
+              <span onclick="go('notif')">全部</span>
+              <span class="on">搵你 <em>4</em></span>
+              <span onclick="goNotif('reply')">覆你</span>
+            </div>
+            <p class="dnote notifnote">佢哋係就你其中<b>一件</b>嘢搵你，唔係「like 咗你」。
               所以你一開就已經知道傾咩 — <b>你覆返，私聊就開</b>。冇「MATCH!」煙花，因為唔使。</p>
 
             <div class="lcard">
@@ -1141,66 +1344,68 @@
                 <span class="lpass">算</span></div>
             </div>
 
-            <p class="notifnote" style="border:0;padding-top:12px">
+            <p class="dnote notifnote" style="border:0;padding-top:12px">
               <b>唔覆＝乜都唔會發生。</b> 冇人知你睇過，佢個 like 就咁靜靜哋收埋。
               呢個對未出櫃嗰批好重要 — <b>拒絕唔使講出口</b>。
             </p>
           </div>
-          <nav class="tabbar"><span>Thread</span><span>群</span><span class="on">搵人</span><span>我</span></nav>
         </section>
 
         <!-- ══ 通知 ══ -->
         <section class="screen" data-page="notif">
-          <div class="appbar"><h2><span class="back" onclick="go('forum')">‹</span> 通知</h2>
-            <span class="act">全部已讀</span></div>
+          <div class="appbar"><h2>通知</h2><span class="act">全部已讀</span></div>
           <div class="body">
-            <p class="notifnote">我哋規模下最強嘅回訪動力唔係演算法，係
+            <div class="seg">
+              <span class="on" onclick="nseg(this,'all')">全部</span>
+              <span onclick="go('likes')">搵你 <em>4</em></span>
+              <span onclick="nseg(this,'reply')">覆你</span>
+            </div>
+            <p class="dnote notifnote">我哋規模下最強嘅回訪動力唔係演算法，係
               <b>「有人覆咗你」</b> — 呢樣大廠反而做唔到（幾億人，你條 post 沉咗就係沉咗）。</p>
 
-            <div class="nrow new" onclick="go('thread')">
+            <div data-kind="reply" class="nrow new" onclick="go('thread')">
               <span class="ava">丙</span>
               <span><span class="ntxt"><b>阿丙</b> 覆咗你嗰句「瞓唔著⋯」</span>
                 <span class="nsay">「我都係。行唔行？」</span>
                 <span class="nwhen">2 分鐘前</span></span>
             </div>
-            <div class="nrow new" onclick="me()">
+            <div data-kind="like" class="nrow new" onclick="me()">
               <span class="ava">霖</span>
               <span><span class="ntxt"><b>阿霖</b> 同其他 2 個人 ♡ 咗你嘅「一句話」</span>
                 <span class="nsay">「我唔識玩曖昧。想見你就會直接講。」</span>
                 <span class="nwhen">18 分鐘前</span></span>
             </div>
-            <div class="nrow new" onclick="go('group')">
+            <div data-kind="event" class="nrow new" onclick="go('group')">
               <span class="ava">K</span>
               <span><span class="ntxt"><b>K</b> 報咗名你嗰張枱</span>
                 <span class="nsay">Quarry Rock · 星期六 09:00 · 6 個報咗名</span>
                 <span class="nwhen">1 個鐘前</span></span>
             </div>
-            <div class="nrow new" onclick="go('groups')">
+            <div data-kind="group" class="nrow new" onclick="go('groups')">
               <span class="ava">新</span>
               <span><span class="ntxt">「啱啱落地互助」有 <b>27</b> 條新訊息</span>
                 <span class="nsay">Cheryl：請問點樣考車牌…</span>
                 <span class="nwhen">今日</span></span>
             </div>
-            <div class="nrow new" onclick="me()">
+            <div data-kind="view" class="nrow new" onclick="me()">
               <span class="ava">👁</span>
               <span><span class="ntxt"><b>7 個人</b>睇過你個 profile</span>
                 <span class="nsay">3 個係你未見過嘅人 · 2 個而家未瞓</span>
                 <span class="nwhen">今日</span></span>
             </div>
-            <div class="nrow" onclick="go('thread')">
+            <div data-kind="reply" class="nrow" onclick="go('thread')">
               <span class="ava">細</span>
               <span><span class="ntxt"><b>細細粒</b> 引用咗你</span>
                 <span class="nsay">「+1。多倫多都係咁⋯」</span>
                 <span class="nwhen">琴日</span></span>
             </div>
-            <p class="notifnote" style="border:0;padding-top:14px">
+            <p class="dnote notifnote" style="border:0;padding-top:14px">
               全部係<b>真嘢</b>：有人覆你、有人就你其中一件 element 私訊你、有人報咗你張枱、有人睇過你。
               冇一條係「你可能會鍾意…」。<br><br>
               ⚠️ <b>排序唔可以淨係按熱度</b> — 新人第一篇冇人覆就永遠沉底，
               然後佢走。要溝埋「你未見過嘅嘢」加分。細節待定。
             </p>
           </div>
-          <nav class="tabbar"><span class="on">Thread</span><span>群</span><span>搵人</span><span>我</span></nav>
         </section>
 
         <!-- ══ Filter ══ -->
@@ -1208,7 +1413,7 @@
           <div class="appbar"><h2><span class="back" onclick="go('forum')">‹</span> Filter</h2>
             <span class="act" onclick="go('forum')">用佢</span></div>
           <div class="body">
-            <p class="fnote" style="border:1px solid var(--accent);border-radius:11px;padding:10px 12px;margin-bottom:14px">
+            <p class="dnote fnote" style="border:1px solid var(--accent);border-radius:11px;padding:10px 12px;margin-bottom:14px">
               排序、時間範圍、狀態 <b>全部照抄業界標準</b> — 唔自己發明。<br>
               Reddit：Hot／New／Top（配時間）／Rising／Controversial ·
               Discourse：Latest／Top／New／Unread ＋ Categories ＋ Tags ·
@@ -1291,12 +1496,11 @@
             </div>
 
             <div style="padding:6px 4px 0"><span class="cta" onclick="go('forum')">存低做「我嘅台」</span></div>
-            <p class="fnote" style="margin-top:12px">
+            <p class="dnote fnote" style="margin-top:12px">
               存低咗會變成上面條標籤列嘅一粒。連登嘅台係人哋幫你決定；
               <b>你存低嘅 filter 就係你自己嘅台</b> — 而且唔使等平台開台，唔會有空台。
             </p>
           </div>
-          <nav class="tabbar"><span class="on">Thread</span><span>群</span><span>搵人</span><span>我</span></nav>
         </section>
 
         <!-- ══ 假面 ══ -->
@@ -1321,11 +1525,21 @@
           </div>
         </section>
 
+        <!-- 5 tab ＝ 業界上限（Twitter／IG／Threads／Hinge 全部 5 個）。
+             通知同私訊喺呢啲 app 全部係底 tab，唔係 appbar 角落嘅 icon。 -->
         <nav class="tabbar" id="tabbar">
-          <button data-tab="forum"  onclick="go('forum')"  class="on">Thread</button>
-          <button data-tab="groups" onclick="go('groups')">群</button>
-          <button data-tab="people" onclick="go('people')">搵人</button>
-          <button data-tab="me"     onclick="me()">我</button>
+          <button data-tab="forum" onclick="go('forum')" class="on" aria-label="Thread">
+            <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h11M4 18h7"/></svg><i>Thread</i></button>
+          <button data-tab="chats" onclick="go('chats')" aria-label="傾偈">
+            <svg viewBox="0 0 24 24"><path d="M20 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z"/></svg><i>傾偈</i>
+            <b class="tdot">7</b></button>
+          <button data-tab="people" onclick="go('people')" aria-label="搵人">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><i>搵人</i></button>
+          <button data-tab="notif" onclick="go('notif')" aria-label="通知">
+            <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/></svg><i>通知</i>
+            <b class="tdot">9</b></button>
+          <button data-tab="me" onclick="me()" aria-label="我">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><i>我</i></button>
         </nav>
       </div>
     </div>
@@ -1339,17 +1553,23 @@
           <button onclick="go('forum')">Thread</button>
           <button onclick="go('thread')">post 內頁</button>
           <button onclick="go('filter')">Thread Filter</button>
-          <button onclick="go('pfilter')">搵人 Filter</button>
-          <button onclick="go('groups')">群</button>
-          <button onclick="go('group')">開枱</button>
+          <button onclick="go('chats')">傾偈</button>
+          <button onclick="go('group')">群入面 · 開枱</button>
+          <button onclick="go('groups')">搵群</button>
+          <button onclick="go('chat')">私訊</button>
           <button onclick="go('people')">搵人</button>
+          <button onclick="go('pfilter')">搵人 Filter</button>
           <button onclick="me()">Profile</button>
           <button onclick="go('editor')">加 element</button>
-          <button onclick="go('likes')">搵你 💌</button>
           <button onclick="go('notif')">通知</button>
-          <button onclick="go('chat')">私訊</button>
+          <button onclick="go('likes')">搵你</button>
           <button onclick="go('panic')">假面</button>
         </div>
+        <div class="annotbtn" id="annotbtn" onclick="toggleAnnot()">
+          <span class="sw"></span>
+          <span>喺畫面入面顯示<b>設計註解</b>（18 段）</span>
+        </div>
+
         <div class="ptitle" style="margin-top:16px">Profile 有幾多相</div>
         <div class="jump">
           <button data-n="3" onclick="me();buildGrid(3)">3 張 · Hinge 樣</button>
@@ -1645,10 +1865,13 @@
 
 <script>
   const ORDER = ['verify','forum','notif','thread','groups','likes','pfilter','group','people','me','photo','editor','chat','panic'];
-  const TABOF = {forum:'forum', thread:'forum', chat:'forum', notif:'forum',
-                 likes:'people', pfilter:'people',
-                 groups:'groups', group:'groups',
-                 people:'people', me:'me', photo:'me', editor:'me'};
+  // 每一版屬於邊個 tab。深入去嘅版（討論串、群內頁…）要著返佢個 root tab，
+  // 否則用戶會覺得自己「唔知去咗邊」。iOS／Android 兩邊都係咁做。
+  const TABOF = {forum:'forum', thread:'forum', filter:'forum',
+                 chats:'chats', groups:'chats', group:'chats', chat:'chats',
+                 people:'people', pfilter:'people',
+                 notif:'notif', likes:'notif',
+                 me:'me', photo:'me', editor:'me'};
   let cur = 'forum';
   let viewingOther = false;
 
@@ -1785,6 +2008,34 @@
       + '<div class="plan"><b>$88</b><span>／半年</span></div>'
       + '</div>';
     host.parentElement.insertBefore(c, host.nextSibling);
+  }
+
+  // 捲到最右就唔使再淡出 —— 淡出係「仲有嘢」嘅訊號，冇嘢就唔應該再出。
+  document.addEventListener('scroll', e => {
+    const b = e.target.closest && e.target.closest('.boards');
+    if (b) b.classList.toggle('atend', b.scrollLeft + b.clientWidth >= b.scrollWidth - 2);
+  }, true);
+
+  // 註解開關。預設收埋 —— 個 mockup 首先要似個 app。
+  function toggleAnnot(){
+    const on = document.querySelector('.phone').classList.toggle('annot');
+    document.getElementById('annotbtn').classList.toggle('on', on);
+  }
+
+  // 分段：喺同一版篩，唔跳版。跳版會令返回行為變得莫名其妙。
+  // 由「搵你」跳返「通知 · 覆你」：要跳版 ＋ 選段，兩件事一齊做。
+  function goNotif(kind){
+    go('notif');
+    const seg = document.querySelector('[data-page=notif] .seg');
+    const btn = [...seg.querySelectorAll('span')].find(x => x.textContent.trim().startsWith('覆你'));
+    nseg(btn, kind);
+  }
+  function nseg(el, kind){
+    el.parentElement.querySelectorAll('span').forEach(x => x.classList.remove('on'));
+    el.classList.add('on');
+    document.querySelectorAll('[data-page=notif] .nrow').forEach(r => {
+      r.style.display = (kind === 'all' || r.dataset.kind === kind) ? '' : 'none';
+    });
   }
 
   // Match ＝ 佢覆咗你。冇抽獎、冇煙花 —— 對話一開就已經有內容。
