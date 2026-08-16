@@ -146,6 +146,31 @@
   .annotbtn.on .sw{background:var(--accent)}
   .annotbtn.on .sw::after{transform:translateX(13px)}
 
+  /* 設定頁 */
+  .sgrp{margin:0 2px 18px}
+  .slabel{font-size:9.5px;letter-spacing:.14em;color:var(--dim);font-weight:500;
+    margin:0 2px 8px;text-transform:uppercase}
+  .sopts{display:flex;gap:3px;padding:3px;border-radius:11px;background:var(--card-2);
+    border:1px solid var(--line)}
+  .sopt{flex:1;text-align:center;padding:7px 4px;border-radius:8px;font-size:10.5px;
+    color:var(--dim);cursor:pointer;transition:background .16s ease,color .16s ease}
+  .sopt.on{background:var(--card);color:var(--text);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.28)}
+  .shint{font-size:9.5px;color:var(--dim);font-weight:300;line-height:1.6;margin:8px 2px 0}
+  .shint b{color:var(--text);font-weight:600}
+  .srow{display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:11px 2px;border-bottom:1px solid var(--line);font-size:12px}
+  .srow:last-of-type{border-bottom:0}
+  .srow.act{cursor:pointer}
+  .srow.act:hover{color:var(--accent)}
+  .srow.danger{color:var(--rose)}
+  .sarrow{color:var(--dim);font-size:11px}
+  .sw2{flex:none;width:34px;height:19px;border-radius:10px;background:var(--line);
+    position:relative;cursor:pointer;transition:background .18s ease}
+  .sw2::after{content:"";position:absolute;top:2px;left:2px;width:15px;height:15px;
+    border-radius:50%;background:var(--card);transition:transform .18s ease}
+  .sw2.on{background:var(--accent)}
+  .sw2.on::after{transform:translateX(15px)}
+
   /* 分段控制 —— iOS segmented control ／ Threads Activity 個做法。
      一個 tab 入面幾種內容，唔應該再開多個底 tab，用分段。 */
   /* 群入面：開枱／投票唔係另一個畫面，係流入面一條有發起人嘅訊息 */
@@ -710,8 +735,8 @@
                   <b>AI 只負責放行</b>
                   <small>唔確定嘅一律轉真人聽，唔會自動拒絕你。</small></span></div>
                 <div class="step"><span class="num">2</span><span>
-                  <b>順便標返你講咩話</b>
-                  <small>同一段錄音標粵／英／普，唔使做多一步。</small></span></div>
+                  <b>錄音聽完即刪</b>
+                  <small>唔會存底、唔會攞去做第二樣。判完就冇。</small></span></div>
               </div>
               <p class="fineprint">而家唔方便出聲？<span class="act">遲啲先錄</span> · 或者真人視像</p>
             </div>
@@ -762,7 +787,7 @@
             <span class="alt">有人回就浮返上嚟</span>
           </div>
           <div class="body">
-            <div class="awake"><span class="lamp"></span>而家仲有 <b>34</b> 個人未瞓</div>
+            <div class="awake"><span class="lamp"></span>而家有 <b>34</b> 個人在線</div>
             <article class="post feedrow" onclick="go('thread')">
               <span class="ava" onclick="event.stopPropagation();go('other')">Y</span>
               <span style="flex:1">
@@ -886,6 +911,61 @@
         </section>
 
         <!-- ══ 群列表 ══ -->
+        <!-- ══ 設定 ══ -->
+        <section class="screen" data-page="settings">
+          <div class="appbar"><h2><span class="back" onclick="me()">‹</span> 設定</h2></div>
+          <div class="body">
+
+            <div class="sgrp">
+              <div class="slabel">在線狀態</div>
+              <div class="sopts">
+                <span class="sopt" onclick="pickOne(this)">所有人</span>
+                <span class="sopt on" onclick="pickOne(this)">傾過偈嘅人</span>
+                <span class="sopt" onclick="pickOne(this)">冇人</span>
+              </div>
+              <p class="shint">⚖️ <b>你收埋自己嘅，你就睇唔到人哋嘅。</b>
+                WhatsApp 同 Telegram 兩邊都係咁 —— 呢條對等規矩擋住潛水佬。</p>
+              <p class="dnote shint">預設揀「傾過偈嘅人」唔係「所有人」：我哋用戶未出櫃，
+                私隱預設一律要企喺最緊嗰邊，唔跟大路 app 嘅預設。</p>
+            </div>
+
+            <div class="sgrp">
+              <div class="slabel">你講咩話 · 自己揀，可以揀多過一個</div>
+              <div class="chips" style="border:0;padding:2px 0 0">
+                <span class="chip on" onclick="tog(this)">粵語</span>
+                <span class="chip on" onclick="tog(this)">英文</span>
+                <span class="chip" onclick="tog(this)">普通話</span>
+                <span class="chip" onclick="tog(this)">日文</span>
+                <span class="chip" onclick="tog(this)">韓文</span>
+                <span class="chip" onclick="tog(this)">＋ 加</span>
+              </div>
+              <p class="dnote shint">⛔ 本來想用註冊嗰段錄音自動標。斃咗 —— 冇現成模型又分到粵普又准商用，
+                而且將來要開放畀更多語言嘅人用。自己揀：任何語言加得，零成本，零法律風險。</p>
+            </div>
+
+            <div class="sgrp">
+              <div class="slabel">通知</div>
+              <div class="srow"><span>通知唔顯示內容</span><span class="sw2 on"></span></div>
+              <div class="srow"><span>鎖畫面完全唔出通知</span><span class="sw2"></span></div>
+              <p class="dnote shint">「唔顯示內容」預設<b>開住</b> —— 手機喺枱面畀人見到都唔會出事。</p>
+            </div>
+
+            <div class="sgrp">
+              <div class="slabel">安全</div>
+              <div class="srow act" onclick="go('panic')"><span>假面 · 搖一搖變計數機</span><span class="sarrow">›</span></div>
+              <div class="srow act"><span>封鎖名單</span><span class="sarrow">3 個 ›</span></div>
+              <div class="srow act"><span>App 名同 icon</span><span class="sarrow">筆記 ›</span></div>
+              <div class="srow act"><span>舉報紀錄</span><span class="sarrow">›</span></div>
+            </div>
+
+            <div class="sgrp">
+              <div class="slabel">帳戶</div>
+              <div class="srow act"><span>暫時收起個 profile</span><span class="sarrow">›</span></div>
+              <div class="srow act danger"><span>刪除帳戶同所有資料</span><span class="sarrow">›</span></div>
+            </div>
+          </div>
+        </section>
+
         <!-- ══ 傾偈：群同私訊同一條 list（抄 Telegram）══ -->
         <section class="screen" data-page="chats">
           <div class="appbar"><h2>傾偈</h2><span class="act" onclick="go('groups')">＋ 群</span></div>
@@ -968,7 +1048,7 @@
               <span class="say">阿丙：Quarry Rock 相…</span></span></div>
             <div class="person" onclick="go('group')"><span class="ava up">夜</span><span>
               <span class="nm">夜晚鳩噏 group</span>
-              <span class="sub">87 人 · 而家 12 個未瞓</span>
+              <span class="sub">87 人 · 12 個在線</span>
               <span class="say">阿霖：又係一個瞓唔著嘅星期二…</span></span></div>
             <div class="person" onclick="go('group')"><span class="ava">30</span><span>
               <span class="nm">溫哥華 30+ 吹水</span>
@@ -1051,7 +1131,7 @@
             <span class="act" onclick="go('pfilter')">篩選 ▾</span></div>
           <div class="body" id="pbody">
             <div class="chips">
-              <span class="chip on" onclick="tog(this)">未瞓</span>
+              <span class="chip on" onclick="tog(this)">在線</span>
               <span class="chip on" onclick="tog(this)">講粵語</span>
               <span class="chip" onclick="tog(this)">大溫</span>
               <span class="chip" onclick="tog(this)">30–40</span>
@@ -1070,14 +1150,15 @@
         <section class="screen" data-page="me">
           <div class="appbar">
             <h2><span class="back" id="pback" style="display:none" onclick="go('people')">‹</span> <span id="pt">我</span></h2>
-            <span class="act" id="pact" onclick="go('editor')">編輯</span>
+            <span class="act"><span id="pgear" onclick="go('settings')" title="設定">⚙</span>
+            　<span id="pact" onclick="go('editor')">編輯</span></span>
           </div>
           <div class="body">
             <div class="phead">
               <span class="ava up">霖</span>
               <span>
                 <span class="pname">阿霖 <span class="badge">已驗證</span><span class="badge lang">粵</span></span>
-                <span class="pmeta">28 · 溫東 · 三年前嚟 · 而家未瞓</span>
+                <span class="pmeta">28 · 溫東 · 三年前嚟 · 在線</span>
                 <span class="pbio">煮嘢食係我強項，識人係我弱項。</span>
               </span>
             </div>
@@ -1266,7 +1347,7 @@
 
             <div class="fgrp"><div class="flabel">最近上線</div>
               <div class="chips" style="border:0;padding-bottom:4px">
-                <span class="chip on" onclick="tog(this)">而家未瞓</span>
+                <span class="chip on" onclick="tog(this)">在線</span>
                 <span class="chip" onclick="tog(this)">今日</span>
                 <span class="chip" onclick="tog(this)">一星期內</span>
                 <span class="chip" onclick="tog(this)">唔理</span>
@@ -1314,7 +1395,7 @@
             <div class="lcard">
               <div class="lhead"><span class="ava up">丙</span>
                 <span><span class="nm">阿丙 <span class="badge">已驗證</span><span class="badge lang">粵</span></span>
-                  <span class="sub">33 · 本拿比 · 而家未瞓</span></span></div>
+                  <span class="sub">33 · 本拿比 · 在線</span></span></div>
               <div class="lwhat"><span class="kind">就呢件嘢搵你 · 一句話</span>
                 <div class="txt">我唔識玩曖昧。想見你就會直接講。</div></div>
               <div class="lsay">「咁我直接講：星期六行山，你嚟唔嚟？」</div>
@@ -1390,7 +1471,7 @@
             <div data-kind="view" class="nrow new" onclick="me()">
               <span class="ava">👁</span>
               <span><span class="ntxt"><b>7 個人</b>睇過你個 profile</span>
-                <span class="nsay">3 個係你未見過嘅人 · 2 個而家未瞓</span>
+                <span class="nsay">3 個係你未見過嘅人 · 2 個而家在線</span>
                 <span class="nwhen">今日</span></span>
             </div>
             <div data-kind="reply" class="nrow" onclick="go('thread')">
@@ -1563,6 +1644,7 @@
           <button onclick="go('editor')">加 element</button>
           <button onclick="go('notif')">通知</button>
           <button onclick="go('likes')">搵你</button>
+          <button onclick="go('settings')">設定</button>
           <button onclick="go('panic')">假面</button>
         </div>
         <div class="annotbtn" id="annotbtn" onclick="toggleAnnot()">
@@ -1592,7 +1674,7 @@
              （年齡 range／地區／語言／最近上線／想搵咩）· 群抄 <b>WhatsApp／TG</b> ·
              Profile ＝ <b>IG</b> 相 grid ＋ <b>Hinge</b> 就單件私訊 ＋ <b>Threads</b> post 歷史 ·
              出 post 抄 <b>Threads</b> 一個框。</p>
-          <p><b>只有真係冇人做過嘅先自己諗：</b> 語音門檻（唔使自拍）· 未瞓 · 假面 ·
+          <p><b>只有真係冇人做過嘅先自己諗：</b> 語音門檻（唔使自拍）· 假面 ·
              存低 filter 當自己個台。</p>
           <p>今日發明過然後拆咗嘅：麻雀枱視覺 · 群命名規則 · 私聊開枱 ·
              自己諗嗰套「3+／10+／50+ 回覆」filter（冇人咁做）。<br>
@@ -1850,7 +1932,11 @@
           <summary>註冊 ＋ 假面</summary>
           <p><b>註冊：</b>唔使自拍。讀一句<b>隨機而且中性</b>嘅句子 —
              當住屋企人面前讀都唔會出事。AI 只負責放行，唔確定嘅落人手，
-             <b>永不自動拒絕</b>。同一段錄音順便標返你講粵／英／普。</p>
+             <b>永不自動拒絕</b>。</p>
+          <p>⛔ <b>語音淨係做一件事：分男女。</b> 本來寫住「同一段錄音順便標返你講粵／英／普」——
+             斃咗（Nicole 2026-08-16）。兩個理由：查證發現冇一個現成模型又分到粵普又准商用；
+             而且個 app 將來要開放畀更多語言嘅人用，寫死粵／普／英本身就係錯方向。
+             <b>語言改成用戶自己揀，可多選，任何語言加得。</b></p>
           <p><b>假面：</b>搖一搖變成真係用得嘅計數機，撳返一段特定數字先返到去。
              對「同屋企人住、阿媽會攞我電話」嘅人，唔係花巧，係用唔用得落去嘅分別。</p>
         </details>
@@ -1871,7 +1957,7 @@
                  chats:'chats', groups:'chats', group:'chats', chat:'chats',
                  people:'people', pfilter:'people',
                  notif:'notif', likes:'notif',
-                 me:'me', photo:'me', editor:'me'};
+                 me:'me', photo:'me', editor:'me', settings:'me'};
   let cur = 'forum';
   let viewingOther = false;
 
@@ -1892,6 +1978,7 @@
     document.getElementById('pback').style.display = viewingOther ? 'inline' : 'none';
     document.getElementById('pt').textContent = viewingOther ? '阿霖' : '我';
     document.getElementById('pact').textContent = viewingOther ? '✉ 傾偈' : '編輯';
+    document.getElementById('pgear').style.display = viewingOther ? 'none' : 'inline';
     document.getElementById('pact').onclick = viewingOther ? () => go('chat') : () => go('editor');
   }
   const _go = go;
@@ -2015,6 +2102,14 @@
     const b = e.target.closest && e.target.closest('.boards');
     if (b) b.classList.toggle('atend', b.scrollLeft + b.clientWidth >= b.scrollWidth - 2);
   }, true);
+
+  function pickOne(el){
+    el.parentElement.querySelectorAll('.sopt').forEach(x => x.classList.remove('on'));
+    el.classList.add('on');
+  }
+  document.addEventListener('click', e => {
+    if (e.target.classList && e.target.classList.contains('sw2')) e.target.classList.toggle('on');
+  });
 
   // 註解開關。預設收埋 —— 個 mockup 首先要似個 app。
   function toggleAnnot(){
@@ -2161,12 +2256,12 @@
 
   // 搵人：一個人一版，直碌落去。Hinge 嘅瀏覽，唔要 swipe。
   const PEOPLE = [
-    { i:'丙', n:'阿丙', up:true,  m:'33 · 本拿比 · 香港嚟 · 而家未瞓', lang:'粵',
+    { i:'丙', n:'阿丙', up:true,  m:'33 · 本拿比 · 香港嚟 · 在線', lang:'粵',
       bio:'返夜更，日頭得閒。想搵人行山。',
       shots:['🏔','🌙'],
       els:[['問答','行山唔係為咗景，係為咗行完之後嗰餐'],
            ['一句話','我唔識講廢話，但我識聽']] },
-    { i:'霖', n:'阿霖', up:true,  m:'28 · 溫東 · 三年前嚟 · 而家未瞓', lang:'粵',
+    { i:'霖', n:'阿霖', up:true,  m:'28 · 溫東 · 三年前嚟 · 在線', lang:'粵',
       bio:'煮嘢食係我強項，識人係我弱項。',
       shots:['🍜','🐈'],
       els:[['歌','係咁先啦朋友 · Serrini'],
@@ -2307,7 +2402,7 @@
     setTimeout(() => {
       r.classList.remove('busy'); r.textContent = '✓'; m.textContent = '收到。AI 核緊…';
       setTimeout(() => {
-        m.innerHTML = '<b style="color:var(--accent)">通過咗 · 語言標籤：粵</b><br>錄音已刪除';
+        m.innerHTML = '<b style="color:var(--accent)">通過咗</b><br>錄音已刪除';
         setTimeout(() => { recording = false; r.textContent = '●'; go('forum'); }, 1400);
       }, 1100);
     }, 1600);
