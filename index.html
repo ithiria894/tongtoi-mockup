@@ -58,8 +58,13 @@
   h1.wm em{font-style:normal;color:var(--accent);text-shadow:0 0 46px var(--glow),0 0 14px var(--glow-soft)}
   .head .sub{font-family:var(--serif);font-size:14px;color:var(--dim);
     letter-spacing:.1em;margin:0 0 16px;font-weight:400}
-  .head p{margin:0;font-weight:300;font-size:13.5px;color:var(--dim);
-    max-width:54ch;line-height:1.8}
+  .head p{margin:0;font-weight:300;font-size:13px;color:var(--dim);
+    max-width:56ch;line-height:1.8}
+  .usecases{list-style:none;margin:0 0 14px;padding:0;max-width:56ch}
+  .usecases li{font-size:13.5px;font-weight:300;color:var(--dim);line-height:1.9;
+    padding-left:16px;position:relative}
+  .usecases li::before{content:"·";position:absolute;left:2px;color:var(--accent);font-weight:700}
+  .usecases b{color:var(--text);font-weight:600}
   .head p b{color:var(--text);font-weight:600}
 
   /* ── 佈局：電話 + 側邊說明 ── */
@@ -148,6 +153,8 @@
   .fnote{font-size:11.5px;color:var(--dim);font-weight:300;line-height:1.6;padding:2px 4px 14px}
   .fnote b{color:var(--text);font-weight:600}
 
+  .loading{text-align:center;font-size:10.5px;color:var(--dim);font-weight:300;
+    padding:14px 0 20px;opacity:.7}
   .endcap{text-align:center;font-size:11px;color:var(--dim);font-weight:300;
     padding:20px 10px 8px;line-height:1.7;border-top:1px solid var(--line);margin-top:6px}
   .endcap b{color:var(--text);font-weight:600}
@@ -265,6 +272,31 @@
   .rhead{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--dim);margin-bottom:4px}
   .reply p{font-size:12.5px;font-weight:300;margin:0;line-height:1.6}
   .quote{border-left:2px solid var(--line);padding-left:8px;margin:0 0 5px;font-size:11px;color:var(--dim);font-weight:300}
+
+  /* 搵人：一個人一版。Hinge 嘅瀏覽，冇 swipe、冇 match 彈窗。 */
+  .bcard{padding:4px 0 2px}
+  .bhead{display:flex;gap:12px;align-items:flex-start;padding:6px 4px 10px}
+  .bhead .ava{width:54px;height:54px;font-size:19px}
+  .bname{font-size:16px;font-weight:800}
+  .bmeta{font-size:11px;color:var(--dim);font-weight:300;margin-top:1px}
+  .bbio{font-size:12.5px;font-weight:300;margin-top:5px;line-height:1.55}
+  .bshots{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:0 4px 10px}
+  .bshot{aspect-ratio:1;border-radius:8px;display:grid;place-items:center;
+    font-size:24px;border:1px solid var(--line)}
+  .deck{touch-action:pan-y;user-select:none;cursor:grab}
+  .deck.drag{cursor:grabbing}
+  .deck.anim{transition:transform .28s cubic-bezier(.3,.7,.3,1),opacity .28s}
+  .deckend{font-size:9.5px;color:var(--dim);font-weight:300;text-align:center;
+    padding:8px 4px 2px;margin:0}
+  .nextbtn.wide{flex:3}
+  .nextrow{display:flex;align-items:center;gap:8px;padding:12px 4px 4px;
+    border-top:1px solid var(--line);margin-top:6px}
+  .nextbtn{flex:1;text-align:center;border:1px solid var(--accent);color:var(--accent);
+    border-radius:11px;padding:10px;font-size:12.5px;font-weight:700;cursor:pointer}
+  .nextbtn:hover{background:var(--accent);color:var(--on-accent)}
+  .nexthint{font-size:10.5px;color:var(--dim);font-weight:300;font-variant-numeric:tabular-nums}
+  .browsenote{font-size:9.5px;color:var(--dim);font-weight:300;line-height:1.55;
+    padding:8px 4px 0;margin:0}
 
   /* profile */
   .phead{display:flex;gap:12px;align-items:flex-start;padding:4px 4px 10px}
@@ -436,8 +468,14 @@
     <div class="eyebrow">可撳原型 · v6 · 2026-08-16</div>
     <h1 class="wm">未<em>定</em>名</h1>
     <p class="sub">廣東話女同社群 app · 設計草圖</p>
-    <p>撳落去真係行到。撳個帖入內頁、撳個頭像入 profile、撳個群開枱、
-       喺大廳撳個標籤篩返、錄音入會、撳 8888 由假面返嚟。</p>
+    <ul class="usecases">
+      <li><b>諗唔到做乜</b> — 開 app 去大廳碌下人講緊乜</li>
+      <li><b>想同熟啲嘅人傾</b> — 入咗嘅群入面傾</li>
+      <li><b>想識人</b> — 搵人嗰版掃，好似交友 app</li>
+      <li><b>想砌自己個 profile</b> — 出 post，好似 IG／Threads</li>
+    </ul>
+    <p>上載相可以揀<b>出唔出大廳</b> — 有人淨係想加落自己 profile，唔想全世界見到。
+       但文字 post 本身就係對住成個城市講，所以預設出。</p>
   </header>
 
   <div class="stage">
@@ -585,11 +623,11 @@
               </span>
             </article>
 
-            <div class="endcap">
-              <b>你追返晒喇。</b><br>
-              溫哥華今日就係咁多。唔會有無限捲落去嘅嘢 — 呢度得幾千人，唔係全世界。<br><br>
-              上面啲台夠人用先會開。<b>空嘅台嚇走人，衰過冇台。</b>
+            <div class="endcap" id="caughtup">
+              <b>你追返晒喇。</b> 下面係舊啲嘅嘢 — 一路捲一路載。
             </div>
+            <div id="older"></div>
+            <div class="loading" id="loading">載緊…</div>
           </div>
         </section>
 
@@ -680,38 +718,25 @@
           </div>
         </section>
 
-        <!-- ══ 搵人 ══ -->
+        <!-- ══ 搵人：一個人一版，直碌 ══ -->
         <section class="screen" data-page="people">
-          <div class="appbar"><h2>搵人</h2><span class="act">篩選 ▾</span></div>
-          <div class="body">
-            <div class="awake"><span class="lamp"></span>先顯示 <b>而家未瞓</b> 嘅人</div>
+          <div class="appbar"><h2>搵人</h2><span class="act" onclick="go('filter')">篩選 ▾</span></div>
+          <div class="body" id="pbody">
             <div class="chips">
               <span class="chip on" onclick="tog(this)">未瞓</span>
               <span class="chip on" onclick="tog(this)">講粵語</span>
               <span class="chip" onclick="tog(this)">大溫</span>
               <span class="chip" onclick="tog(this)">30–40</span>
             </div>
-            <div class="person" onclick="go('other')"><span class="ava up">丙</span><span>
-              <span class="nm">阿丙 <span class="badge">已驗證</span><span class="badge lang">粵</span></span>
-              <span class="sub">33 · 本拿比 · 香港嚟</span>
-              <span class="say">返夜更，日頭得閒。想搵人行山。</span></span></div>
-            <div class="person" onclick="go('other')"><span class="ava up">霖</span><span>
-              <span class="nm">阿霖 <span class="badge">已驗證</span><span class="badge lang">粵</span></span>
-              <span class="sub">28 · 溫東 · 三年前嚟</span>
-              <span class="say">煮嘢食係我強項，識人係我弱項。</span></span></div>
-            <div class="person" onclick="go('other')"><span class="ava">Y</span><span>
-              <span class="nm">Yuki <span class="badge">已驗證</span><span class="badge lang">粵·英</span></span>
-              <span class="sub">31 · 列治文 · 喺呢邊出世</span>
-              <span class="say">粵語識聽識講，寫就麻麻。</span></span></div>
-            <div class="person" onclick="go('other')"><span class="ava">敏</span><span>
-              <span class="nm">敏 <span class="badge">已驗證</span><span class="badge lang">粵</span></span>
-              <span class="sub">39 · 高貴林 · 未出櫃</span>
-              <span class="say">低調啲好，先做朋友。</span></span></div>
-            <div class="person" onclick="go('other')"><span class="ava up">C</span><span>
-              <span class="nm">Cheryl <span class="badge">已驗證</span><span class="badge lang">粵·普</span></span>
-              <span class="sub">26 · 溫哥華市中心</span>
-              <span class="say">啱啱落機兩個月，乜都唔識，求帶。</span></span></div>
+            <div class="deck" id="deck"><div id="browser"></div></div>
+            <div class="nextrow">
+              <span class="nextbtn" onclick="prevPerson()">‹</span>
+              <span class="nextbtn wide" onclick="nextPerson()">掃去下一個 →</span>
+              <span class="nexthint" id="nexthint">1 / 5</span>
+            </div>
+            <p class="deckend" id="deckend">掃到底就冇 — 呢度得幾千人，唔係無限供應。</p>
           </div>
+          <nav class="tabbar"><span>大廳</span><span>群</span><span class="on">搵人</span><span>我</span></nav>
         </section>
 
         <!-- ══ 我 / 人哋 profile ══ -->
@@ -1297,6 +1322,162 @@
   }
 
 
+  // 大廳無限捲：一路捲一路載舊嘢。冇演算法注入 —— 淨係按時間／最後回覆排落去，
+  // 唔會塞你冇要求過嘅嘢。得幾千人，內容本來就有限，但唔會夾硬撞牆。
+  const OLDER = [
+    ['阿丙','本拿比','出櫃','舊年今日我仲未同任何人講過。今日睇返自己嗰篇覺得好陌生。','♡ 74'],
+    ['Yuki','列治文','吹水','列治文邊度有得買到似樣嘅腐乳？行咗三間都唔啱。','♡ 22'],
+    ['敏','高貴林','感情','分開嗰陣以為會死。而家記得返嘅淨係佢煮嘅豬骨湯。','♡ 138'],
+    ['Cheryl','溫哥華','落地','考車牌第三次先過。想同所有考緊嘅人講：唔係你唔得。','♡ 61'],
+    ['阿霖','溫東','吹水','凌晨三點嘅 Superstore 有種末日感，但我鍾意。','♡ 45'],
+    ['細細粒','多倫多','出櫃','阿妹知咗之後淨係話「早知啦」。原來最驚嗰個一直係我自己。','♡ 203'],
+  ];
+  let olderAt = 0, loadingMore = false;
+  function loadMore(){
+    if (loadingMore || olderAt >= OLDER.length) return;
+    loadingMore = true;
+    setTimeout(() => {
+      const box = document.getElementById('older');
+      const [who, city, tag, said, likes] = OLDER[olderAt++];
+      const d = document.createElement('div');
+      d.className = 'oneline';
+      d.innerHTML = `<span class="ava" onclick="go('other')">${who[who.length-1]}</span>
+        <span style="flex:1">
+          <div class="meta"><span class="who">${who}</span>
+            <span class="bd" style="padding:0 6px;font-size:9.5px">${tag}</span>
+            <span class="city">${city}</span><span>· 舊帖</span></div>
+          <div class="said">${said}</div>
+          <div class="foot"><span onclick="hit(this,'${likes}','♥')">${likes}</span><span>💬</span></div>
+        </span>`;
+      box.appendChild(d);
+      loadingMore = false;
+      const l = document.getElementById('loading');
+      if (olderAt >= OLDER.length) l.textContent = '（示範得咁多 — 真係用嗰陣會一路載落去）';
+    }, 260);
+  }
+  (function watchScroll(){
+    const b = document.querySelector('[data-page=forum] .body');
+    if (!b) return;
+    b.addEventListener('scroll', () => {
+      if (b.scrollTop + b.clientHeight > b.scrollHeight - 60) loadMore();
+    });
+  })();
+
+  // 搵人：一個人一版，直碌落去。Hinge 嘅瀏覽，唔要 swipe。
+  const PEOPLE = [
+    { i:'丙', n:'阿丙', up:true,  m:'33 · 本拿比 · 香港嚟 · 而家未瞓', lang:'粵',
+      bio:'返夜更，日頭得閒。想搵人行山。',
+      shots:['🏔','🌙'],
+      els:[['問答','行山唔係為咗景，係為咗行完之後嗰餐'],
+           ['一句話','我唔識講廢話，但我識聽']] },
+    { i:'霖', n:'阿霖', up:true,  m:'28 · 溫東 · 三年前嚟 · 而家未瞓', lang:'粵',
+      bio:'煮嘢食係我強項，識人係我弱項。',
+      shots:['🍜','🐈'],
+      els:[['歌','係咁先啦朋友 · Serrini'],
+           ['睇緊','日落下的彩虹 · 追到第 11 集']] },
+    { i:'Y', n:'Yuki', up:false, m:'31 · 列治文 · 喺呢邊出世', lang:'粵·英',
+      bio:'粵語識聽識講，寫就麻麻。',
+      shots:['🎧','🌊'],
+      els:[['問答','細個以為自己唔識中文，大個先知係冇人同我講'],
+           ['一句話','搵個肯陪我睇廣東話字幕嘅人']] },
+    { i:'敏', n:'敏',   up:false, m:'39 · 高貴林 · 未出櫃', lang:'粵',
+      bio:'低調啲好，先做朋友。',
+      shots:['📚','🕯'],
+      els:[['一句話','我唔急。急嘅嘢通常都唔啱'],
+           ['睇緊','一本睇咗三個月都未完嘅書']] },
+    { i:'C', n:'Cheryl', up:true, m:'26 · 溫哥華市中心 · 啱落機兩個月', lang:'粵·普',
+      bio:'啱啱落機兩個月，乜都唔識，求帶。',
+      shots:['🥟','🚲'],
+      els:[['問答','而家最想學識嘅嘢：睇得明張電費單'],
+           ['一句話','唔介意做你嘅新手村 NPC']] },
+  ];
+  let pIdx = 0;
+  function renderPerson(){
+    const p = PEOPLE[pIdx];
+    document.getElementById('browser').innerHTML = `
+      <div class="bcard">
+        <div class="bhead">
+          <span class="ava${p.up?' up':''}">${p.i}</span>
+          <span>
+            <span class="bname">${p.n} <span class="badge">已驗證</span><span class="badge lang">${p.lang}</span></span>
+            <span class="bmeta">${p.m}</span>
+            <span class="bbio">${p.bio}</span>
+          </span>
+        </div>
+        <div class="bshots">
+          <span class="bshot g1">${p.shots[0]}</span>
+          <span class="bshot g2">${p.shots[1]}</span>
+        </div>
+        <div class="stream">
+          ${p.els.map(([k,v]) => `
+            <div class="el">
+              <span class="kind">${k}</span>
+              <div class="txt">${v}</div>
+              <span class="like" onclick="lk(this)">♡</span>
+            </div>`).join('')}
+        </div>
+        <p class="browsenote">左右掃去下一個。撳 ♡ 撩其中一件 —
+          <b>唔係 yes／no 一個人</b>，所以冇「match!」彈窗，開場白亦都自動有咗。</p>
+      </div>`;
+    document.getElementById('nexthint').textContent = (pIdx+1) + ' / ' + PEOPLE.length;
+  }
+  function step(dir){
+    pIdx = (pIdx + dir + PEOPLE.length) % PEOPLE.length;
+    renderPerson();
+    const b = document.getElementById('pbody'); if (b) b.scrollTop = 0;
+  }
+  function nextPerson(){ flick(-1); }
+  function prevPerson(){ flick(1); }
+
+  // 真手勢：掃去下一個。呢度嘅掃係「翻頁」，唔係「審判」——
+  // 冇 yes/no、冇 MATCH 彈窗、會掃到底。
+  function flick(sign){
+    const d = document.getElementById('deck');
+    if (!d) return;
+    d.classList.add('anim');
+    d.style.transform = `translateX(${sign * 110}%)`;
+    d.style.opacity = '0';
+    setTimeout(() => {
+      step(sign > 0 ? -1 : 1);
+      d.classList.remove('anim');
+      d.style.transform = `translateX(${-sign * 40}%)`;
+      d.style.opacity = '0';
+      requestAnimationFrame(() => {
+        d.classList.add('anim');
+        d.style.transform = 'translateX(0)';
+        d.style.opacity = '1';
+      });
+    }, 280);
+  }
+
+  (function enableSwipe(){
+    const d = document.getElementById('deck');
+    if (!d) return;
+    let x0 = null, dx = 0;
+    const down = e => {
+      if (e.target.closest('.like, .chip')) return;
+      x0 = (e.touches ? e.touches[0].clientX : e.clientX); dx = 0;
+      d.classList.add('drag'); d.classList.remove('anim');
+    };
+    const move = e => {
+      if (x0 === null) return;
+      dx = (e.touches ? e.touches[0].clientX : e.clientX) - x0;
+      d.style.transform = `translateX(${dx}px)`;
+      d.style.opacity = String(Math.max(.35, 1 - Math.abs(dx) / 320));
+    };
+    const up = () => {
+      if (x0 === null) return;
+      d.classList.remove('drag');
+      const moved = dx;
+      x0 = null;
+      if (Math.abs(moved) > 70){ flick(moved > 0 ? 1 : -1); }
+      else { d.classList.add('anim'); d.style.transform = 'translateX(0)'; d.style.opacity = '1'; }
+    };
+    d.addEventListener('mousedown', down);   d.addEventListener('touchstart', down, {passive:true});
+    window.addEventListener('mousemove', move); d.addEventListener('touchmove', move, {passive:true});
+    window.addEventListener('mouseup', up);   d.addEventListener('touchend', up);
+  })();
+
   // 台 = 篩選，唔係另一個地方。同一堆 post，換個鏡頭睇。
   function board(el, name){
     document.querySelectorAll('.boards .bd').forEach(b => b.classList.remove('on'));
@@ -1396,6 +1577,7 @@
   // 鍵盤
   document.addEventListener('keydown', e => {
     if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    if (cur === 'people'){ e.key === 'ArrowRight' ? nextPerson() : prevPerson(); return; }
     const i = ORDER.indexOf(cur);
     if (i < 0) return;
     const n = e.key === 'ArrowRight'
@@ -1405,5 +1587,6 @@
     if (t === 'me') me(); else go(t);
   });
 
+  renderPerson();
   go('forum');
 </script>
