@@ -339,6 +339,40 @@
     padding:2px 4px 12px;margin:0;border-bottom:1px solid var(--line)}
   .notifnote b{color:var(--text);font-weight:600}
 
+  .quota{font-size:9.5px;color:var(--dim);font-weight:300;margin:0 4px 10px;padding:6px 10px;
+    border:1px dashed var(--line);border-radius:8px}
+  .quota b{color:var(--accent);font-weight:700;font-variant-numeric:tabular-nums}
+  .quota.out{border-color:var(--rose);color:var(--rose)}
+  .quota.out b{color:var(--rose)}
+  /* 用盡嗰刻先係最需要話返畀佢知「公開仲照覆得」—— 唔好收埋 */
+  .quota.out .qfree{color:var(--dim)}
+  /* 收錢就收喺呢一個位 —— Hinge 8 like/日、Tinder Super Like、Bumble Extended
+     全部揀咗同一格。唔係巧合：呢度係唯一一個「用戶真心想要多啲」
+     而畀咗又唔會整污糟其他人體驗嘅位。 */
+  .qbuy{color:var(--amber);cursor:pointer;font-weight:600;white-space:nowrap}
+  .quota .qbuy{float:right}
+  .qbuy:hover{text-decoration:underline}
+  .upsellcard{margin:8px 4px 12px;padding:12px 13px;border-radius:12px;
+    background:var(--card-2);border:1px solid var(--amber);
+    box-shadow:0 0 30px -14px var(--glow)}
+  .upsellcard h5{font-size:12px;font-weight:700;margin-bottom:7px;color:var(--amber)}
+  .upsellcard p{font-size:10.5px;color:var(--dim);font-weight:300;line-height:1.65;margin-bottom:9px}
+  .upsellcard .plans{display:flex;gap:7px}
+  .upsellcard .plan{flex:1;text-align:center;padding:9px 4px;border-radius:9px;
+    border:1px solid var(--line);cursor:pointer}
+  .upsellcard .plan.best{border-color:var(--amber);background:rgba(232,168,124,.07)}
+  .upsellcard .plan b{display:block;font-size:13px;color:var(--text);font-variant-numeric:tabular-nums}
+  .upsellcard .plan span{font-size:9px;color:var(--dim)}
+  /* 捷徑，唔係指示。唔假設佢個動機 —— 只講「你頭先睇過呢句」呢個事實。 */
+  .fromhere{display:none;margin:0 4px 12px;padding:9px 11px;
+    border-left:2px solid var(--line);background:transparent}
+  .fromhere.show{display:block}
+  .fhlabel{font-size:9px;letter-spacing:.14em;color:var(--dim);font-weight:500;margin-bottom:5px}
+  .fhtxt{font-size:11.5px;color:var(--dim);font-weight:300;line-height:1.55;
+    margin-bottom:7px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .fhlink{font-size:10.5px;color:var(--accent);cursor:pointer}
+  .fhlink.done{color:var(--dim);cursor:default}
+  .fhskip{font-size:9px;color:var(--dim);font-weight:300;margin-left:10px}
   .gotoprof{font-size:9px;color:var(--dim);font-weight:300}
   .reply2{border:1px solid var(--line);color:var(--dim);border-radius:999px;
     padding:1px 9px;font-size:9.5px;cursor:pointer;white-space:nowrap;margin-right:2px}
@@ -616,7 +650,8 @@
           </div>
           <p class="twoway">大廳<b>淨係得公開覆</b>。想私下搵一個人 →
             <b>撳佢個頭像入 profile</b>，喺度搵返嗰句／嗰張相，就嗰件嘢搵佢。<br>
-            <b>睇你喺邊度，就知你做緊邊樣</b> — 冇得誤會。</p>
+            <b>睇你喺邊度，就知你做緊邊樣</b> — 冇得誤會。<br>
+            <b>唔使自己搵返</b>：你由邊句撳入去，profile 就跳到嗰句。</p>
           <div class="sortline">
             <span onclick="go('filter')">最後回覆 · 溫哥華 · 全部時間　⚙</span>
             <span class="alt">有人回就浮返上嚟</span>
@@ -633,7 +668,7 @@
               </span>
             </article>
             <div class="oneline">
-              <span class="ava up" onclick="go('other')">霖</span>
+              <span class="ava up" onclick="go('other','凌晨一點嘅超市，成間得我同一個補貨嘅阿姐。佢問我使唔使幫手攞高嗰排嘢。','句')">霖</span>
               <span style="flex:1">
                 <div class="meta"><span class="who">阿霖</span><span class="city">溫東</span><span>· 2 分鐘前</span></div>
                 <div class="said">凌晨一點嘅超市，成間得我同一個補貨嘅阿姐。佢問我使唔使幫手攞高嗰排嘢。</div>
@@ -642,7 +677,7 @@
               </span>
             </div>
             <div class="oneline">
-              <span class="ava" onclick="go('other')">敏</span>
+              <span class="ava" onclick="go('other','今日阿媽又問「幾時拉個返嚟食飯」。我笑咗一聲，講咗句「快啦」。','句')">敏</span>
               <span style="flex:1">
                 <div class="meta"><span class="who">敏</span><span class="city">高貴林</span><span>· 26 分鐘前</span></div>
                 <div class="said">今日阿媽又問「幾時拉個返嚟食飯」。我笑咗一聲，講咗句「快啦」。</div>
@@ -680,7 +715,7 @@
               <span class="join" id="joinbtn2" onclick="joinEvent(2)">我要去</span>
             </div>
             <div class="oneline">
-              <span class="ava" onclick="go('other')">Y</span>
+              <span class="ava" onclick="go('other','阿爸今日第一次用廣東話同我講「你開心就得」。我唔知佢知唔知自己講緊咩。','句')">Y</span>
               <span style="flex:1">
                 <div class="meta"><span class="who">Yuki</span><span class="city">列治文</span><span>· 3 個鐘前</span></div>
                 <div class="said">阿爸今日第一次用廣東話同我講「你開心就得」。我唔知佢知唔知自己講緊咩。</div>
@@ -719,24 +754,24 @@
                 <span>86 回覆</span><span>轉發</span></div>
             </div>
             <div class="reply">
-              <div class="rhead"><span class="who act" onclick="go('other')">阿丙</span>
+              <div class="rhead"><span class="who act" onclick="go('other','我頭半年都係咁。老實講唔好指意有個現成嘅圈等你，係要自己開枱。我入咗行山組之後先識到人。','回覆')">阿丙</span>
                 <span class="city">本拿比</span><span>· 42 分鐘前</span></div>
               <p>我頭半年都係咁。老實講唔好指意有個現成嘅圈等你，係要自己開枱。我入咗行山組之後先識到人。</p>
               <div class="rfoot"><span class="reply2">💬 公開覆</span>
-                <span class="gotoprof">想私下搵佢？撳佢個頭像入 profile</span></div>
+                <span class="gotoprof act" onclick="go('other','我頭半年都係咁。老實講唔好指意有個現成嘅圈等你，係要自己開枱。我入咗行山組之後先識到人。','回覆')">想私下搵佢？入佢 profile</span></div>
             </div>
             <div class="reply">
               <div class="rhead"><span class="who">細細粒</span><span class="city">多倫多</span><span>· 30 分鐘前</span></div>
               <div class="quote">阿丙：⋯係要自己開枱</div>
               <p>+1。多倫多都係咁，我開咗個煮嘢食嘅群，而家八個人，每個月見一次。</p>
               <div class="rfoot"><span class="reply2">💬 公開覆</span>
-                <span class="gotoprof">想私下搵佢？撳佢個頭像入 profile</span></div>
+                <span class="gotoprof act" onclick="go('other','我頭半年都係咁。老實講唔好指意有個現成嘅圈等你，係要自己開枱。我入咗行山組之後先識到人。','回覆')">想私下搵佢？入佢 profile</span></div>
             </div>
             <div class="reply">
               <div class="rhead"><span class="who">Cheryl</span><span class="city">溫哥華</span><span>· 12 分鐘前</span></div>
               <p>啱啱落機兩個月，睇住呢條 thread 諗住喊 😭 有冇人溫哥華一齊行山</p>
               <div class="rfoot"><span class="reply2">💬 公開覆</span>
-                <span class="gotoprof">想私下搵佢？撳佢個頭像入 profile</span></div>
+                <span class="gotoprof act" onclick="go('other','我頭半年都係咁。老實講唔好指意有個現成嘅圈等你，係要自己開枱。我入咗行山組之後先識到人。','回覆')">想私下搵佢？入佢 profile</span></div>
             </div>
             <div class="reply">
               <div class="rhead"><span class="who">阿霖</span><span class="city">溫東</span><span>· 3 分鐘前</span></div>
@@ -876,6 +911,17 @@
                 </div>
                 <div class="adder" onclick="go('editor')">＋ 加一件 · 釘貼文／歌／問答／一句話／睇緊…</div>
               </div>
+            </div>
+
+            <p class="quota" id="quota">
+              <span class="qtxt">今日仲可以私下搵 <b>8</b> 個人</span><span class="qfree"> · 公開覆人唔計數</span>
+              <span class="qbuy" onclick="upsell(this)">攞多啲 ›</span>
+            </p>
+            <div class="fromhere" id="fromhere">
+              <div class="fhlabel" id="fhkind">你頭先睇嗰句</div>
+              <div class="fhtxt" id="fhtxt"></div>
+              <span class="fhlink" onclick="pokeIt(this,'呢句')">就呢句搵佢 ›</span>
+              <span class="fhskip">…或者慢慢睇下面</span>
             </div>
 
             <!-- 講過嘅嘢：自己出過嘅一句，似 Threads／FB 個 timeline -->
@@ -1414,12 +1460,31 @@
              · <b>想私下搵佢</b> — 撳佢個頭像入 profile，喺度搵返嗰句／嗰張相，
                <b>就嗰件嘢搵佢</b></p>
           <p><b>睇你喺邊度，就知你做緊邊樣。</b> 冇得誤會。</p>
-          <p>而且加咗一層<b>有意義嘅摩擦</b>：你要真係撳入去睇過佢個人先搵得到佢，
-             唔會有人喺 feed 度亂撒。啱返 thesis：
-             <b>識人係經過內容 → 睇完 thread → 入佢 profile → 先出手。</b></p>
+          <p><b>點解唔喺大廳畀個捷徑：防 spam。</b> 一撳就出手，成個 feed 會變晒騷擾。
+             入口喺 profile，你要撳入去、見過佢係咩人先搵得到佢。</p>
+          <p>⚠️ 但<b>摩擦擋唔到有心人</b>。由 feed 撳頭像會直接跳到嗰句（唔使你自己捐返出嚟），
+             即係兩撳搞掂 — 真心想 spam 嘅人唔會介意。</p>
+          <p>⭐ <b>所以真正防 spam 嘅係配額，而呢個係業界標準：</b>
+             Hinge 免費版每日 8 個 like · Bumble／Tinder 都有每日上限。
+             <b>全部用配額，唔用摩擦</b> — 因為摩擦只會煩親正常人。</p>
+          <p>兩樣一齊：<b>入口喺 profile</b>（擋衝動、逼你睇過個人）＋
+             <b>每日配額</b>（擋真 spam）。<br>
+             <b>而配額淨係計私下搵人。公開覆人（大廳／討論串）冇上限 — 嗰度係 Twitter。</b></p>
+          <p>💰 <b>收錢就收喺呢一格，唔收第二度。</b> Hinge 8 like／日、Tinder Super Like、
+             Bumble Extended — 全部揀咗同一格，唔係巧合：呢度係唯一一個
+             「用戶真心想要多啲」而畀咗又唔會整污糟其他人體驗嘅位。<br>
+             唔賣「邊個 like 咗你」（賣返你自己嘅嘢畀你）、唔賣 boost（賣其他人嘅注意力）。</p>
+          <p>⚠️ <b>唔好假設佢個動機。</b> 人撳你個頭像可能純粹好奇、因為個 icon、因為個名 —
+             唔一定係因為嗰句。夾硬彈句嘢叫佢「就呢句搵佢」，會迫出「哈哈哈」呢種無意義回應，
+             <b>而 context 本來係我哋最大優勢，變咗假嘅反而更差</b>。</p>
+          <p>所以頂上嗰行寫「<b>你頭先睇嗰句</b>」— 一個事實，唔係一個推測。
+             細行、灰色、細 link，<b>明顯係捷徑唔係指示</b>。下面成個 profile 照樣喺度。</p>
           <p>私下嗰個唔係齋 DM：帶住你就邊件嘢搵佢，而且<b>要佢覆返先開到對話</b> —
              唔覆＝乜都冇發生過，你個 inbox 唔會多咗個陌生人。</p>
         </details>
+
+        <details>
+          <summary>公開／私底下 — 抄 Twitter 個軸，抄 Hinge 個做法</summary>
           <p>每一件嘢都有兩個做法：<b>💬 覆</b>（公開，大家見到）·
              <b>♡ 撩</b>（私底下，只有佢見到）。</p>
           <p><b>呢個唔係新嘢</b> — Twitter：Reply／DM · IG：Comment／DM · Reddit：Reply／PM。
@@ -1607,8 +1672,23 @@
     document.getElementById('pact').onclick = viewingOther ? () => go('chat') : () => go('editor');
   }
   const _go = go;
-  go = function(p){
-    if (p === 'other'){ viewingOther = true; setProfileChrome(); _go('me'); return; }
+  go = function(p, ctxText, ctxKind){
+    if (p === 'other'){
+      viewingOther = true; setProfileChrome();
+      const box = document.getElementById('fromhere');
+      if (box){
+        if (ctxText){
+          document.getElementById('fhkind').textContent =
+            '你頭先睇嗰' + (ctxKind === '回覆' ? '個回覆' : '句');
+          document.getElementById('fhtxt').textContent = ctxText;
+          box.classList.add('show');
+        } else {
+          box.classList.remove('show');
+        }
+      }
+      _go('me'); return;
+    }
+    if (p === 'me') { const b=document.getElementById('fromhere'); if (b) b.classList.remove('show'); }
     if (p === 'me' && !viewingOther) setProfileChrome();
     _go(p);
   };
@@ -1670,12 +1750,41 @@
   // Hinge 做唔到，因為 Hinge 冇社群內容。
   function pokeIt(el, what){
     if (el.classList.contains('done')) return;
+    if (!useQuota()){
+      const n = document.createElement('div');
+      n.className = 'pokenote';
+      n.innerHTML = '今日 8 個用晒喇。<b>公開覆人唔受影響</b> — 大廳／討論串照覆。'
+                  + '<br>想多啲？<span class="qbuy" onclick="upsell(this)">升級 ›</span> 或者聽日再嚟。';
+      el.parentElement.appendChild(n);
+      return;
+    }
     el.classList.add('done');
-    el.textContent = '✓ 就' + what + '搵咗佢';
+    el.textContent = el.classList.contains('fhlink')
+      ? '✓ 搵咗佢' : '✓ 就' + what + '搵咗佢';
     const note = document.createElement('div');
     note.className = 'pokenote';
     note.textContent = '佢會見到你係就' + what + '搵佢。佢覆返，對話先開。';
     el.parentElement.appendChild(note);
+  }
+
+  // 呢個係全個 app 唯一一個收錢位。
+  // 冇「睇邊個 like 咗你」呢種賣返你自己嘅資料，冇 boost（buy 排名 = 賣其他人嘅
+  // 注意力），冇拆走已經有嘅嘢再賣返。淨係賣「多啲」呢一樣。
+  function upsell(el){
+    const host = el.closest('.quota') || el.closest('.pokenote') || el.parentElement;
+    if (host.parentElement.querySelector('.upsellcard')) return;
+    const c = document.createElement('div');
+    c.className = 'upsellcard';
+    c.innerHTML = '<h5>私下搵人 · 多啲配額</h5>'
+      + '<p>免費每日 8 個，夠一般用。<b>公開覆人由頭到尾免費、冇上限</b> —— '
+      + '收錢淨係喺私下搵人呢一格，因為呢格先係真係有人想要多啲。<br>'
+      + '我哋唔賣「邊個 like 咗你」，唔賣排名。</p>'
+      + '<div class="plans">'
+      + '<div class="plan"><b>$0</b><span>8 個／日</span></div>'
+      + '<div class="plan best"><b>$38</b><span>／月 · 無限</span></div>'
+      + '<div class="plan"><b>$88</b><span>／半年</span></div>'
+      + '</div>';
+    host.parentElement.insertBefore(c, host.nextSibling);
   }
 
   // Match ＝ 佢覆咗你。冇抽獎、冇煙花 —— 對話一開就已經有內容。
@@ -1956,6 +2065,25 @@
   // 開枱
   // 開枱係一個「物件」唔係一個地方：同一張枱可以出現喺群同討論區，
   // 但報名名單得一份 —— 所以兩邊嘅掣要一齊變。
+  // 防 spam 靠配額，唔靠摩擦 —— 摩擦擋唔到有心人，只會煩親正常人。
+  // 業界標準：Hinge 免費版每日 8 個 like；Bumble／Tinder 都有每日上限。
+  let quotaLeft = 8;
+  function useQuota(){
+    if (quotaLeft <= 0) return false;
+    quotaLeft--;
+    document.querySelectorAll('.quota b').forEach(e => e.textContent = quotaLeft);
+    document.querySelectorAll('.quota').forEach(e => {
+      e.classList.toggle('out', quotaLeft === 0);
+      // 「仲可以搵 0 個人」讀落唔通 —— 歸零就換句講法
+      // 「仲可以搵 0 個人」讀落唔通 —— 歸零就換晒句
+      const t = e.querySelector('.qtxt');
+      if (t) t.innerHTML = quotaLeft === 0
+        ? '今日 <b>8</b> 個私下配額用晒'
+        : '今日仲可以私下搵 <b>' + quotaLeft + '</b> 個人';
+    });
+    return true;
+  }
+
   let joined = false;
   function joinEvent(){
     joined = !joined;
