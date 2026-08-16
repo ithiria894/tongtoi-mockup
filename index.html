@@ -322,6 +322,13 @@
   .cbar span{cursor:pointer}
   .cbar .hit{color:var(--accent)}
 
+  .grouprule{font-size:10px;color:var(--dim);font-weight:300;line-height:1.6;
+    padding:2px 4px 10px;margin:0;border-bottom:1px solid var(--line)}
+  .grouprule b{color:var(--text);font-weight:600}
+  .deadgroup{padding:12px 4px 4px;opacity:.55}
+  .deadgroup .nm{display:block;text-decoration:line-through;color:var(--dim)}
+  .deadgroup .sub{display:block;margin-top:4px;line-height:1.55}
+
   /* 群 / 開枱 */
   .event.mini{border-style:dashed}
   .event{margin:2px 4px 12px;padding:13px;border-radius:13px;background:var(--card-2);
@@ -336,6 +343,7 @@
   .join{display:block;text-align:center;background:var(--accent);color:var(--on-accent);
     border-radius:9px;padding:9px;font-size:12.5px;font-weight:700;cursor:pointer}
   .join.done{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+  .pushup{font-size:9.5px;color:var(--dim);font-weight:300;padding-top:9px;text-align:center}
 
   /* 傾偈 */
   .thread{display:flex;flex-direction:column;gap:9px;padding:8px 2px}
@@ -622,6 +630,8 @@
         <section class="screen" data-page="groups">
           <div class="appbar"><h2>群</h2><span class="act">開新群</span></div>
           <div class="body">
+            <p class="grouprule">群係圍繞<b>一件事</b>，唔係圍繞一個地方 —
+              「地方」大廳已經佔咗。所以<b>冇全城大群</b>：有咗佢，大廳就會死。</p>
             <div class="person" onclick="go('group')"><span class="ava up">行</span><span>
               <span class="nm">行山組</span>
               <span class="sub">201 人 · 週六開枱 · 今日 8 條</span>
@@ -630,8 +640,8 @@
               <span class="nm">夜貓組</span>
               <span class="sub">87 人 · 而家 12 個未瞓</span>
               <span class="say">阿霖：又係一個瞓唔著嘅星期二…</span></span></div>
-            <div class="person" onclick="go('group')"><span class="ava">溫</span><span>
-              <span class="nm">溫哥華 30+ 傾偈</span>
+            <div class="person" onclick="go('group')"><span class="ava">煮</span><span>
+              <span class="nm">煮嘢食組</span>
               <span class="sub">148 人 · 今日 62 條</span>
               <span class="say">Yuki：邊間打邊爐好食啲…</span></span></div>
             <div class="person" onclick="go('group')"><span class="ava">新</span><span>
@@ -642,6 +652,12 @@
               <span class="nm">未出櫃 · 只限已驗證</span>
               <span class="sub">76 人 · 唔搜尋得到</span>
               <span class="say">敏：今日又被問幾時拉個返屋企…</span></span></div>
+            <div class="deadgroup">
+              <span class="nm">溫哥華 wlw 大群</span>
+              <span class="sub">✕ 呢種群開唔到 — 佢同大廳做緊同一件事，而群嘅體驗好過 feed，
+                所以佢一出現，大廳就會靜晒。Discord／Slack 就係咁：
+                所有嘢喺 channel 發生，全域 feed 冇人理。</span>
+            </div>
           </div>
         </section>
 
@@ -659,6 +675,7 @@
                 <span class="more" id="joincount">5 個報咗名 · 仲有 3 位</span>
               </div>
               <span class="join" id="joinbtn" onclick="joinEvent()">我要去</span>
+              <div class="pushup">✓ 已貼咗上大廳 · 全城見到，任何人報得名</div>
             </div>
             <div class="thread">
               <div class="bub them">落雨點算？</div>
@@ -1081,6 +1098,20 @@
           <p>試過分 tab，拆咗 — 冇人會撳入第二格，而 IG 自己都係一條 scroll。
              <b>相只有一個家</b>，形態由用戶自己用出嚟：擺兩三張似 Hinge，
              擺幾十張似 IG。冇 mode、冇設定。</p>
+        </details>
+
+        <details>
+          <summary>群點解要有，又點解唔可以太大</summary>
+          <p><b>冇群，啲人就走去 TG，然後成班消失</b> — 呢個喺 Butterfly 親眼見到。
+             所以群一定要有。</p>
+          <p>但殺死大廳嘅唔係「群」，係<b>「一個大群」</b>。
+             大廳＝對住成個城市講嘢（識新人）；群＝對住已經識嘅人講嘢（留得低）。
+             一出現「溫哥華 wlw 大群」，佢同大廳做緊同一件事，而群嘅體驗好過 feed —
+             大廳即刻靜（Discord／Slack 就係咁）。</p>
+          <p>⛔ <b>所以：大廳 = 一個地方（城市）；群 = 一件事（行山、夜貓、啱落地、未出櫃）。
+             唔開全城大群。</b></p>
+          <p>咁群就唔係大廳嘅替代品，係下一步：<b>喺大廳撞到 → 入個群 → 開枱見面。</b>
+             而且群開嘅枱可以<b>貼返上大廳</b>，群反而變成大廳嘅內容來源。</p>
         </details>
 
         <details>
