@@ -155,17 +155,14 @@
   .onebox{border:1px solid var(--line);border-radius:13px;padding:10px 13px 9px;cursor:text}
   .obtop{font-size:12.5px;color:var(--dim);font-weight:300;padding-bottom:8px;min-height:19px}
   .obtop.typed{color:var(--text);font-weight:400}
-  .obauto{display:flex;gap:6px;align-items:center;flex-wrap:wrap;
-    border-top:1px solid var(--line);padding-top:8px;
-    opacity:0;max-height:0;overflow:hidden;transition:opacity .35s,max-height .35s}
-  .obauto.show{opacity:1;max-height:40px}
-  .autotag{font-size:9.5px;border:1px solid var(--line);border-radius:999px;
-    padding:1px 8px;color:var(--dim);font-weight:300}
-  .autotag.sug{border-color:var(--accent);color:var(--accent);border-style:dashed}
-  .autotag{cursor:pointer}
-  .autotag:hover{border-color:var(--accent);color:var(--accent)}
-  .autotag.changed{border-color:var(--accent);color:var(--accent);border-style:solid}
-  .obhint{color:var(--dim);font-weight:300;margin-left:auto;font-size:9px}
+  /* 出咗之後先講。唔係出之前要填。 */
+  .toast{margin-top:7px;padding:7px 12px;border-radius:9px;background:var(--card-2);
+    border:1px solid var(--accent);font-size:10.5px;color:var(--dim);font-weight:300;
+    opacity:0;max-height:0;overflow:hidden;transition:opacity .3s,max-height .3s,margin .3s}
+  .toast.show{opacity:1;max-height:40px}
+  .toast b{color:var(--accent);font-weight:600}
+  .nonote{font-size:9.5px;color:var(--dim);font-weight:300;padding:5px 4px 0;line-height:1.5}
+  .toast #ttfix{color:var(--accent);cursor:pointer;text-decoration:underline}
   .sortline{display:flex;justify-content:space-between;align-items:baseline;
     padding:2px 4px 8px;font-size:10.5px;color:var(--dim);font-weight:300;flex:none}
   .sortline span:first-child{color:var(--accent);cursor:pointer}
@@ -404,12 +401,11 @@
           <div style="padding:0 2px 9px;flex:none">
             <div class="onebox" onclick="typedemo()">
               <div class="obtop" id="obtop">有咩想講？</div>
-              <div class="obauto" id="obauto">
-                <span class="autotag" id="acity" onclick="event.stopPropagation();cycle('city')">溫哥華</span>
-                <span class="autotag" id="alang" onclick="event.stopPropagation();cycle('lang')">粵</span>
-                <span class="autotag sug" id="atopic" onclick="event.stopPropagation();cycle('topic')">出櫃？</span>
-                <span class="obhint">預設自動 · 撳一下改</span>
-              </div>
+            </div>
+            <p class="nonote">帖可以完全冇話題、冇 tag — 呢個係常態。撳個框睇示範（兩篇輪住嚟）。</p>
+            <div class="toast" id="toast">
+              <span>已出 · 似係講緊 <b id="tt">出櫃</b> · <span id="ttfix" onclick="fixtag()">改</span>
+              <span style="opacity:.6">（大部分帖唔會有呢個）</span></span>
             </div>
           </div>
           <div class="boards" id="boards">
@@ -786,10 +782,12 @@
             <span class="act" onclick="go(\'forum\')">用佢</span></div>
           <div class="body">
             <p class="fnote" style="border:1px solid var(--accent);border-radius:11px;padding:10px 12px;margin-bottom:14px">
-              ⚠️ <b>呢一版係「睇」嘅時候用，唔係「出」嘅時候要填。</b>
-              出 post 只係打字 — 城市同語言由系統填（profile ＋ 入會嗰段錄音已經知），
-              話題係打完之後建議一個，撳一下接受，唔撳就算。<br>
-              <b>三層係個資料模型，唔係一張表格。</b>
+              ⚠️ <b>呢一版係「睇」嘅時候用，唔係「出」嘅時候要填。出 post 由頭到尾就係一個框。</b><br><br>
+              <b>城市同語言唔係「帖」嘅屬性，係「人」嘅屬性</b> —
+              「瞓唔著」關溫哥華咩事？冇。硬塞個城市落每篇帖，篩「溫哥華」就會撈返一堆
+              同溫哥華無關嘅嘢，個 filter 就廢咗。<br><br>
+              所以篩「溫哥華」＝<b>篩「作者住溫哥華」</b>。呢個永遠準，
+              而且係你真正想要嗰樣：睇本地人講嘢，唔係睇提過「溫哥華」三個字嘅帖。
             </p>
             <p class="fnote"><b>三層，唔係一層。</b> Tag 散開（多倫多／Toronto／多倫多多倫多）
               係因為畀咗自由文字去代表<b>有標準答案</b>嘅嘢。<br><br>
@@ -831,7 +829,7 @@
               <div class="fhint">呢層唔負責結構，所以唔使乾淨 — 淨係用嚟偶遇。</div>
             </div>
 
-            <div class="fgrp"><div class="flabel">城市 · 欄位，打唔到字</div>
+            <div class="fgrp"><div class="flabel">作者住邊 · 唔係帖嘅屬性</div>
               <div class="chips" style="border:0;padding-bottom:4px">
                 <span class="chip on" onclick="tog(this)">溫哥華</span>
                 <span class="chip" onclick="tog(this)">多倫多</span>
@@ -841,7 +839,7 @@
               </div>
             </div>
 
-            <div class="fgrp"><div class="flabel">語言 · 欄位，打唔到字</div>
+            <div class="fgrp"><div class="flabel">作者講咩話 · 唔係帖嘅屬性</div>
               <div class="chips" style="border:0;padding-bottom:4px">
                 <span class="chip on" onclick="tog(this)">粵</span>
                 <span class="chip" onclick="tog(this)">英</span>
@@ -988,7 +986,35 @@
       </div>
 
       <div class="card">
-        <h3>出 post 只係打字</h3>
+        <h3>城市／語言係「人」嘅屬性，唔係「帖」嘅</h3>
+        <p><b>「瞓唔著」關溫哥華咩事？</b> 冇。硬塞個城市落每篇帖，
+           篩「溫哥華」就會撈返一堆同溫哥華無關嘅嘢 — <b>個 filter 就廢咗</b>。</p>
+        <p>阿霖住溫東 — 呢件事寫喺佢個 profile，唔使每篇帖再講一次。
+           入會嗰段錄音已經標咗佢講粵語，一樣。</p>
+        <p><b>所以篩「溫哥華」＝篩「作者住溫哥華」。</b>
+           永遠準，而且係你真正想要嗰樣：睇本地人講嘢，唔係睇提過「溫哥華」三個字嘅帖。</p>
+        <p>於是成個問題消失 — 帖冇城市欄位、冇語言欄位，
+           <b>淨返話題，而且大部分帖根本冇話題</b>，冇就唔顯示。</p>
+      </div>
+
+      <div class="card">
+        <h3>⛔ 作曲框永遠只有一個輸入位</h3>
+        <p>三粒 chip 今日睇落冇嘢，但呢個位<b>冇上限</b> —
+           聽日加個「心情」就四粒，再加個「只限已驗證」就五粒。<b>會不斷生長嘅位一定會爛。</b></p>
+        <p>而返去純自由 tag 都唔得 — 「多倫多／Toronto／多倫多多倫多」嗰個災難會返嚟。</p>
+        <p><b>所以：出嗰陣乜都唔顯示。</b> 真用戶唔需要每次確認「你係咪喺溫哥華」— 佢知自己住邊。
+           城市／語言根本唔係帖嘅屬性（見上）；話題大部分帖都冇。<br>
+           <b>出完可能連 toast 都冇 — 而且大部分時候都係咁。</b>
+           帖可以完全冇話題、冇 tag，呢個係常態唔係例外。
+           有建議先出 toast，撳一下改，唔啱就唔理。</p>
+        <p>⛔ <b>硬規矩：任何新嘅 metadata 維度，只可以「推斷」或者「出咗之後改」，
+           唔准加入作曲框。</b> 咁「之後四粒五粒」就唔會發生 —
+           唔係靠自律，係根本冇位擺第四粒。</p>
+        <p class="hintbar" style="margin:0">👆 撳個作曲框睇：打字 → 出咗 → toast 講標咗乜 → 撳「改」試下。</p>
+      </div>
+
+      <div class="card">
+        <h3>Tag 散開點解決：分三層</h3>
         <p>Threads 贏喺打一句就出得，唔使用腦。所以我哋<b>唔可以喺個框度排一堆欄位畀人揀</b> —
            就算全部 optional，佢哋一樣佔視線、一樣要人決定。</p>
         <p><b>啲欄位由系統填 —— 但係預設，唔係鎖。</b>
@@ -1173,41 +1199,46 @@
   function tog(el){ el.classList.toggle('on'); }
 
   // 示範：打字 → 城市／語言自動填，話題自動建議。用戶乜都唔使揀。
-  const DEMO = '瞓唔著。今日同阿媽講咗，佢淨係話咗句「哦」。';
+  // 標錯咗？出咗之後先改。作曲框永遠只有一個輸入位。
+  const TAGS = ['出櫃','落地','感情','搵人玩','吹水','唔要話題'];
+  let ti = 0;
+  function fixtag(){
+    ti = (ti + 1) % TAGS.length;
+    document.getElementById('tt').textContent = TAGS[ti];
+  }
+
+  // 兩篇輪住示範：一篇有建議話題，一篇乜都冇（連 toast 都唔出）。
+  // 帖可以完全冇話題、冇 tag — 呢個係常態，唔係例外。
+  const DEMOS = [
+    { text: '瞓唔著。今日同阿媽講咗，佢淨係話咗句「哦」。', tag: '出櫃' },
+    { text: '樓下間茶餐廳夜晚兩點都仲開緊。救返我條命。',   tag: null   },
+  ];
+  let demoIdx = 0;
   let typing = false;
   function typedemo(){
     if (typing) return;
     typing = true;
-    const t = document.getElementById('obtop'), a = document.getElementById('obauto');
+    const t = document.getElementById('obtop'), a = document.getElementById('toast');
+    const d = DEMOS[demoIdx]; demoIdx = (demoIdx + 1) % DEMOS.length;
     t.textContent = ''; t.classList.add('typed'); a.classList.remove('show');
     let i = 0;
     const tick = setInterval(() => {
-      t.textContent = DEMO.slice(0, ++i);
-      if (i >= DEMO.length){
+      t.textContent = d.text.slice(0, ++i);
+      if (i >= d.text.length){
         clearInterval(tick);
-        setTimeout(() => a.classList.add('show'), 250);
+        if (d.tag){
+          ti = TAGS.indexOf(d.tag);
+          document.getElementById('tt').textContent = d.tag;
+          setTimeout(() => a.classList.add('show'), 250);
+        }
         setTimeout(() => {
           t.textContent = '有咩想講？'; t.classList.remove('typed');
-          typing = false;   // 留低啲自動 tag，等人撳得到試改
+          typing = false;   // 留低個 toast，等人撳「改」試下
         }, 4200);
       }
     }, 55);
   }
 
-  // 自動填係「預設」唔係「鎖」。喺香港嘅人可以出去多倫多板；語言一樣。
-  const CYC = {
-    city:  ['溫哥華','多倫多','倫敦','香港','雪梨'],
-    lang:  ['粵','英','普'],
-    topic: ['出櫃？','落地','感情','搵人玩','吹水','唔要話題'],
-  };
-  const IDX = {city:0, lang:0, topic:0};
-  function cycle(kind){
-    IDX[kind] = (IDX[kind] + 1) % CYC[kind].length;
-    const el = document.getElementById({city:'acity', lang:'alang', topic:'atopic'}[kind]);
-    el.textContent = CYC[kind][IDX[kind]];
-    el.classList.toggle('changed', IDX[kind] !== 0);
-    if (kind === 'topic') el.classList.toggle('sug', IDX[kind] === 0);
-  }
 
   // 台 = 篩選，唔係另一個地方。同一堆 post，換個鏡頭睇。
   function board(el, name){
