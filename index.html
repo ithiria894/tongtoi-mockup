@@ -111,6 +111,17 @@
   .post p{font-size:12px;color:var(--dim);margin:0;font-weight:300}
   .stat{margin-top:7px;font-size:10px;color:var(--dim);display:flex;gap:13px;font-variant-numeric:tabular-nums}
 
+  /* 「一句」— 短貼文。同長帖溝埋喺同一條 feed，唔開第二個 tab。 */
+  .oneline{border-bottom:1px solid var(--line);padding:12px 4px;display:flex;gap:10px}
+  .oneline .ava{width:32px;height:32px;font-size:13px}
+  .oneline .said{font-size:13px;font-weight:400;line-height:1.6;margin:1px 0 6px}
+  .oneline .foot{display:flex;gap:13px;font-size:10px;color:var(--dim);font-variant-numeric:tabular-nums}
+  .oneline .foot span{cursor:pointer}
+  .oneline .foot .hit{color:var(--accent)}
+  .endcap{text-align:center;font-size:11px;color:var(--dim);font-weight:300;
+    padding:20px 10px 8px;line-height:1.7;border-top:1px solid var(--line);margin-top:6px}
+  .endcap b{color:var(--text);font-weight:600}
+
   .person{display:flex;gap:11px;padding:11px 4px;border-bottom:1px solid var(--line);
     align-items:flex-start;cursor:pointer}
   .person:last-child{border-bottom:0}
@@ -339,6 +350,12 @@
         <!-- ══ 討論區 ══ -->
         <section class="screen on" data-page="forum">
           <div class="appbar"><h2>討論區</h2><span class="act" onclick="go('chat')">溫哥華 ▾　✉ 3</span></div>
+          <div style="padding:0 2px 10px;flex:none">
+            <div style="border:1px solid var(--line);border-radius:999px;padding:8px 14px;
+                        font-size:12px;color:var(--dim);font-weight:300;cursor:pointer">
+              寫一句…　<span style="float:right;color:var(--accent)">或者開個新帖</span>
+            </div>
+          </div>
           <div class="body">
             <div class="awake"><span class="lamp"></span>而家仲有 <b>34</b> 個人未瞓</div>
             <article class="post" onclick="go('thread')">
@@ -347,6 +364,22 @@
               <p>香港有 Butterfly 都算有個地方，出到去先發現咩都冇。</p>
               <div class="stat"><span>♡ 204</span><span>86 回覆</span></div>
             </article>
+            <div class="oneline">
+              <span class="ava up">霖</span>
+              <span style="flex:1">
+                <div class="meta"><span class="who">阿霖</span><span class="city">溫東</span><span>· 2 分鐘前</span></div>
+                <div class="said">凌晨一點嘅超市，成間得我同一個補貨嘅阿姐。佢問我使唔使幫手攞高嗰排嘢。</div>
+                <div class="foot"><span onclick="hit(this,'♡ 8','♥ 9')">♡ 8</span><span>💬 2</span><span>轉發</span></div>
+              </span>
+            </div>
+            <div class="oneline">
+              <span class="ava">敏</span>
+              <span style="flex:1">
+                <div class="meta"><span class="who">敏</span><span class="city">高貴林</span><span>· 26 分鐘前</span></div>
+                <div class="said">今日阿媽又問「幾時拉個返嚟食飯」。我笑咗一聲，講咗句「快啦」。</div>
+                <div class="foot"><span onclick="hit(this,'♡ 41','♥ 42')">♡ 41</span><span>💬 12</span><span>轉發</span></div>
+              </span>
+            </div>
             <article class="post" onclick="go('thread')">
               <div class="meta"><span class="who">阿丙</span><span class="city">本拿比</span><span>· 4 分鐘前</span></div>
               <h3>瞓唔著。有冇人一齊夜遊？</h3>
@@ -370,12 +403,26 @@
               </div>
               <span class="join" id="joinbtn2" onclick="joinEvent(2)">我要去</span>
             </div>
+            <div class="oneline">
+              <span class="ava">Y</span>
+              <span style="flex:1">
+                <div class="meta"><span class="who">Yuki</span><span class="city">列治文</span><span>· 3 個鐘前</span></div>
+                <div class="said">阿爸今日第一次用廣東話同我講「你開心就得」。我唔知佢知唔知自己講緊咩。</div>
+                <div class="foot"><span onclick="hit(this,'♡ 156','♥ 157')">♡ 156</span><span>💬 23</span><span>轉發</span></div>
+              </span>
+            </div>
             <article class="post" onclick="go('thread')">
               <div class="meta"><span class="who">敏</span><span class="city">高貴林</span><span>· 琴日</span></div>
               <h3>有冇人試過同屋企人講咗之後又扮返冇事</h3>
               <p>我而家就係咁。唔知係咪自己諗多咗。</p>
               <div class="stat"><span>♡ 88</span><span>41 回覆</span></div>
             </article>
+
+            <div class="endcap">
+              <b>你追返晒喇。</b><br>
+              溫哥華今日就係咁多。唔會有無限捲落去嘅嘢 —
+              呢度得幾千人，唔係全世界。
+            </div>
           </div>
         </section>
 
@@ -518,17 +565,6 @@
             <div id="pane-a">
               <div class="stream">
                 <div class="el">
-                  <span class="kind">📌 釘住嘅貼文</span>
-                  <div class="shots">
-                    <span class="shot g1" onclick="openPhoto('🍜','cell g1')">🍜</span>
-                    <span class="shot g2" onclick="openPhoto('🐈','cell g2')">🐈</span>
-                  </div>
-                  <div class="sub2" style="margin-top:7px">
-                    唔係另一批相 — 係下面個 grid 入面揀出嚟釘上嚟。撳落去去返同一個貼文。
-                  </div>
-                  <span class="like" onclick="lk(this)">♡</span>
-                </div>
-                <div class="el">
                   <span class="kind">歌</span>
                   <div class="song"><span class="cover">♪</span><span>
                     <span class="txt">係咁先啦朋友</span>
@@ -558,7 +594,7 @@
 
             <!-- 貼文：IG grid，無限累積。冇 tab — 同一條 scroll 落去就見到 -->
             <div id="pane-b">
-              <div class="secline"><span>貼文 · 24</span><span class="act">＋ 出貼文</span></div>
+              <div class="secline"><span id="postcount">貼文 · 24</span><span class="act">＋ 出貼文</span></div>
               <div class="grid" id="grid"></div>
               <div class="loadmore">↓ 仲有 · 一路捲一路載</div>
             </div>
@@ -590,7 +626,6 @@
             <span class="act" onclick="go('me')">完成</span></div>
           <div class="body">
             <div class="picker">
-              <span class="ptile" onclick="pick(this,'釘貼文')"><b>📌</b><span>釘貼文</span></span>
               <span class="ptile on" onclick="pick(this,'歌')"><b>♪</b><span>歌</span></span>
               <span class="ptile" onclick="pick(this,'問答')"><b>？</b><span>問答</span></span>
               <span class="ptile" onclick="pick(this,'一句話')"><b>「」</b><span>一句話</span></span>
@@ -693,9 +728,25 @@
         <p><b>試過分兩個 tab，拆咗。</b> 分咗 tab 冇人會撳入第二格 ——
            而 IG 自己都係一條 scroll（bio → highlights → grid）。次序啱就夠：
            「我係邊個」喺前，「我最近做緊乜」喺後。</p>
-        <p><b>相只有一個家。</b> 全部相住喺下面個 grid，上載一次就一個地方。
-           簡介入面嗰張唔係另一批相，係你<b>釘住</b>咗嘅貼文 —— 撳落去去返同一個貼文內頁。
-           同 IG 個「精選」一樣：唔係另外上載，係由已有嘅嘢揀出嚟。</p>
+        <p><b>相只有一個家</b>，就係下面個 grid。<b>形態由用戶自己用出嚟：</b>
+           擺兩三張 → 睇落似 Hinge；擺幾十張 → 似 Hinge 加 IG grid。
+           同一個介面，冇 mode、冇設定、冇嘢要學。</p>
+        <div class="jump" style="margin-top:10px">
+          <button data-n="3"  onclick="me();buildGrid(3)">3 張 · Hinge 樣</button>
+          <button data-n="9"  onclick="me();buildGrid(9)">9 張</button>
+          <button data-n="24" class="on" onclick="me();buildGrid(24)">24 張 · IG 樣</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>一句 ＋ 長帖，一條 FEED</h3>
+        <p>討論區溝埋兩種嘢：<b>長帖</b>（有標題、有回覆樹，似連登）同<b>一句</b>（似 Twitter，
+           半夜擺個諗法出嚟）。唔開第二個 tab —— 視覺上分得出就夠。</p>
+        <p><b>但唔會做成無限捲。</b> 我哋自己份 thesis 話 swipe 係老虎機；
+           無限隨機 feed 係同一個機制換咗文字。所以：<b>時序排、會捲到底</b>。
+           捲到最後有一句「你追返晒喇」—— 呢個係 feature。</p>
+        <p>而且淨係<b>你個城市</b>，幾千人，個個你真係撞得到。
+           咁就唔係老虎機，係細鎮嘅告示板。</p>
       </div>
 
       <div class="card">
@@ -773,16 +824,24 @@
     '🍰':'第一次整芝士餅，賣相麻麻但好食',
     '📚':'呢本睇咗三個月都未完'
   };
-  (function buildGrid(){
+  // 相數由用戶自己用出嚟：擺兩三張 → 睇落似 Hinge；擺幾十張 → 似 Hinge + IG grid。
+  // 同一個介面，冇 mode、冇設定。
+  function buildGrid(n){
     const g = document.getElementById('grid');
-    SHOTS.forEach((s, i) => {
+    g.innerHTML = '';
+    SHOTS.slice(0, n).forEach((s, i) => {
       const c = document.createElement('span');
       c.className = 'cell g' + (i % 3 + 1);
       c.textContent = s;
       c.onclick = () => openPhoto(s, c.className);
       g.appendChild(c);
     });
-  })();
+    document.getElementById('postcount').textContent = '貼文 · ' + n;
+    document.querySelector('.loadmore').style.display = n > 9 ? 'block' : 'none';
+    document.querySelectorAll('[data-n]').forEach(b =>
+      b.classList.toggle('on', +b.dataset.n === n));
+  }
+  buildGrid(24);
   function openPhoto(emoji, cls){
     const big = document.getElementById('photo-big');
     big.textContent = emoji;
@@ -843,7 +902,7 @@
   }
 
   // element 編輯器
-  const HINT = {'釘貼文':'由你已有嘅貼文揀一個釘上嚟 — 唔使再上載一次','歌':'揀首歌，寫一句點解係佢',
+  const HINT = {'歌':'揀首歌，寫一句點解係佢',
     '問答':'一個我死都唔會改嘅習慣','一句話':'寫一句你想人一睇就明嘅嘢',
     '睇緊':'睇緊咩劇／書，追到邊','之後加':'播客、書、常去嘅地方… 加新類型唔使改呢一版'};
   function pick(el, kind){
