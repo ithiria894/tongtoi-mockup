@@ -1109,36 +1109,50 @@
 
         <!-- ══ Filter ══ -->
         <section class="screen" data-page="filter">
-          <div class="appbar"><h2><span class="back" onclick="go(\'forum\')">‹</span> Filter</h2>
-            <span class="act" onclick="go(\'forum\')">用佢</span></div>
+          <div class="appbar"><h2><span class="back" onclick="go('forum')">‹</span> Filter</h2>
+            <span class="act" onclick="go('forum')">用佢</span></div>
           <div class="body">
             <p class="fnote" style="border:1px solid var(--accent);border-radius:11px;padding:10px 12px;margin-bottom:14px">
-              ⚠️ <b>呢一版係「睇」嘅時候用，唔係「出」嘅時候要填。出 post 由頭到尾就係一個框。</b><br><br>
-              <b>城市同語言唔係「帖」嘅屬性，係「人」嘅屬性</b> —
-              「瞓唔著」關溫哥華咩事？冇。硬塞個城市落每篇帖，篩「溫哥華」就會撈返一堆
-              同溫哥華無關嘅嘢，個 filter 就廢咗。<br><br>
-              所以篩「溫哥華」＝<b>篩「作者住溫哥華」</b>。呢個永遠準，
-              而且係你真正想要嗰樣：睇本地人講嘢，唔係睇提過「溫哥華」三個字嘅帖。
+              排序、時間範圍、狀態 <b>全部照抄業界標準</b> — 唔自己發明。<br>
+              Reddit：Hot／New／Top（配時間）／Rising／Controversial ·
+              Discourse：Latest／Top／New／Unread ＋ Categories ＋ Tags ·
+              連登：最新回覆／最新發表／熱門。<br><br>
+              ⚠️ 呢一版係「<b>睇</b>」嘅時候用，唔係「<b>出</b>」嘅時候要填。
             </p>
-            <p class="fnote"><b>三層，唔係一層。</b> Tag 散開（多倫多／Toronto／多倫多多倫多）
-              係因為畀咗自由文字去代表<b>有標準答案</b>嘅嘢。<br><br>
-              ① <b>欄位</b>（城市 · 語言）— 揀嘅，<b>打唔到字</b>，所以唔可能散<br>
-              ② <b>策展話題</b>（出櫃 · 落地 · 感情）— 揀建議，打「出柜」自動歸去「出櫃」<br>
-              ③ <b>自由 tag</b>（行山 · 打邊爐）— 想點打就點打，<b>散咗都唔緊要</b>：
-              冇人靠佢瀏覽，佢淨係用嚟偶遇<br><br>
-              連登嘅台係人哋幫你決定；<b>你存低嘅 filter 就係你自己嘅台。</b></p>
 
-            <div class="fgrp"><div class="flabel">只睇有討論嘅</div>
+            <div class="fgrp"><div class="flabel">排序 · Reddit 標準</div>
               <div class="chips" style="border:0;padding-bottom:4px">
-                <span class="chip" onclick="tog(this)">全部</span>
-                <span class="chip on" onclick="tog(this)">3＋ 回覆</span>
-                <span class="chip" onclick="tog(this)">10＋ 回覆</span>
-                <span class="chip" onclick="tog(this)">50＋ 回覆</span>
+                <span class="chip on" onclick="tog(this)">熱門 Hot</span>
+                <span class="chip" onclick="tog(this)">最後回覆 Active</span>
+                <span class="chip" onclick="tog(this)">最新發表 New</span>
+                <span class="chip" onclick="tog(this)">最多讚 Top</span>
+                <span class="chip" onclick="tog(this)">升緊 Rising</span>
               </div>
-              <div class="fhint">⭐ 呢條就係「論壇」。一撳，成條 feed 即刻變咗討論區。</div>
+              <div class="fhint">Hot 係 Reddit 預設 — 最近有讚／有回覆嘅浮上。
+                唔要 Controversial：細社群唔應該獎勵嘈交。</div>
             </div>
 
-            <div class="fgrp"><div class="flabel">話題 · 策展列表 ＋ 同義詞歸邊</div>
+            <div class="fgrp"><div class="flabel">時間範圍 · 配 Top 用</div>
+              <div class="chips" style="border:0;padding-bottom:4px">
+                <span class="chip" onclick="tog(this)">今日</span>
+                <span class="chip" onclick="tog(this)">今個星期</span>
+                <span class="chip" onclick="tog(this)">今個月</span>
+                <span class="chip" onclick="tog(this)">今年</span>
+                <span class="chip on" onclick="tog(this)">全部時間</span>
+              </div>
+            </div>
+
+            <div class="fgrp"><div class="flabel">狀態 · Discourse 標準</div>
+              <div class="chips" style="border:0;padding-bottom:4px">
+                <span class="chip" onclick="tog(this)">未讀</span>
+                <span class="chip on" onclick="tog(this)">我未見過</span>
+                <span class="chip" onclick="tog(this)">仲未有人覆</span>
+                <span class="chip" onclick="tog(this)">我覆過</span>
+              </div>
+              <div class="fhint">「仲未有人覆」＝ Discourse 個 Unanswered — 救新人嗰條。</div>
+            </div>
+
+            <div class="fgrp"><div class="flabel">標籤 · 策展列表 ＋ 同義詞歸邊</div>
               <div class="chips" style="border:0;padding-bottom:4px">
                 <span class="chip on" onclick="tog(this)">出櫃</span>
                 <span class="chip on" onclick="tog(this)">落地</span>
@@ -1168,9 +1182,11 @@
                 <span class="chip" onclick="tog(this)">香港</span>
                 <span class="chip" onclick="tog(this)">全部</span>
               </div>
+              <div class="fhint">「瞓唔著」關溫哥華咩事？硬塞城市落每篇帖會令 filter 廢咗 —
+                所以篩「溫哥華」＝篩「作者住溫哥華」。</div>
             </div>
 
-            <div class="fgrp"><div class="flabel">作者講咩話 · 唔係帖嘅屬性</div>
+            <div class="fgrp"><div class="flabel">作者講咩話</div>
               <div class="chips" style="border:0;padding-bottom:4px">
                 <span class="chip on" onclick="tog(this)">粵</span>
                 <span class="chip" onclick="tog(this)">英</span>
@@ -1178,26 +1194,10 @@
               </div>
             </div>
 
-            <div class="fgrp"><div class="flabel">時間 · 排序</div>
-              <div class="chips" style="border:0;padding-bottom:4px">
-                <span class="chip" onclick="tog(this)">今日</span>
-                <span class="chip" onclick="tog(this)">今個星期</span>
-                <span class="chip on" onclick="tog(this)">全部時間</span>
-              </div>
-              <div class="chips" style="border:0;padding-bottom:4px">
-                <span class="chip on" onclick="tog(this)">最後回覆</span>
-                <span class="chip" onclick="tog(this)">最新發表</span>
-                <span class="chip" onclick="tog(this)">最多回覆</span>
-              </div>
-              <div class="fhint">搵返舊帖 = 全部時間 ＋ 最多回覆。Threads 做唔到呢樣。</div>
-            </div>
-
-            <div style="padding:6px 4px 0">
-              <span class="cta" onclick="go(\'forum\')">存低做「我嘅台」</span>
-            </div>
+            <div style="padding:6px 4px 0"><span class="cta" onclick="go('forum')">存低做「我嘅台」</span></div>
             <p class="fnote" style="margin-top:12px">
-              存低咗會變成上面條 chip 列嘅一粒。你可以有幾多個就幾多個 —
-              <b>唔使等平台開台，唔會有空台。</b>
+              存低咗會變成上面條標籤列嘅一粒。連登嘅台係人哋幫你決定；
+              <b>你存低嘅 filter 就係你自己嘅台</b> — 而且唔使等平台開台，唔會有空台。
             </p>
           </div>
           <nav class="tabbar"><span class="on">大廳</span><span>群</span><span>搵人</span><span>我</span></nav>
@@ -1270,6 +1270,21 @@
         <div class="whead">點解咁設計</div>
 
         <details open>
+          <summary>⭐ 唔使自己諗，抄最好嗰 part</summary>
+          <p>排序抄 <b>Reddit</b>（Hot／New／Top＋時間／Rising）· 狀態抄 <b>Discourse</b>
+             （未讀／我未見過／仲未有人覆）· 交友 filter 抄 <b>Tinder／Hinge</b>
+             （年齡 range／地區／語言／最近上線／想搵咩）· 群抄 <b>WhatsApp／TG</b> ·
+             Profile ＝ <b>IG</b> 相 grid ＋ <b>Hinge</b> 撩單件 ＋ <b>Threads</b> 貼文歷史 ·
+             出 post 抄 <b>Threads</b> 一個框。</p>
+          <p><b>只有真係冇人做過嘅先自己諗：</b> 語音門檻（唔使自拍）· 未瞓 · 假面 ·
+             存低 filter 當自己個台。</p>
+          <p>今日發明過然後拆咗嘅：麻雀枱視覺 · 群命名規則 · 私聊開枱 ·
+             自己諗嗰套「3+／10+／50+ 回覆」filter（冇人咁做）。<br>
+             Discourse 個 <b>Unanswered</b> 啱啱好就係救「新人死亡螺旋」嗰條 —
+             業界早有答案，唔使發明。</p>
+        </details>
+
+        <details>
           <summary>⭐ 我哋畀機制，唔畀用途</summary>
           <p>我哋起嘅係<b>機制</b>：post／thread · 群 · 開枱卡 · profile · filter · 語音門檻。
              <b>點用係用戶嘅事。</b></p>
