@@ -150,12 +150,19 @@
 
   /* 一個框。唔逼用戶出手前宣告「我而家出緊認真帖」。
      標題同台係可選 — 論壇性係一條有人回嘅 post 長出嚟嘅，唔係一個要揀嘅模式。 */
-  .onebox{border:1px solid var(--line);border-radius:13px;padding:10px 13px 9px;cursor:pointer}
-  .obtop{font-size:12.5px;color:var(--dim);font-weight:300;padding-bottom:8px}
-  .obopt{display:flex;gap:9px;align-items:baseline;flex-wrap:wrap;
-    border-top:1px solid var(--line);padding-top:8px;font-size:10.5px;color:var(--accent);font-weight:400}
-  .obhint{color:var(--dim);font-weight:300;margin-left:auto;font-size:9.5px}
-  .obopt .fixed{border:1px solid var(--line);border-radius:6px;padding:1px 7px;color:var(--text);font-size:10px}
+  /* 一個框。城市／語言由系統填（profile ＋ 入會嗰段錄音已經知），
+     話題係打完之後建議 — 撳一下接受，唔撳就算。用戶只係打字。 */
+  .onebox{border:1px solid var(--line);border-radius:13px;padding:10px 13px 9px;cursor:text}
+  .obtop{font-size:12.5px;color:var(--dim);font-weight:300;padding-bottom:8px;min-height:19px}
+  .obtop.typed{color:var(--text);font-weight:400}
+  .obauto{display:flex;gap:6px;align-items:center;flex-wrap:wrap;
+    border-top:1px solid var(--line);padding-top:8px;
+    opacity:0;max-height:0;overflow:hidden;transition:opacity .35s,max-height .35s}
+  .obauto.show{opacity:1;max-height:40px}
+  .autotag{font-size:9.5px;border:1px solid var(--line);border-radius:999px;
+    padding:1px 8px;color:var(--dim);font-weight:300}
+  .autotag.sug{border-color:var(--accent);color:var(--accent);border-style:dashed}
+  .obhint{color:var(--dim);font-weight:300;margin-left:auto;font-size:9px}
   .sortline{display:flex;justify-content:space-between;align-items:baseline;
     padding:2px 4px 8px;font-size:10.5px;color:var(--dim);font-weight:300;flex:none}
   .sortline span:first-child{color:var(--accent);cursor:pointer}
@@ -392,12 +399,12 @@
         <section class="screen on" data-page="forum">
           <div class="appbar"><h2>大廳</h2><span class="act" onclick="go('chat')">溫哥華 ▾　✉ 3</span></div>
           <div style="padding:0 2px 9px;flex:none">
-            <div class="onebox">
-              <div class="obtop">有咩想講？</div>
-              <div class="obopt">
-                <span class="fixed">溫哥華 ▾</span><span class="fixed">粵 ▾</span>
-                <span>＋ 話題</span><span>＋ 標題</span><span>＋ 相</span>
-                <span class="obhint">頭兩個係揀嘅，打唔到字</span>
+            <div class="onebox" onclick="typedemo()">
+              <div class="obtop" id="obtop">有咩想講？</div>
+              <div class="obauto" id="obauto">
+                <span class="autotag">溫哥華</span><span class="autotag">粵</span>
+                <span class="autotag sug">出櫃？</span>
+                <span class="obhint">自動填 · 撳一下改</span>
               </div>
             </div>
           </div>
@@ -774,6 +781,12 @@
           <div class="appbar"><h2><span class="back" onclick="go(\'forum\')">‹</span> Filter</h2>
             <span class="act" onclick="go(\'forum\')">用佢</span></div>
           <div class="body">
+            <p class="fnote" style="border:1px solid var(--accent);border-radius:11px;padding:10px 12px;margin-bottom:14px">
+              ⚠️ <b>呢一版係「睇」嘅時候用，唔係「出」嘅時候要填。</b>
+              出 post 只係打字 — 城市同語言由系統填（profile ＋ 入會嗰段錄音已經知），
+              話題係打完之後建議一個，撳一下接受，唔撳就算。<br>
+              <b>三層係個資料模型，唔係一張表格。</b>
+            </p>
             <p class="fnote"><b>三層，唔係一層。</b> Tag 散開（多倫多／Toronto／多倫多多倫多）
               係因為畀咗自由文字去代表<b>有標準答案</b>嘅嘢。<br><br>
               ① <b>欄位</b>（城市 · 語言）— 揀嘅，<b>打唔到字</b>，所以唔可能散<br>
@@ -971,6 +984,19 @@
       </div>
 
       <div class="card">
+        <h3>出 post 只係打字</h3>
+        <p>Threads 贏喺打一句就出得，唔使用腦。所以我哋<b>唔可以喺個框度排一堆欄位畀人揀</b> —
+           就算全部 optional，佢哋一樣佔視線、一樣要人決定。</p>
+        <p><b>啲欄位由系統填：</b><br>
+           · <b>城市</b> — profile 已經有，設一次，之後每篇自動<br>
+           · <b>語言</b> — 入會嗰段錄音已經標咗；打幾隻字都認得出<br>
+           · <b>話題</b> — 打完之後<b>建議</b>一個，撳一下接受，唔撳就算</p>
+        <p><b>三層係個資料模型，唔係一張表格。</b> 結構唔一定要用戶填 —
+           可以推斷。而且啱返「AI 做加分唔做扣分」：標錯咗，你唔理佢就得。</p>
+        <p class="hintbar" style="margin:0">👆 撳個作曲框睇示範。</p>
+      </div>
+
+      <div class="card">
         <h3>Tag 散開點解決：分三層</h3>
         <p>Threads 個問題係<b>多倫多／Toronto／多倫多多倫多</b>全部係同一樣嘢但分咗幾個 tag。
            論壇冇呢個問題，因為平台預先開好，只有一個。</p>
@@ -1137,6 +1163,28 @@
     el.classList.toggle('hit', !on);
   }
   function tog(el){ el.classList.toggle('on'); }
+
+  // 示範：打字 → 城市／語言自動填，話題自動建議。用戶乜都唔使揀。
+  const DEMO = '瞓唔著。今日同阿媽講咗，佢淨係話咗句「哦」。';
+  let typing = false;
+  function typedemo(){
+    if (typing) return;
+    typing = true;
+    const t = document.getElementById('obtop'), a = document.getElementById('obauto');
+    t.textContent = ''; t.classList.add('typed'); a.classList.remove('show');
+    let i = 0;
+    const tick = setInterval(() => {
+      t.textContent = DEMO.slice(0, ++i);
+      if (i >= DEMO.length){
+        clearInterval(tick);
+        setTimeout(() => a.classList.add('show'), 250);
+        setTimeout(() => {
+          t.textContent = '有咩想講？'; t.classList.remove('typed');
+          a.classList.remove('show'); typing = false;
+        }, 4200);
+      }
+    }, 55);
+  }
 
   // 台 = 篩選，唔係另一個地方。同一堆 post，換個鏡頭睇。
   function board(el, name){
